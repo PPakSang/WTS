@@ -1,21 +1,37 @@
+from django import http
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.views import generic
 from django.views.generic import *
+from django.shortcuts import get_object_or_404,render
+from .models import *
+from .forms import TestForm
 import os
 
 # Create your views here.
 
 
-class KakaoLoginTest(View):
-    def get(self,request):
-        REST_API_KEY = '977f61e5094b61a35368e56ded503b70'
-        REDIRECT_URI = 'http://localhost:8000'
+def test(request,name):
+    
+    a=get_object_or_404(Test,name=name)
 
-        API_HOST = f'https://kauth.kakao.com/oauth/authorize?client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&response_type=code'
-
-        return redirect(API_HOST)
+    return render(request,'test.html',{'a':a})
 
 
-def main(request):
-    return HttpResponse('Main')
+def post(request):
+
+    if request.method == "POST":
+        form = TestForm(request.POST) # request.POST -> post 로 들어온 kwargs 정보
+        
+        if form.is_valid():
+            
+            test_object=form.save(commit=False)
+            #내부에서 저장할 데이터가 있을수도 있으므로
+            #DB저장 지연
+            test_object.check=10
+            test_object.save()
+            return redirect('detail',2)
+
+    else :
+        form = TestForm()  #form 오브젝트 생성
+        return render(request,'test_form.html',{'form':form})

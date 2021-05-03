@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+SITE_ID = 1 
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,10 +42,7 @@ INSTALLED_APPS = [
 
     # third party
     # django-rest-auth
-    'rest_framework',
-    'rest_framework.authtoken',
-    'rest_auth',
-    'rest_auth.registration',
+   
 
     # django-allauth
     'django.contrib.sites',
@@ -53,24 +50,14 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     
-
     # provider
     'allauth.socialaccount.providers.kakao',
-    'allauth.socialaccount.providers.google'
+    'allauth.socialaccount.providers.google',
     
 ]
 
-SITE_ID = 1
 
-SOCIALACCOUNT_PROVIDERS={
-    'kakao':{
-        'APP':{
-            'client_id': '977f61e5094b61a35368e56ded503b70',
-            'secret' : 576839,
-            'key' : ''
-        }
-    }
-}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -159,6 +146,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-LOGIN_REDIRECT_URL='home'
-ACCOUNT_LOGOUT_REDIRECT_URL='home'
-ACCOUNT_LOGOUT_ON_GET=True
+
+# ACCOUNT_LOGOUT_REDIRECT_URL='home'
+# ACCOUNT_LOGOUT_ON_GET=True
+
+AUTHENTICATION_BACKENDS = {
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+}
+
+
