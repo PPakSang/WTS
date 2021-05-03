@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.shortcuts import get_object_or_404,render
@@ -6,11 +7,14 @@ from django.http import HttpResponse
 from django.views import generic
 from django.views.generic import *
 from .models import *
-from .forms import TestForm, Signup
+from .forms import TestForm, Signup,Signin
 import os
 
 # Create your views here.
 
+
+def mainview(request):
+    return render(request,'main.html')
 
 def test(request,name):
     
@@ -50,3 +54,20 @@ def signup(request):
     else :
         form =  Signup()
         return render(request,'signup.html',{'form':form})
+
+
+def signin(request):
+    if request.method == 'POST':
+        form = Signin(request.POST)
+        username=request.POST['username']
+        password=request.POST['password']
+        new_user=authenticate(username=username,password=password)
+        if new_user is not None:
+            login(request,new_user)
+            return redirect('main')
+        else :
+            ok=True
+            return render(request,'signin.html',{'form' : form, 'ok':ok})
+    else :
+        form = Signin()
+        return render(request,'signin.html',{'form' : form})

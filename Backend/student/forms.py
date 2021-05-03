@@ -20,3 +20,10 @@ class Signup(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'password']
 
+
+
+class Signin(forms.ModelForm):
+    
+    class Meta:
+        model = User
+        fields = ['username','password']
