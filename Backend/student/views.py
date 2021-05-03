@@ -1,11 +1,12 @@
-from django import http
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404,render
+from django import http
 from django.http import HttpResponse
 from django.views import generic
 from django.views.generic import *
-from django.shortcuts import get_object_or_404,render
 from .models import *
-from .forms import TestForm
+from .forms import TestForm, Signup
 import os
 
 # Create your views here.
@@ -35,3 +36,17 @@ def post(request):
     else :
         form = TestForm()  #form 오브젝트 생성
         return render(request,'test_form.html',{'form':form})
+
+
+def signup(request):
+
+    if request.method == 'POST':
+        form = Signup(request.POST)
+        
+        if form.is_valid(): 
+            User.objects.create_user(**form.cleaned_data)
+            return HttpResponse('회원가입이 완료되었습니다')
+        
+    else :
+        form =  Signup()
+        return render(request,'signup.html',{'form':form})
