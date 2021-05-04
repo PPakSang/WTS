@@ -1,3 +1,8 @@
-<p>{{user.username}}으로 로그인 되어있습니다</p>
+{%if user.is_authenticated%}
+<p>{{user.username}} {{user.id}}으로 로그인 되어있습니다</p>
 <a href="{% url 'signup'%}">회원가입</a>
-<a href="{% url 'signin'%}">로그인</a>
+<a href="{% url 'logout'%}">로그아웃</a> {%if ok%}
+<a href="{% url 'add'%}">조회하기</a> {%else%}
+<a href="{% url 'add'%}">등록하기</a> {%endif%}{%else%}
+<a href="{% url 'signup'%}">회원가입</a>
+<a href="{% url 'signin'%}">로그인</a> {%endif%}

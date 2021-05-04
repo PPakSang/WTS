@@ -7,20 +7,33 @@ from django.http import HttpResponse
 from django.views import generic
 from django.views.generic import *
 from .models import *
-from .forms import TestForm, Signup,Signin
+from .forms import *
 import os
 
 # Create your views here.
 
 
 def mainview(request):
-    return render(request,'main.html')
+    if Test.objects.filter(user_id=request.user.id):
+         ok=True
+    else :
+         ok=False
+    return render(request,'main.html',{'ok':ok})
 
-def test(request,name):
+def test_form(request):
     
-    a=get_object_or_404(Test,name=name)
-
-    return render(request,'test.html',{'a':a})
+    if request.method =='POST':
+        form = TestForm(request.POST)
+        if form.is_valid() :
+            form.save(id = request.user.id)
+           
+            return redirect('main')
+            
+    else:
+        form = TestForm()
+        
+        
+        return render(request,'test_form.html',{'form':form})
 
 
 def post(request):
@@ -45,15 +58,21 @@ def post(request):
 def signup(request):
 
     if request.method == 'POST':
-        form = Signup(request.POST)
-        
-        if form.is_valid(): 
-            User.objects.create_user(**form.cleaned_data)
+        form1 = Signup()
+        form2 = PasswordConfirm()
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        password2 = request.POST['password2']
+        if password == password2:
+            User.objects.create_user(username=username,email=email,password=password)
             return HttpResponse('회원가입이 완료되었습니다')
-        
+        else :
+            return HttpResponse('회원가입이 실패했습니다') 
     else :
-        form =  Signup()
-        return render(request,'signup.html',{'form':form})
+        form1 =  Signup()
+        form2 = PasswordConfirm()
+        return render(request,'signup.html',{'form1':form1,'form2' : form2})
 
 
 def signin(request):
@@ -71,3 +90,5 @@ def signin(request):
     else :
         form = Signin()
         return render(request,'signin.html',{'form' : form})
+
+
