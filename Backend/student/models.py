@@ -11,3 +11,6 @@ class Test(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+class Test2(models.Model):
+    date = models.DateField()

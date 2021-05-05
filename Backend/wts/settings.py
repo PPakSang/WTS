@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-SITE_ID = 1 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -162,3 +162,5 @@ AUTHENTICATION_BACKENDS = {
 
 LOGOUT_REDIRECT_URL='main'
 LOGIN_REDIRECT_URL='main'
+
+SITE_ID = 1 

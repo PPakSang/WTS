@@ -33,3 +33,10 @@ form 은 form.is_valid 로 form 에 대한 데이터가 올바른가 아닌가�
 올바르면 form.save(commit=False) 등으로 DB 저장 지연을 시킬 수 있고
 유저 정보같은 경우에는 User
 
+
+
+widget   https://docs.djangoproject.com/en/3.2/ref/forms/widgets/
+이 form 의 값을 선택하는데 도움을 주는 방법
+forms.anyform(widget=forms.~~~input(attrs,formats,... 등등 들어간다))
+widget은 forms 의 클래스 객체이며 인자로 그 위젯(하나의 태그 집합으로 생각하면 편할거같다)
+을 꾸미는데 (class명 이라던지, formats)

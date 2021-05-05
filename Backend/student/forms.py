@@ -1,7 +1,12 @@
 from django import forms
+import django
 from django.db import models
 from django.db.models import fields
-from .models import Test
+from django.forms import widgets
+from .models import *
+
+
+
 
 
 class TestForm(forms.ModelForm):
@@ -15,9 +20,20 @@ class TestForm(forms.ModelForm):
         test.user_id = kwargs.get('id',None)
         test.save()
 
-        
+BIRTH_YEAR_CHOICES = ['1980', '1981', '1982']
+FAVORITE_COLORS_CHOICES = [
+    ('blue', 'Blue'),
+    ('green', 'Green'),
+    ('black', 'Black'),
+]       
 
-
+class TestForm2(forms.Form):
+    birth_year = forms.DateField(widget=forms.Select(years=BIRTH_YEAR_CHOICES))
+    favorite_colors = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        choices=FAVORITE_COLORS_CHOICES,
+    )
 
 
 

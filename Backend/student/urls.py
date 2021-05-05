@@ -3,6 +3,7 @@ import django
 from django.urls import path,include
 from .views import *
 from django.contrib.auth import views as auth_views
+import allauth
 
 
 
@@ -12,6 +13,12 @@ urlpatterns=[
     path('student/form',post,name='post'), #테스트 폼
     path('student/signup/',signup,name='signup'), #회원가입
     path('student/signin/',signin,name='signin'), #로그인
-    path('student/',include('django.contrib.auth.urls')) #로그아웃만 쓰려고 우선은
+    path('student/',include('django.contrib.auth.urls')), #로그아웃만 쓰려고 우선은
+    path('test/',include('allauth.urls')),
+
+
+
+    path('test/',test_form2,name='test2')
 
 ]
+    

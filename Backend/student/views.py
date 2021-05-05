@@ -35,7 +35,11 @@ def test_form(request):
         
         return render(request,'test_form.html',{'form':form})
 
+def test_form2(request):
+    form = TestForm2()
+    return render(request,'test_form2.html',{'form':form})
 
+    
 def post(request):
 
     if request.method == "POST":
