@@ -4,3 +4,5 @@ from .models import *
 
 
 admin.site.register(Test)
+
+admin.site.register(ForeignkeyTest)

@@ -28,7 +28,7 @@ FAVORITE_COLORS_CHOICES = [
 ]       
 
 class TestForm2(forms.Form):
-    birth_year = forms.DateField(widget=forms.Select(years=BIRTH_YEAR_CHOICES))
+    
     favorite_colors = forms.MultipleChoiceField(
         required=False,
         widget=forms.CheckboxSelectMultiple,
