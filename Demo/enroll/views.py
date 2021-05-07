@@ -1,4 +1,5 @@
 from django.db.models.query import QuerySet
+from django.http import request
 from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.views import generic
@@ -57,3 +58,15 @@ def detail_view(request):
     detail = Student.objects.filter(user_id = request.user.id)
     
     return render(request,'enroll/detail.html',{'student' : detail[0]})
+
+
+class update_enroll(generic.UpdateView):
+    model = Student
+    fields = ('name','is_new','fixed_day','phone_number')
+    template_name = 'enroll/update.html'
+    success_url ='/'
+    
+    def get_object(self): 
+        student = Student.objects.get(user_id = self.request.user.id)
+
+        return student

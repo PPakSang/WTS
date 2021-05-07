@@ -1,0 +1,3 @@
+formview - get_object
+pk 에 따른 object return
+임의로 지정해주고싶으면 오버라이드해서 return 에 object 만 넘겨주면 된다
