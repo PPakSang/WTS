@@ -11,10 +11,10 @@ from django.utils import timezone
 
 class Student(models.Model):
     name = models.CharField(max_length=10)
-    status_new = (('o','신규'),('x','재등록'))
-    is_new = models.CharField(max_length=1,choices=status_new,default='o')
-    status_day = (('1','월요일'),('2','화요일'),('3','수요일'),('4','목요일'),('5','금요일'),('6','토요일'),('7','일요일'))
-    fixed_day = models.CharField(max_length=1,choices=status_day,default='1')
+    status_new = (('신규','신규'),('재등록','재등록'))
+    is_new = models.CharField(max_length=5,choices=status_new,default='o')
+    status_day = (('월요일','월요일'),('화요일','화요일'),('수요일','수요일'),('목요일','목요일'),('금요일','금요일'),('토요일','토요일'),('일요일','일요일'))
+    fixed_day = models.CharField(max_length=5,choices=status_day,default='1')
     first_day =  models.DateField(null=True)
     phone_number = models.CharField(max_length=13)
     user_id = models.CharField(default=0,max_length=10)
@@ -23,5 +23,5 @@ class Student(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return redirect('main',self.id)
+        return redirect('detail',self.id)
 

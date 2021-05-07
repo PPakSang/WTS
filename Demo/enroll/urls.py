@@ -8,5 +8,6 @@ urlpatterns = [
     path('',main_view.as_view(),name='main'),
     path('student/enroll',init_enroll.as_view(),name='enroll'),
     path('accounts/', include('allauth.urls')),
+    path('student/detail',detail_view,name='detail')
     
 ]
