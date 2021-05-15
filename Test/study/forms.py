@@ -7,7 +7,11 @@ class check_enroll(forms.Form):
     number = forms.CharField(max_length=11,validators=[validators.MinLengthValidator(10)])
     
     
-class Signup(forms.Form):
-    user_name = forms.CharField(max_length=10)
+class Signup_form(forms.Form):
+    username = forms.CharField(max_length=10)
+    password = forms.CharField(max_length=10)
+    
+class Login_form(forms.Form):
+    username = forms.CharField(max_length=10)
     password = forms.CharField(max_length=10)
     
