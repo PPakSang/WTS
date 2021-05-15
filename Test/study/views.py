@@ -1,14 +1,15 @@
-import django
-from django.db.models import fields
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
-from django.views import generic
-from .models import *
-from .forms import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import fields
+from django.views import generic
+from django.contrib import auth
+import django
+from .models import *
+from .forms import *
 
 
 # Create your views here.
@@ -63,7 +64,7 @@ def logout(request): #로그아웃
         return render(request,'student/checklogout.html')
 
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def my_study(request): #조회하기
 
     try:
@@ -74,11 +75,13 @@ def my_study(request): #조회하기
     return render(request,'student/detail.html',{'student':student})
     
     
-@login_required(login_url='login/')
-class enroll(generic.CreateView): #등록하기
+
+class Enroll(LoginRequiredMixin,generic.CreateView): #등록하기
     model = Student
     fields=['name','number','level','study','first_day']
     template_name = 'student/enroll.html'
+    login_url = '/login/'
+    
     def get(self, request, *args, **kwargs) :
         try:
             Student.objects.get(user_id = self.request.user.id)
@@ -109,3 +112,5 @@ def main_view(request): #메인 화면
         return render(request,'main.html',{'is_student':True})
     else:
         return render(request,'main.html',{'is_student':False})
+
+
