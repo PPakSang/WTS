@@ -15,3 +15,5 @@ class Login_form(forms.Form):
     username = forms.CharField(max_length=10)
     password = forms.CharField(max_length=10)
     
+class Select_day_form(forms.Form):
+    changed_day = forms.DateField()

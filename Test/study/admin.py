@@ -5,10 +5,7 @@ from .models import *
 
 @admin.register(Student)
 class Student_Admin(admin.ModelAdmin):
-    
-    pass
-    
-@admin.register(Study)
-class Student_Admin(admin.ModelAdmin):
-    
-    pass
+    list_display = [Student.__str__,'changed_day']
+    list_filter = ['changed_day']
+
+ 
