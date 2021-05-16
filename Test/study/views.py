@@ -73,12 +73,17 @@ def my_study(request): #조회하기
         student = Student.objects.get(user_id = request.user.id)
         days =[]
         for i in range(4):
-            days.append(student.changed_day +timedelta(weeks=i))
+            days.append(student.first_day +timedelta(weeks=i))
+        for i in days :
+            if (i - datetime.date.today()).days>=0:
+                next_day = i
+                break
+            
 
     except :
         return render(request,'student/error.html',{'is_study':False})
 
-    return render(request,'student/detail.html',{'student':student,'days':days})
+    return render(request,'student/detail.html',{'student':student,'days':days,'next_day':next_day})
     
     
 
