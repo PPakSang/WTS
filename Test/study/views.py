@@ -144,3 +144,5 @@ def change_day(request):
     except :
         return render(request,'student/error.html',{'is_study':False})
 
+def index(request):
+    return render(request, 'index.html')

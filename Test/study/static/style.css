@@ -1,0 +1,8 @@
+.stick {
+    /* 색깔이 왜 연해지는지 모르겠다 */
+    border: solid 3px #ffd511;
+    width: 50px;
+    /* <hr>의 align 요소 더이상 지원 X, 중앙정렬하려면 이렇게 쓰기 */
+    margin-left: auto;
+    margin-right: auto;
+}
