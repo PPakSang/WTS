@@ -127,12 +127,15 @@ def main_view(request): #메인 화면
 
 
 @login_required(login_url='/login/')
-def change_day(request):
+def change_day(request):  #요일변경
     try:
         student = Student.objects.get(user_id = request.user.id)
         if request.method == 'POST':
             form = Select_day_form(request.POST)
             if form.is_valid():
+                # 최소 2일 전 신청
+                if (form.cleaned_data['changed_day'] - datetime.date.today()).days <2 : 
+                    return HttpResponse('날짜를 다시 선택해주세요')
                 student.changed_day = form.cleaned_data['changed_day']
                 student.save()
                 return redirect('detail')
@@ -144,3 +147,12 @@ def change_day(request):
     except :
         return render(request,'student/error.html',{'is_study':False})
 
+
+
+def only_admin(request):
+    if request.method == 'POST':
+        students = Student.objects.filter(name = request.POST['name'])
+        return render(request,'student/admin.html',{'students':students})
+    studetns =Student.objects.all()
+
+    return render(request,'student/admin.html',{'students':studetns})

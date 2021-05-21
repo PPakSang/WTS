@@ -18,9 +18,9 @@ class Student(models.Model):
     level = models.CharField(max_length=3,choices=level_status,blank=True)
     
     first_day = models.DateField(default=timezone.now())
-    changed_day = models.DateField(default=timezone.now(),verbose_name='참여날짜')
+    changed_day = models.DateField(default=timezone.now(),verbose_name='첫 참여날짜')
     
-    user_id = models.IntegerField(default=0)
+    user_id = models.IntegerField(default=0, unique=True)
 
     
 

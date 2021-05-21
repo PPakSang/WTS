@@ -1,0 +1,14 @@
+<form action="" method="POST">
+    {%csrf_token%}
+    <input name="name" type="text">
+    <input type="submit">
+</form>
+
+<a href="{% url 'adminpage'%}">전체보기</a> {%for student in students%}
+<ul>
+    <li>이름 {{student.name}}</li>
+    <li>전화번호 {{student.number}}</li>
+    <li>첫 참여일 {{student.first_day}}</li>
+    <li>{{student.changed_day}}</li>
+</ul>
+{%endfor%}
