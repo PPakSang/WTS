@@ -10,8 +10,9 @@ urlpatterns = [
     path('logout/',logout,name='logout'),
     path('detail/',my_study,name='detail'),
     path('enroll/',Enroll.as_view(),name='enroll'),
-    path('change/',change_day,name='change'),
+    path('change/<int:i>',change_day,name='change'),
     path('wtslist/',only_admin,name='adminpage'),
+
     
 
 ]

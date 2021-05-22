@@ -14,7 +14,7 @@
     <p>{{user}}로그인 중</p>
     {%if is_student%}
     <a href="{%url 'detail'%}">조회하기</a>
-    <a href="{%url 'change'%}">요일변경</a> {%else%}
+    <a href="{%url 'detail'%}">요일변경</a> {%else%}
     <a href="{%url 'enroll'%}">등록하기</a> {%endif%}
     <a href="{%url 'logout'%}">로그아웃</a> {%else%}
 

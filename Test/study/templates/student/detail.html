@@ -22,7 +22,9 @@
     </tr>
     {%for i in days%}
     <tr>
-        <td>{{i}}</td>
+        <td>{{i}}
+            <a href="{%url 'change' forloop.counter%}">수정하기</a>
+        </td>
     </tr>
     {%endfor%}
 </table>

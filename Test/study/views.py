@@ -66,35 +66,39 @@ def logout(request): #로그아웃
         return render(request,'student/checklogout.html')
 
 
+
+
 @login_required(login_url='/login/')
 def my_study(request): #조회하기
 
     try:
         student = Student.objects.get(user_id = request.user.id)
-        days =[]
-        for i in range(4):
-            days.append(student.first_day +timedelta(weeks=i))
+        days =get_days(student)
         for i in days :
             if (i - datetime.date.today()).days>=0:
                 next_day = i
                 break
-            
+        if next_day == None:
+            next_day = '추가등록이 필요합니다'
+        
 
     except :
         return render(request,'student/error.html',{'is_study':False})
 
     return render(request,'student/detail.html',{'student':student,'days':days,'next_day':next_day})
     
-    
+
+
 
 class Enroll(LoginRequiredMixin,generic.CreateView): #등록하기
     model = Student
-    fields=['name','number','level','first_day']
+    fields=['name','number','level','day1']
     template_name = 'student/enroll.html'
     login_url = '/login/'
     
     def get(self, request, *args, **kwargs) :
         try:
+            
             Student.objects.get(user_id = self.request.user.id)
             return render(request,'student/error.html',{'is_enroll':True})
         except:
@@ -103,12 +107,14 @@ class Enroll(LoginRequiredMixin,generic.CreateView): #등록하기
     def form_valid(self, form):
         
         form = form.save(commit = False)
-        form.changed_day = form.first_day
+        for i in range(2,5):
+            setattr(form,f'day{i}',form.day1 + timedelta(weeks=i-1))
+        form.base_date = form.day1
         form.user_id = self.request.user.id
         form.save()
 
         return redirect('main')
-        
+
 
 
 def main_view(request): #메인 화면
@@ -126,33 +132,70 @@ def main_view(request): #메인 화면
         return render(request,'main.html',{'is_student':False})
 
 
-@login_required(login_url='/login/')
-def change_day(request):  #요일변경
-    try:
-        student = Student.objects.get(user_id = request.user.id)
-        if request.method == 'POST':
-            form = Select_day_form(request.POST)
-            if form.is_valid():
-                # 최소 2일 전 신청
-                if (form.cleaned_data['changed_day'] - datetime.date.today()).days <2 : 
-                    return HttpResponse('날짜를 다시 선택해주세요')
-                student.changed_day = form.cleaned_data['changed_day']
-                student.save()
-                return redirect('detail')
-            else:
-                return render(request,'student/change_day.html',{'form':form})
-        else:
-            form = Select_day_form()
-            return render(request,'student/change_day.html',{'form':form})
-    except :
-        return render(request,'student/error.html',{'is_study':False})
-
-
 
 def only_admin(request):
-    if request.method == 'POST':
-        students = Student.objects.filter(name = request.POST['name'])
-        return render(request,'student/admin.html',{'students':students})
-    studetns =Student.objects.all()
+    if request.user.is_staff:
+        if request.method == 'POST' :
+            students = Student.objects.filter(name = request.POST['name'])
+            return render(request,'student/admin.html',{'students':students})
+        studetns =Student.objects.all()
+        
 
-    return render(request,'student/admin.html',{'students':studetns})
+        return render(request,'student/admin.html',{'students':studetns})
+    else:
+        return redirect('main')
+
+
+@login_required(login_url='/login/')
+def change_day(request,i):
+    if request.method == 'POST':
+        
+        student = Student.objects.get(user_id = request.user.id)
+        date = datetime.date.fromisoformat(request.POST['day'])
+        today = datetime.date.today()
+        base_date = student.base_date #기준 주차 첫 참여일
+        first_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-1) #해당 주차의 첫째주
+        last_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-7)
+        if (date - today).days >= 2 and first_date <= date <= last_date:
+            setattr(student,f'day{i}',request.POST['day'])
+            student.save()
+            return redirect('detail')
+        else:
+            return render(request,'student/change_day.html',{'error':'날짜를 다시 입력해주세요'})
+    return render(request,'student/change_day.html')
+
+
+
+# @login_required(login_url='/login/')
+# def change_day(request):  #요일변경
+#     try:
+#         student = Student.objects.get(user_id = request.user.id)
+#         if request.method == 'POST':
+#             form = Select_day_form(request.POST)
+#             if form.is_valid():
+#                 # 최소 2일 전 신청
+#                 if (form.cleaned_data['changed_day'] - datetime.date.today()).days <2 : 
+#                     return HttpResponse('날짜를 다시 선택해주세요')
+#                 student.changed_day = form.cleaned_data['changed_day']
+#                 student.save()
+#                 return redirect('detail')
+#             else:
+#                 return render(request,'student/change_day.html',{'form':form})
+#         else:
+#             form = Select_day_form()
+#             return render(request,'student/change_day.html',{'form':form})
+#     except :
+#         return render(request,'student/error.html',{'is_study':False})
+
+
+
+
+    
+
+############################
+
+
+def get_days(student):
+    arr = [student.day1,student.day2,student.day3,student.day4]
+    return arr
+    
