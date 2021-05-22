@@ -1,8 +1,25 @@
-.stick {
-    /* 색깔이 왜 연해지는지 모르겠다 */
-    border: solid 3px #ffd511;
-    width: 50px;
-    /* <hr>의 align 요소 더이상 지원 X, 중앙정렬하려면 이렇게 쓰기 */
-    margin-left: auto;
-    margin-right: auto;
+/* 자주 쓰는 색상 변수 선언 */
+:root {
+    --accent-color: #ffd511;
 }
+body {
+    font-family: 'Roboto', sans-serif;
+}
+.stick {
+    width: 50px;
+    height: 3px;
+    margin: 0px auto; /* display: block일 때 요소를 가운데 정렬 */
+    background-color: var(--accent-color);
+}
+
+/*
+.navbar-light .navbar-text a,
+.navbar-light .navbar-text a:hover,
+.navbar-light .navbar-text a:focus {
+  color: var(--accent-color);
+}
+
+.nav-link:hover, .nav-link:focus {
+  color: var(--accent-color);
+}
+*/
