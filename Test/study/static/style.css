@@ -1,9 +1,15 @@
 /* 자주 쓰는 색상 변수 선언 */
 :root {
+    --text-color-white: #f0f4f5;
     --accent-color: #ffd511;
 }
 body {
     font-family: 'Roboto', sans-serif;
+    /* font-weight: 100, 300, 400, 500, 700, 900 */
+}
+.banner-title {
+    font-weight: 900;
+    font-size: 2.875rem;
 }
 .stick {
     width: 50px;
@@ -12,14 +18,33 @@ body {
     background-color: var(--accent-color);
 }
 
-/*
-.navbar-light .navbar-text a,
-.navbar-light .navbar-text a:hover,
-.navbar-light .navbar-text a:focus {
-  color: var(--accent-color);
+.btn:hover {
+    background-color: var(--accent-color);
+}
+.registration-icon {
+    font-size: 3em;
+    color: var(--text-color-white);
+}
+.registration-title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--text-color-white);
 }
 
-.nav-link:hover, .nav-link:focus {
-  color: var(--accent-color);
+@media screen and (max-width: 992px) {
+    #mid-nav {
+        flex-direction: row;
+    }
 }
-*/
+
+@media screen and (max-width: 768px) {
+    #mid-nav-container {
+        display: none;
+    }
+    #registration-btns {
+        flex-direction: column;
+    }
+    .registration-btn {
+    margin-top: 10px;
+    }
+}

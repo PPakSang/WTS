@@ -6,7 +6,7 @@
     <section class="py-3 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-bold">STUDY</h1>
+                <h1 class="banner-title">STUDY</h1>
                 <p class="lead text-muted">With us in WANTOSPEAK. Do you want to speak English?</p>
             </div>
         </div>
@@ -14,11 +14,11 @@
 </div>
 
 <!-- 중간 카테고리 -->
-<nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm" id="mid-nav-container">
     <div class="container-fluid">
-        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav mx-auto mb-2 mb-md-0" id="mid-nav">
             <li class="nav-item mx-3">
-                <a class="nav-link active" aria-current="page" href="#">Reservation</a>
+                <a class="nav-link active" aria-current="page" href="#">Registration</a>
             </li>
             <li class="nav-item mx-3">
                 <a class="nav-link" href="#">Schedule</a>
@@ -33,59 +33,84 @@
     </div>
 </nav>
 
-<!-- Reservation -->
+<!-- Registration -->
 <div class="py-3 text-center container">
-    <div class="row py-lg-5">
+    <div class="row py-3 py-md-5 gx-0">
         <div class="col-lg-6 col-md-8 mx-auto">
             <p class="my-0">What We Do</p>
-            <h3 class="fw-bold">Reservation</h3>
+            <h3 class="fw-bold">Registration</h3>
             <div class="stick"></div>
         </div>
     </div>
-    <div class="row pb-lg-5">
-        <div class="col bg-dark mx-3 p-5 rounded">
-            <span style="color: white">Reservation</span>
+    <div class="row pb-lg-5 gx-0" id="registration-btns">
+        <div class="col btn btn-dark me-md-3 p-5 rounded registration-btn">
+            <span class="row registration-icon"><i class="far fa-calendar-check"></i></span>
+            <span class="row mt-3 justify-content-center registration-title">Enrollment</span>
         </div>
-        <div class="col bg-dark mx-3 p-5 rounded">
-            <span style="color: white">Lookup</span>
+        <div class="col btn btn-dark mx-md-3 p-5 rounded registration-btn">
+            <span class="row registration-icon"><i class="fas fa-search"></i></span>
+            <span class="row mt-3 justify-content-center registration-title" style="color: white">Lookup</span>
         </div>
-        <div class="col bg-dark mx-3 p-5 rounded">
-            <span style="color: white">Change</span>
+        <div class="col btn btn-dark ms-md-3 p-5 rounded registration-btn">
+            <span class="row registration-icon"><i class="fas fa-exchange-alt"></i></span>
+            <span class="row mt-3 justify-content-center registration-title" style="color: white">Change</span>
         </div>
     </div>
 </div>
 
 <!-- Schedule -->
 <div class="py-3 text-center container">
-    <div class="row py-lg-5">
+    <div class="row py-3 py-md-5 gx-0">
         <div class="col-lg-6 col-md-8 mx-auto">
             <p class="my-0">Study Time</p>
             <h3 class="fw-bold">Schedule</h3>
             <div class="stick"></div>
         </div>
     </div>
-    <div class="row pb-lg-5" style="height: 500px">
-        <div class="col bg-dark mx-3 rounded"></div>
+    <div class="row pb-lg-5 gx-0" style="height: 500px">
+        <div class="col bg-dark rounded"></div>
     </div>
 </div>
 
 <!-- Location -->
 <div class="py-3 text-center container">
-    <div class="row py-lg-5">
+    <div class="row py-3 py-md-5 gx-0">
         <div class="col-lg-6 col-md-8 mx-auto">
             <p class="my-0">Way to Come</p>
             <h3 class="fw-bold">Location</h3>
             <div class="stick"></div>
         </div>
     </div>
-    <div class="row pb-lg-5" style="height: 500px">
-        <div class="col bg-dark mx-3 rounded"></div>
+    <div class="row pb-lg-5 gx-0" style="height: 500px">
+        <div class="col bg-dark rounded" id="map"></div>
+        <script>
+		var container = document.getElementById('map'); // 지도를 표시할 div
+		var options = {
+			center: new kakao.maps.LatLng(37.55728957195116, 126.92787097031957), // 지도의 중심 좌표
+			level: 2 // 지도의 확대 레벨
+		};
+
+        // 지도 생성
+		var map = new kakao.maps.Map(container, options);
+
+		// 위치를 마커로 표시
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: new kakao.maps.LatLng(37.55728957195116, 126.92787097031957)
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">원투스픽 스터디</div>'        });
+        infowindow.open(map, marker);
+
+        </script>
     </div>
 </div>
 
 <!-- Mentors -->
 <div class="py-3 text-center container">
-    <div class="row py-lg-5">
+    <div class="row py-3 py-md-5 gx-0">
         <div class="col-lg-6 col-md-8 mx-auto">
             <p class="my-0">Meet Our Mentors</p>
             <h3 class="fw-bold">Mentors</h3>
