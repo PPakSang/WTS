@@ -1,20 +1,42 @@
 from datetime import timedelta
-from django.db.models.query_utils import select_related_descend
+from typing import ContextManager
+from django import http
+from django.http import response
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import fields
+
 from django.views import generic
 from django.contrib import auth
-import django
 from .models import *
 from .forms import *
 
 
+import bcrypt
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.encoding import force_bytes,force_text
+from django.contrib.auth.tokens import default_token_generator
+
+
 # Create your views here.
+
+
+def activate(request,uid64,token):
+    uid = force_text(urlsafe_base64_decode(uid64))
+    user = User.objects.get(pk = uid)
+    
+    if user is not None and default_token_generator.check_token(user,token):
+        user.is_active = True
+        user.save()
+        auth.login(request,user)
+        return redirect('main')
+    return redirect('main')
 
 
 def signup(request): #회원가입
@@ -24,13 +46,34 @@ def signup(request): #회원가입
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            user = User.objects.create_user(username = username,password = password)
-            user.save()
-            user = authenticate(username = username , password = password)
-            auth.login(request,user)
+            password2 = form.cleaned_data['password2']
+            if password == password2:
+                user = User.objects.create_user(username = username,password = password)
+                user.is_active = False
+                user.save()
+                
+                current_site = get_current_site(request) 
+                # localhost:8000
+                message = render_to_string('activate.html',{
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token' : default_token_generator.make_token(user)
+                })
+
+                email = EmailMessage('인증을 위한 메일입니다',message,to=['ppm5377@naver.com'])
+                email.send()
+                # user = authenticate(username = username , password = password)
+                # auth.login(request,user)
+                return redirect('main')
+            else:
+                form = Signup_form(initial ={'username':username}) #비밀번호 새로입력받기
+                
+                return render(request,'student/signup.html',{'form' : form})
+
             
             
-            return redirect('main')
+           
         else:
             return render(request,'student/signup.html',{'form' : form})
     else:
@@ -147,7 +190,7 @@ def only_admin(request):
 
 
 @login_required(login_url='/login/')
-def change_day(request,i):
+def change_day(request,i): #요일변경
     if request.method == 'POST':
         
         student = Student.objects.get(user_id = request.user.id)
@@ -156,7 +199,7 @@ def change_day(request,i):
         base_date = student.base_date #기준 주차 첫 참여일
         first_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-1) #해당 주차의 첫째주
         last_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-7)
-        if (date - today).days >= 2 and first_date <= date <= last_date:
+        if (date - today).days >= 2 and first_date <= date <= last_date: #2일 뒤부터 and 그 주의 첫날과 마지막날 사이여야함
             setattr(student,f'day{i}',request.POST['day'])
             student.save()
             return redirect('detail')

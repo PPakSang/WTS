@@ -1,6 +1,7 @@
 from collections import namedtuple
 from django.contrib.auth.models import AnonymousUser
 from django.urls import path
+from django.utils.timezone import activate
 from .views import *
 
 urlpatterns = [
@@ -12,6 +13,7 @@ urlpatterns = [
     path('enroll/',Enroll.as_view(),name='enroll'),
     path('change/<int:i>',change_day,name='change'),
     path('wtslist/',only_admin,name='adminpage'),
+    path('activate/<slug:uid64>/<slug:token>',activate,name='activate'),
 
     
 
