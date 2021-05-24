@@ -99,7 +99,7 @@ def login(request): #로그인
         form = Login_form()
         return render(request,'student/login.html',{'form':form})  
     
-
+@login_required(login_url='/login/')
 def logout(request): #로그아웃
     if request.method == 'POST': #logout check
 
@@ -192,6 +192,7 @@ def only_admin(request):
 @login_required(login_url='/login/')
 def change_day(request,i): #요일변경
     if request.method == 'POST':
+        
         
         student = Student.objects.get(user_id = request.user.id)
         date = datetime.date.fromisoformat(request.POST['day'])
