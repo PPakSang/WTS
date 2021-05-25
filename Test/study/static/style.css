@@ -82,6 +82,11 @@ body {
     height:12px;
     background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');
 }
+/* 부트스트랩 최신 버전에서 datepicker 깨짐 현상 해결 */
+.datepicker td, .datepicker th {
+            width: 2.5em;
+            height: 2em;
+}
 
 @media screen and (max-width: 992px) {
     #mid-nav {
