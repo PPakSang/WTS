@@ -144,5 +144,12 @@ def change_day(request):
     except :
         return render(request,'student/error.html',{'is_study':False})
 
-def index(request):
+
+
+
+# 여기서부터 템플릿 테스트 뷰
+def index(request): # 메인 화면
     return render(request, 'index.html')
+
+def enroll(request): # 등록하기 화면
+    return render(request, 'enroll.html')

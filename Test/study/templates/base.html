@@ -16,6 +16,15 @@
     <!-- 카카오맵 Javascript API -->
     <script type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f3cf88b4bbc7a3c4b861604e8c17e004"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <!-- Date Picker CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"
+            integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
@@ -26,7 +35,7 @@
     <!-- 상단 카테고리 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#"><i class="fas fa-cat me-2"></i>원투스픽</a>
+            <a class="navbar-brand fw-bold" href="{% url 'index' %}"><i class="fas fa-cat me-2"></i>원투스픽</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -35,10 +44,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">홈</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}">홈</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">소개</a>
+                        <a class="nav-link" href="{% url 'enroll' %}">신청하기</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">자주 묻는 질문</a>
@@ -50,6 +59,17 @@
             </div>
         </div>
     </nav>
+    <!-- 상단 배너 -->
+    <div class="bg-light">
+        <section class="py-3 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="banner-title">WANT TO SPEAK?</h1>
+                    <p class="lead text-muted">One, two, speak! 영어회화 스터디는 원투스픽에서!</p>
+                </div>
+            </div>
+        </section>
+    </div>
 </header>
 
 

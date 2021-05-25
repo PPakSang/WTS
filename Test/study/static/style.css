@@ -99,4 +99,7 @@ body {
     .registration-btn {
     margin-top: 10px;
     }
+    #enroll {
+        flex-direction: column;
+    }
 }

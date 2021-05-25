@@ -1,17 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}WANTOSPEAK{% endblock %}
 {% block content %}
-<!-- 상단 배너 -->
-<div class="bg-light">
-    <section class="py-3 text-center container">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="banner-title">WANT TO SPEAK?</h1>
-                <p class="lead text-muted">One, two, speak! 영어회화 스터디는 원투스픽에서!</p>
-            </div>
-        </div>
-    </section>
-</div>
 
 <!-- 중간 카테고리 -->
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm" id="mid-nav-container">
@@ -46,18 +35,18 @@
         </div>
     </div>
     <div class="row pb-lg-5 gx-0" id="registration-btns">
-        <div class="col btn btn-dark me-md-3 p-5 rounded registration-btn">
+        <a class="col btn btn-dark me-md-3 p-5 rounded registration-btn" href="{% url 'enroll' %}">
             <span class="row registration-icon"><i class="far fa-calendar-check"></i></span>
             <span class="row mt-3 justify-content-center registration-title">등록하기</span>
-        </div>
-        <div class="col btn btn-dark mx-md-3 p-5 rounded registration-btn">
+        </a>
+        <a class="col btn btn-dark mx-md-3 p-5 rounded registration-btn">
             <span class="row registration-icon"><i class="fas fa-search"></i></span>
             <span class="row mt-3 justify-content-center registration-title" style="color: white">조회하기</span>
-        </div>
-        <div class="col btn btn-dark ms-md-3 p-5 rounded registration-btn">
+        </a>
+        <a class="col btn btn-dark ms-md-3 p-5 rounded registration-btn">
             <span class="row registration-icon"><i class="fas fa-exchange-alt"></i></span>
             <span class="row mt-3 justify-content-center registration-title" style="color: white">변경하기</span>
-        </div>
+        </a>
     </div>
 </div>
 
