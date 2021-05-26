@@ -28,9 +28,10 @@
         </div>
 
         <!-- 입력 폼 -->
-        <form method="POST" action="">
-            {%csrf_token%}
-            <div class="col py-3 mb-3">
+
+        <div class="col py-3 mb-3">
+            <form method="POST" action="">
+                {%csrf_token%}
                 <p class="mb-0 mt-3 mt-md-5">입력해주세요</p>
                 <h3 class="fw-bold">스터디 등록</h3>
                 <div class="stick mb-3 mb-md-5"></div>
@@ -81,10 +82,11 @@
                                 }); //datepicker end
                             }); //ready end
                         </script>
-                    </div>
-        </form>
-        <button type="submit" class="btn btn-dark px-5">등록</button>
-        </div>
+            </form>
+            </div>
+
+            <button type="submit" class="btn btn-dark px-5">등록</button>
+            </div>
         </div>
     </div>
 
