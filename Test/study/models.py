@@ -14,7 +14,7 @@ class Student(models.Model):
    
     number = models.CharField(max_length=11, validators=[MinLengthValidator(10)])
     
-    level_status = (('왕초급','왕초급'),('초급','초급'),('중급','중급'))
+    level_status = (('1','왕초급'),('2','초급'),('3','중급'))
     level = models.CharField(max_length=3,choices=level_status,blank=True)
     
     base_date = models.DateField(default=datetime.date.today(),verbose_name='기준 주차')

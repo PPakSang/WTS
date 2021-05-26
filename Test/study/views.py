@@ -244,7 +244,22 @@ def change_day(request,i): #요일변경
 
 # 여기서부터 템플릿 테스트 뷰
 def index(request): # 메인 화면
+    
     return render(request, 'index.html')
 
+# @login_required(login_url=)
 def enroll(request): # 등록하기 화면
+    if request.method == 'POST':
+        print(request.POST)
+        
+        form = Enroll_form(request.POST)
+        if form.is_valid():
+            form = form.save(commit = False)
+            for i in range(2,5):
+                setattr(form,f'day{i}',form.day1 + timedelta(weeks=i-1))
+            form.base_date = form.day1
+            form.user_id = request.user.id
+            form.save()
+
+            return redirect('index')
     return render(request, 'enroll.html')

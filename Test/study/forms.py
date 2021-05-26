@@ -1,10 +1,14 @@
+from .models import *
 from django import forms
 from django.core import validators
 
 
-class check_enroll(forms.Form):
-    name = forms.CharField(max_length=10)
-    number = forms.CharField(max_length=11,validators=[validators.MinLengthValidator(10)])
+class Enroll_form(forms.ModelForm):
+    
+    class Meta:
+        model = Student
+        fields = ['level','number','day1']
+    
     
     
 class Signup_form(forms.Form):
