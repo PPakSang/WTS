@@ -17,5 +17,6 @@ urlpatterns = [
     # 아래는 템플릿 테스트
     path('', index, name='index'),
     path('enroll/', enroll, name='enroll'),
+    path('inquire/', inquire, name='inquire'),
     
 ]
