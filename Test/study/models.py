@@ -27,7 +27,7 @@ class Student(models.Model):
     day4 = models.DateField(default=datetime.date.today(),verbose_name='네번째 참여일')
     plus_day = models.DateField(default=datetime.date.today(),verbose_name='보너스 참여일')
     
-    changed_day = models.DateField(default=datetime.date.today(),verbose_name='첫 참여날짜')
+    changed_day = models.DateField(default=datetime.date.today(),verbose_name='등록하기 한날')
     
     user_id = models.IntegerField(default=0, unique=True)
 
