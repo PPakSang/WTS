@@ -7,7 +7,7 @@ from .views import *
 urlpatterns = [
     # path('',main_view,name='main'),
     path('signup/',signup,name='signup'),
-    path('login/',login,name='login'),
+    # path('login/',login,name='login'),
     path('logout/',logout,name='logout'),
     path('detail/',my_study,name='detail'),
     # path('enroll/',Enroll.as_view(),name='enroll'),
@@ -19,5 +19,5 @@ urlpatterns = [
     path('enroll/', enroll, name='enroll'),
     path('inquire/', inquire, name='inquire'),
     path('change/', change, name='change'),
-    
+    path('login/', login_hw, name='login'),
 ]

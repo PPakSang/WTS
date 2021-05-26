@@ -277,3 +277,6 @@ def inquire(request): # 조회하기 화면
 
 def change(request): # 변경하기 화면
     return render(request, 'change.html')
+
+def login_hw(request): # 로그인 화면
+    return render(request, 'login.html')
