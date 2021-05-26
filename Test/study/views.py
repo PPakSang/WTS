@@ -133,30 +133,7 @@ def my_study(request): #조회하기
 
 
 
-class Enroll(LoginRequiredMixin,generic.CreateView): #등록하기
-    model = Student
-    fields=['name','number','level','day1']
-    template_name = 'student/enroll.html'
-    login_url = '/login/'
-    
-    def get(self, request, *args, **kwargs) :
-        try:
-            
-            Student.objects.get(user_id = self.request.user.id)
-            return render(request,'student/error.html',{'is_enroll':True})
-        except:
-            return super().get(request,*args,**kwargs)
 
-    def form_valid(self, form):
-        
-        form = form.save(commit = False)
-        for i in range(2,5):
-            setattr(form,f'day{i}',form.day1 + timedelta(weeks=i-1))
-        form.base_date = form.day1
-        form.user_id = self.request.user.id
-        form.save()
-
-        return redirect('main')
 
 
 
@@ -249,17 +226,47 @@ def index(request): # 메인 화면
 
 # @login_required(login_url=)
 def enroll(request): # 등록하기 화면
-    if request.method == 'POST':
-        print(request.POST)
-        
-        form = Enroll_form(request.POST)
-        if form.is_valid():
-            form = form.save(commit = False)
-            for i in range(2,5):
-                setattr(form,f'day{i}',form.day1 + timedelta(weeks=i-1))
-            form.base_date = form.day1
-            form.user_id = request.user.id
-            form.save()
+    try:
+        Student.objects.get(user_id = request.user.id)
+        return HttpResponse('이미 등록했습니다')
+    except:
+        if request.method == 'POST':
+            print(request.POST)
+            form = Enroll_form(request.POST)
+            if form.is_valid():
+                form = form.save(commit = False)
+                for i in range(2,5):
+                    setattr(form,f'day{i}',form.day1 + timedelta(weeks=i-1))
+                form.base_date = form.day1
+                form.user_id = request.user.id
+                form.save()
 
-            return redirect('index')
-    return render(request, 'enroll.html')
+                return redirect('index')
+        return render(request, 'enroll.html')
+
+
+
+class Enroll(LoginRequiredMixin,generic.CreateView): #등록하기
+    model = Student
+    fields=['name','number','level','day1']
+    template_name = 'student/enroll.html'
+    login_url = '/login/'
+    
+    def get(self, request, *args, **kwargs) :
+        try:
+            
+            Student.objects.get(user_id = self.request.user.id)
+            return render(request,'student/error.html',{'is_enroll':True})
+        except:
+            return super().get(request,*args,**kwargs)
+
+    def form_valid(self, form):
+        
+        form = form.save(commit = False)
+        for i in range(2,5):
+            setattr(form,f'day{i}',form.day1 + timedelta(weeks=i-1))
+        form.base_date = form.day1
+        form.user_id = self.request.user.id
+        form.save()
+
+        return redirect('main')
