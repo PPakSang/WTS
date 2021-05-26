@@ -1,0 +1,42 @@
+reverse(url or url 명 , args=[args]값,kwargs=[딕셔너리]) -> string
+resolve_url(url or url 명, args 값,딕셔너리) -> string (get_absolute_url 바로 감)
+redirect(위와같음) ->HttpResponseRedirect
+https://wayhome25.github.io/django/2017/05/05/django-url-reverse/
+
+
+resverse('html.html',args=[10],kwargs={'test' : 10}) ---------------> 예시
+
+
+
+
+
+url 네임스페이스
+같은 이름을 가진 url 명이라도 구분 짓기위해
+test : detail 에서 test 부분
+urls.py 에서 app_name = 'test' 이런식으로 선언한다
+
+
+
+form
+forms.py 로 보통 지정
+from django import forms
+form 클래스는 forms.ModelForm 상속
+내부 Meta 클래스로 모델을 받아오고 -> 모델에서 입력받을 필드만 fields 로 지정
+
+form을 view 에서 불러와서 사용을 하는데
+form 클래스 객체는 method == POST 인 상황에서 사용
+form(request.POST) 를 하면 request 안에있는 POST kwargs 가 자동으로 딕셔너리? 형태 인지는 모르겠으나 form 객체 로 자동입력
+보통 POST 가 들어왔는가를 기준으로
+안들어왔으면 form 객체 만든 후에 context 로 넘겨서 값을 받는다 -> POST 가 True 가 되므로 그때부터는 form에 대한 함수작성
+
+form 은 form.is_valid 로 form 에 대한 데이터가 올바른가 아닌가를 기준으로 작동된다
+올바르면 form.save(commit=False) 등으로 DB 저장 지연을 시킬 수 있고
+유저 정보같은 경우에는 User
+
+
+
+widget   https://docs.djangoproject.com/en/3.2/ref/forms/widgets/
+이 form 의 값을 선택하는데 도움을 주는 방법
+forms.anyform(widget=forms.~~~input(attrs,formats,... 등등 들어간다))
+widget은 forms 의 클래스 객체이며 인자로 그 위젯(하나의 태그 집합으로 생각하면 편할거같다)
+을 꾸미는데 (class명 이라던지, formats)

@@ -1,0 +1,15 @@
+formview - get_object
+pk 에 따른 object return
+임의로 지정해주고싶으면 오버라이드해서 return 에 object 만 넘겨주면 된다
+
+static_url 이 존재하는 이유
+사용자가  서버의 경로를 파악하는 행위를 막기 위해서
+
+실제로  존재하는 위치를 매핑 시켜주기위해서 
+static 함수로 url 매핑을 해줘야한다
+static('static url 접두사', )
+
+
+grade = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+
+validators 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    {%if user.is_authenticated%}
+    <p>{{user}}로그인 중</p>
+    {%if is_student%}
+    <a href="{%url 'detail'%}">조회하기</a>
+    <a href="{%url 'detail'%}">요일변경</a> {%else%}
+    <a href="{%url 'enroll'%}">등록하기</a> {%endif%}
+    <a href="{%url 'logout'%}">로그아웃</a> {%else%}
+
+    <p>로그인 해주세요</p>
+    <a href="{%url 'login'%}">로그인</a>
+    <a href="{%url 'signup'%}">회원가입</a> {%endif%}
+
+
+</body>
+
+</html>
