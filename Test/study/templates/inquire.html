@@ -7,16 +7,113 @@
     <div class="container-fluid">
         <ul class="navbar-nav mx-auto mb-2 mb-md-0">
             <li class="nav-item mx-3">
-                <a class="nav-link active" aria-current="page" href="{% url 'enroll' %}">등록하기</a>
+                <a class="nav-link" href="{% url 'enroll' %}">등록하기</a>
             </li>
             <li class="nav-item mx-3">
-                <a class="nav-link" href="#">조회하기</a>
+                <a class="nav-link active" aria-current="page" href="#">조회하기</a>
             </li>
             <li class="nav-item mx-3">
-                <a class="nav-link" href="#">변경하기</a>
+                <a class="nav-link" href="{% url 'change' %}">변경하기</a>
             </li>
         </ul>
     </div>
 </nav>
 
+<div class="py-3 text-center container">
+    <div class="row gx-5" id="enroll">
+        <!-- 회원 정보 -->
+        <div class="col-md-5 py-3">
+            <p class="mb-0 mt-3 mt-md-5">상세 정보</p>
+            <h3 class="fw-bold">회원 정보</h3>
+            <div class="stick mb-3 mb-md-5"></div>
+            <div class="p-3 rounded bg-light border text-end">
+                <div class="row mb-2">
+                    <label for="infoName" class="col-3 col-form-label fw-bold">이름</label>
+                    <div class="col-9">
+                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoName"
+                               value="홍길동">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <label for="infoPhone" class="col-3 col-form-label fw-bold">연락처</label>
+                    <div class="col-9">
+                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoPhone"
+                               value="010-1234-5678">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <label for="infoLevel" class="col-3 col-form-label fw-bold">레벨</label>
+                    <div class="col-9">
+                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoLevel"
+                               value="왕초급">
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="infoRemainCount" class="col-3 col-form-label fw-bold">남은 회차</label>
+                    <div class="col-9">
+                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoRemainCount"
+                               value="3회">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 스터디 참여 날짜 -->
+        <div class="col-md-7 py-3">
+            <p class="mb-0 mt-3 mt-md-5">고정 참여일</p>
+            <h3 class="fw-bold">스터디 참여 날짜</h3>
+            <div class="stick mb-3 mb-md-5"></div>
+            <div class="p-3 rounded border">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">회차</th>
+                        <th scope="col">참여 날짜</th>
+                        <th scope="col">변경 날짜</th>
+                        <th scope="col">참석 여부</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>2021-05-26</td>
+                        <td>-</td>
+                        <td>O</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>2021-06-02</td>
+                        <td>2021-06-03</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>2021-06-09</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>2021-06-16</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 안내사항 -->
+    <div class="row py-3 py-md-5 gx-0">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <p class="my-0">숙지해주세요</p>
+            <h3 class="fw-bold">안내사항</h3>
+            <div class="stick"></div>
+        </div>
+    </div>
+    <div class="row pb-lg-5 gx-0" style="height: 400px">
+        <div class="col bg-dark rounded"></div>
+    </div>
+</div>
 {% endblock %}

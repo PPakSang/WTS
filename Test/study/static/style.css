@@ -2,6 +2,9 @@
 :root {
     --text-color-white: #f0f4f5;
     --accent-color: #ffd511;
+    --text-basic-color: gray;
+    --border-color: #e0edee;
+
 }
 body {
     font-family: 'Noto Sans KR', sans-serif;
@@ -86,6 +89,64 @@ body {
 .datepicker td, .datepicker th {
             width: 2.5em;
             height: 2em;
+}
+.change-btn-icon {
+    font-size: 3em;
+    color: var(--text-color-white);
+}
+.change-btn-content {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--text-color-white);
+}
+/*login 혜원*/
+/*로그인 전체 박스 */
+#login_box {
+  text-align: center;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  border: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: var(--border-color);
+}
+
+/*WTS study 밑 로그인 글자*/
+#loginText {
+  text-align: left;
+  margin-left: 25px;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/* 계정찾기(+회원가입), 정책 링크태그 css*/
+.login_find,
+.login_policy {
+  text-decoration: none;
+  font-size: 0.75rem;
+  color: var(--text-basic-color);
+}
+
+.login_find {
+  font-size: 0.9rem;
+}
+
+/*계정이 아직 없으신가요?*/
+#q_account {
+  font-size: 00.75rem;
+}
+
+/* | */
+.bar {
+  font-size: 0.75rem;
+  color: var(--text-basic-color);
+}
+
+#login_footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 @media screen and (max-width: 992px) {

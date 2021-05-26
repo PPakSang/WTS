@@ -1,17 +1,19 @@
-{% extends 'base.html' %} {% block title %}WANTOSPEAK{% endblock %} {% block content %}
+{% extends 'base.html' %}
+{% block title %}WANTOSPEAK{% endblock %}
+{% block content %}
 
 <!-- 중간 카테고리 -->
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
     <div class="container-fluid">
         <ul class="navbar-nav mx-auto mb-2 mb-md-0">
             <li class="nav-item mx-3">
-                <a class="nav-link active" aria-current="page" href="{% url 'enroll' %}">등록하기</a>
+                <a class="nav-link active" aria-current="page" href="#">등록하기</a>
             </li>
             <li class="nav-item mx-3">
-                <a class="nav-link" href="#">조회하기</a>
+                <a class="nav-link" href="{% url 'inquire' %}">조회하기</a>
             </li>
             <li class="nav-item mx-3">
-                <a class="nav-link" href="#">변경하기</a>
+                <a class="nav-link" href="{% url 'change' %}">변경하기</a>
             </li>
         </ul>
     </div>
