@@ -87,7 +87,15 @@ body {
             width: 2.5em;
             height: 2em;
 }
-
+.change-btn-icon {
+    font-size: 3em;
+    color: var(--text-color-white);
+}
+.change-btn-content {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--text-color-white);
+}
 @media screen and (max-width: 992px) {
     #mid-nav {
         flex-direction: row;

@@ -274,3 +274,6 @@ class Enroll(LoginRequiredMixin,generic.CreateView): #등록하기
 
 def inquire(request): # 조회하기 화면
     return render(request, 'inquire.html')
+
+def change(request): # 변경하기 화면
+    return render(request, 'change.html')

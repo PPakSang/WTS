@@ -11,12 +11,13 @@ urlpatterns = [
     path('logout/',logout,name='logout'),
     path('detail/',my_study,name='detail'),
     # path('enroll/',Enroll.as_view(),name='enroll'),
-    path('change/',change_day,name='change'),
+    # path('change/',change_day,name='change'),
 
 
     # 아래는 템플릿 테스트
     path('', index, name='index'),
     path('enroll/', enroll, name='enroll'),
     path('inquire/', inquire, name='inquire'),
+    path('change/', change, name='change'),
     
 ]
