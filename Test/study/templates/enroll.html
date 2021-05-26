@@ -1,16 +1,19 @@
-{% extends 'base.html' %} {% block title %}WANTOSPEAK{% endblock %} {% block content %}
+{% extends 'base.html' %}
+{% block title %}WANTOSPEAK{% endblock %}
+{% block content %}
+
 <!-- 중간 카테고리 -->
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
     <div class="container-fluid">
         <ul class="navbar-nav mx-auto mb-2 mb-md-0">
             <li class="nav-item mx-3">
-                <a class="nav-link active" aria-current="page" href="#registration">등록하기</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'enroll' %}">등록하기</a>
             </li>
             <li class="nav-item mx-3">
-                <a class="nav-link" href="#schedule">조회하기</a>
+                <a class="nav-link" href="#">조회하기</a>
             </li>
             <li class="nav-item mx-3">
-                <a class="nav-link" href="#rules">변경하기</a>
+                <a class="nav-link" href="#">변경하기</a>
             </li>
         </ul>
     </div>
@@ -24,11 +27,10 @@
             <p class="mb-0 mt-3 mt-md-5">숙지해주세요</p>
             <h3 class="fw-bold">안내사항</h3>
             <div class="stick mb-3 mb-md-5"></div>
-            <div class="bg-dark rounded" style="height: 330px"></div>
+            <div class="bg-dark rounded" style="height: 415px"></div>
         </div>
 
         <!-- 입력 폼 -->
-
         <div class="col py-3 mb-3">
             <form method="POST" action="">
                 {%csrf_token%}
@@ -38,7 +40,8 @@
                 <div class="bg-light rounded p-3 shadow">
                     <div class="mb-3 text-start">
                         <label for="formPhone" class="form-label fw-bold">연락처</label>
-                        <input type="tel" class="form-control" name="number" id="formPhone" placeholder="ex) 010-0000-0000">
+                        <input type="tel" class="form-control" name="number" id="formPhone"
+                               placeholder="숫자만 입력해주세요. ('-' 제외)">
                     </div>
                     <div class="mb-3 text-start">
                         <label for="formLevel" class="form-label fw-bold">레벨</label>
@@ -47,6 +50,15 @@
                             <option value="1">왕초급</option>
                             <option value="2">초급</option>
                             <option value="3">중급</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 text-start">
+                        <label for="formDay" class="form-label fw-bold">평일/주말</label>
+                        <select name="time" id="formDay" class="form-select">
+                            <option selected>선택해주세요.</option>
+                            <option value="1">평일</option>
+                            <option value="2">주말 오후 1시</option>
+                            <option value="3">주말 오후 4시</option>
                         </select>
                     </div>
                     <div class="mb-3 text-start">
@@ -81,12 +93,13 @@
 
                                 }); //datepicker end
                             }); //ready end
-                        </script>
-            </form>
-            </div>
 
-            <button type="submit" class="btn btn-dark px-5">등록</button>
-            </div>
+
+                        </script>
+                    </div>
+                    <button type="submit" class="btn btn-dark px-5">등록</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -102,4 +115,5 @@
         <div class="col bg-dark rounded"></div>
     </div>
 </div>
+
 {% endblock %}
