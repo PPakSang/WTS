@@ -239,7 +239,12 @@ def change_day(request,i): #요일변경
 ############################
 
 
-def get_days(student):
-    arr = [student.day1,student.day2,student.day3,student.day4]
-    return arr
-    
+
+
+
+# 여기서부터 템플릿 테스트 뷰
+def index(request): # 메인 화면
+    return render(request, 'index.html')
+
+def enroll(request): # 등록하기 화면
+    return render(request, 'enroll.html')
