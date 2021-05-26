@@ -1,118 +1,136 @@
 /* 자주 쓰는 색상 변수 선언 */
 :root {
-    --text-color-white: #f0f4f5;
-    --accent-color: #ffd511;
-    --text-basic-color: gray;
-    --border-color: #e0edee;
-
+  --text-color-white: #f0f4f5;
+  --accent-color: #ffd511;
+  --text-basic-color: gray;
+  --border-color: #e0edee;
 }
+
+html {
+  height: 100%;
+}
+
 body {
-    font-family: 'Noto Sans KR', sans-serif;
-    /* font-weight: 100, 300, 400, 500, 700, 900 */
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Noto Sans KR", sans-serif;
+  /* font-weight: 100, 300, 400, 500, 700, 900 */
 }
 .sns-icons {
-   list-style:none;
-   padding-left: 0px;
+  list-style: none;
+  padding-left: 0px;
 }
 .sns-icon {
-    display: inline;
-    margin-right: 20px;
-    font-size: 1.5rem;
+  display: inline;
+  margin-right: 20px;
+  font-size: 1.5rem;
 }
 .banner-title {
-    font-weight: 900;
-    font-size: 2.875rem;
+  font-weight: 900;
+  font-size: 2.875rem;
 }
 .stick {
-    width: 50px;
-    height: 3px;
-    margin: 0px auto; /* display: block일 때 요소를 가운데 정렬 */
-    background-color: var(--accent-color);
+  width: 50px;
+  height: 3px;
+  margin: 0px auto; /* display: block일 때 요소를 가운데 정렬 */
+  background-color: var(--accent-color);
 }
 
 .btn:hover {
-    background-color: var(--accent-color);
+  background-color: var(--accent-color);
 }
 .registration-icon {
-    font-size: 3em;
-    color: var(--text-color-white);
+  font-size: 3em;
+  color: var(--text-color-white);
 }
 .registration-title {
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: var(--text-color-white);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--text-color-white);
 }
 .customoverlay {
-    position:relative;
-    bottom:85px;
-    border-radius:6px;
-    border: 1px solid #ccc;
-    border-bottom:2px solid #ddd;
-    float:left;
+  position: relative;
+  bottom: 85px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  border-bottom: 2px solid #ddd;
+  float: left;
 }
 .customoverlay:nth-of-type(n) {
-    border:0;
-    box-shadow:0px 1px 2px #888;
+  border: 0;
+  box-shadow: 0px 1px 2px #888;
 }
 .customoverlay a {
-    display:block;
-    text-decoration:none;
-    color:#000;
-    text-align:center;
-    border-radius:6px;
-    font-size:14px;
-    font-weight:bold;
-    overflow:hidden;
-    background: #e74c3c;
-    background: #e74c3c url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
+  display: block;
+  text-decoration: none;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  overflow: hidden;
+  background: #e74c3c;
+  background: #e74c3c
+    url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
+    no-repeat right 14px center;
 }
 .customoverlay .title {
-    display:block;
-    text-align:center;
-    background:#fff;
-    margin-right:35px;
-    padding:10px 15px;
-    font-size:14px;
-    font-weight:bold;
+  display: block;
+  text-align: center;
+  background: #fff;
+  margin-right: 35px;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
 }
 .customoverlay:after {
-    content:'';
-    position:absolute;
-    margin-left:-12px;
-    left:50%;
-    bottom:-12px;
-    width:22px;
-    height:12px;
-    background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');
+  content: "";
+  position: absolute;
+  margin-left: -12px;
+  left: 50%;
+  bottom: -12px;
+  width: 22px;
+  height: 12px;
+  background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
 }
 /* 부트스트랩 최신 버전에서 datepicker 깨짐 현상 해결 */
-.datepicker td, .datepicker th {
-            width: 2.5em;
-            height: 2em;
+.datepicker td,
+.datepicker th {
+  width: 2.5em;
+  height: 2em;
 }
 .change-btn-icon {
-    font-size: 3em;
-    color: var(--text-color-white);
+  font-size: 3em;
+  color: var(--text-color-white);
 }
 .change-btn-content {
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: var(--text-color-white);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--text-color-white);
 }
 /*login 혜원*/
+#loginBox_row {
+  position: relative;
+  top: 10%;
+}
+
 /*로그인 전체 박스 */
-#login_box {
+#loginBox_col {
   text-align: center;
   align-items: center;
-  width: 80%;
-  margin: 0 auto;
   border: 1px;
   border-style: solid;
   border-radius: 10px;
   border-color: var(--border-color);
 }
 
-/*WTS study 밑 로그인 글자*/
+/*WTS 위 글자*/
+#small_title {
+  margin-bottom: 2px;
+  font-size: 1rem;
+}
+
+/*WTS 밑 로그인 글자*/
 #loginText {
   text-align: left;
   margin-left: 25px;
@@ -143,29 +161,42 @@ body {
   color: var(--text-basic-color);
 }
 
+.stick {
+  width: 50px;
+  height: 3px;
+  margin: 0px auto;
+  background-color: #ffd511;
+}
+
 #login_footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
 }
 
+@media screen and (max-width: 768px) {
+  #footer_info {
+    font-size: 0.75rem;
+  }
+}
+
 @media screen and (max-width: 992px) {
-    #mid-nav {
-        flex-direction: row;
-    }
+  #mid-nav {
+    flex-direction: row;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    #mid-nav-container {
-        display: none;
-    }
-    #registration-btns {
-        flex-direction: column;
-    }
-    .registration-btn {
+  #mid-nav-container {
+    display: none;
+  }
+  #registration-btns {
+    flex-direction: column;
+  }
+  .registration-btn {
     margin-top: 10px;
-    }
-    #enroll {
-        flex-direction: column;
-    }
+  }
+  #enroll {
+    flex-direction: column;
+  }
 }
