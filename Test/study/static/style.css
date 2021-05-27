@@ -199,7 +199,8 @@ body {
 #idInput,
 #passwordInput,
 #passwordInput_check,
-#emailInput {
+#emailInput,
+#nameInput {
   height: 40px;
 }
 
