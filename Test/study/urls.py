@@ -20,4 +20,5 @@ urlpatterns = [
     path('inquire/', inquire, name='inquire'),
     path('change/', change, name='change'),
     path('login/', login_hw, name='login'),
+    path('faq/', faq, name='faq'),
 ]
