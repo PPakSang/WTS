@@ -162,6 +162,34 @@ body {
   color: var(--text-basic-color);
 }
 
+/*signup 혜원*/
+/*상단 타이틀*/
+.signup_title {
+  margin-top: 25px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/*정책 링크*/
+.policy_link {
+  text-decoration: none;
+  font-size: 0.75rem;
+  color: var(--text-basic-color);
+}
+
+.signup_policy_link {
+  font-size: 1rem;
+  color: #f98404;
+}
+
+/*input태그 높이*/
+#idInput,
+#passwordInput,
+#passwordInput_check,
+#emailInput {
+  height: 40px;
+}
+
 #login_footer {
   position: fixed;
   bottom: 0;
