@@ -39,84 +39,10 @@ def activate(request,uid64,token):
     return redirect('main')
 
 
-def signup(request): #회원가입
-    if request.method == 'POST':
-        form = Signup_form(request.POST)
 
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            password2 = form.cleaned_data['password2']
-            if password == password2:
-                user = User.objects.create_user(username = username,password = password)
-                user.is_active = False
-                user.save()
-                
-                current_site = get_current_site(request) 
-                # localhost:8000
-                message = render_to_string('activate.html',{
-                    'user': user,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token' : default_token_generator.make_token(user)
-                })
-
-                email = EmailMessage('인증을 위한 메일입니다',message,to=['ppm5377@naver.com'])
-                email.send()
-                # user = authenticate(username = username , password = password)
-                # auth.login(request,user)
-                return redirect('main')
-            else:
-                form = Signup_form(initial ={'username':username}) #비밀번호 새로입력받기
-                
-                return render(request,'student/signup.html',{'form' : form})
-
-            
-            
-           
-        else:
-            return render(request,'student/signup.html',{'form' : form})
-    else:
-        form = Signup_form()
-        return render(request,'student/signup.html',{'form' : form})
 
 
     
-@login_required(login_url='/login/')
-def logout(request): #로그아웃
-    if request.method == 'POST': #logout check
-
-        auth.logout(request)
-        return redirect('main')
-    else:
-        return render(request,'student/checklogout.html')
-
-
-
-
-
-
-
-
-
-
-
-
-def main_view(request): #메인 화면
-    
-    if request.user.is_authenticated:
-
-        student = Student.objects.filter(user_id = request.user.id)
-    else:
-        return render(request,'main.html')
-
-    if bool(student):
-        
-        return render(request,'main.html',{'is_student':True})
-    else:
-        return render(request,'main.html',{'is_student':False})
-
-
 
 def only_admin(request):
     if request.user.is_staff:
@@ -264,8 +190,6 @@ def inquire(request): # 조회하기 화면
         base_dates = get_basedates(student)
         print(base_dates)
 
-        
-
     except :
         redirect('enroll')
 
@@ -336,10 +260,99 @@ def login_hw(request): # 로그인 화면
 #         form = Login_form()
 #         return render(request,'student/login.html',{'form':form})  
 
+@login_required(login_url='/login/')
+def logout(request): #로그아웃
+    auth.logout(request)
+    return redirect('index')
+
 
 
 def signup_hw(request): # 회원가입 화면
+    if request.method == 'POST':
+        form = Signup_form(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            password2 = form.cleaned_data['password2']
+            if password == password2:
+                user = User.objects.create_user(username = username,password = password)
+                user.is_active = False
+                user.save()
+                
+                current_site = get_current_site(request) 
+                # localhost:8000
+                message = render_to_string('activate.html',{
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token' : default_token_generator.make_token(user)
+                })
+
+                email = EmailMessage('인증을 위한 메일입니다',message,to=['ppm5377@naver.com'])
+                email.send()
+                # user = authenticate(username = username , password = password)
+                # auth.login(request,user)
+                return redirect('main')
+            else:
+                form = Signup_form(initial ={'username':username}) #비밀번호 새로입력받기
+                
+                return render(request,'student/signup.html',{'form' : form})
+
+            
+            
+           
+        else:
+            return render(request,'student/signup.html',{'form' : form})
+    else:
+        form = Signup_form()
+        return render(request,'student/signup.html',{'form' : form})
+
     return render(request, 'signup.html')
+
+def signup(request): #회원가입
+    if request.method == 'POST':
+        form = Signup_form(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            password2 = form.cleaned_data['password2']
+            if password == password2:
+                user = User.objects.create_user(username = username,password = password)
+                user.is_active = False
+                user.save()
+                
+                current_site = get_current_site(request) 
+                # localhost:8000
+                message = render_to_string('activate.html',{
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token' : default_token_generator.make_token(user)
+                })
+
+                email = EmailMessage('인증을 위한 메일입니다',message,to=['ppm5377@naver.com'])
+                email.send()
+                # user = authenticate(username = username , password = password)
+                # auth.login(request,user)
+                return redirect('main')
+            else:
+                form = Signup_form(initial ={'username':username}) #비밀번호 새로입력받기
+                
+                return render(request,'student/signup.html',{'form' : form})
+
+            
+            
+           
+        else:
+            return render(request,'student/signup.html',{'form' : form})
+    else:
+        form = Signup_form()
+        return render(request,'student/signup.html',{'form' : form})
+
+
+
 
 def faq(request): # 자주묻는질문 화면
     return render(request, 'faq.html')
