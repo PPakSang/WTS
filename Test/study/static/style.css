@@ -190,6 +190,12 @@ body {
   height: 40px;
 }
 
+/*회원가입 입력폼 */
+#signup_box {
+  position: relative;
+  top: 10%;
+}
+
 #login_footer {
   position: fixed;
   bottom: 0;
