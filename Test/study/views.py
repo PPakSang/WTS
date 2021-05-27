@@ -280,3 +280,9 @@ def change(request): # 변경하기 화면
 
 def login_hw(request): # 로그인 화면
     return render(request, 'login.html')
+
+def signup_hw(request): # 회원가입 화면
+    return render(request, 'signup.html')
+
+def faq(request): # 자주묻는질문 화면
+    return render(request, 'faq.html')

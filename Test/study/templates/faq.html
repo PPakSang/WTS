@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% block title %}WANTOSPEAK{% endblock %}
+{% block content %}
+
+<!-- 중간 카테고리 -->
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+    <div class="container-fluid">
+        <ul class="navbar-nav mx-auto mb-2 mb-md-0">
+            <li class="nav-item mx-3">
+                <a class="nav-link active" aria-current="page" href="#">자주 묻는 질문</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container py-2">
+    <div class="row gx-5">
+        <div class="col-md-8">
+            <!-- 자주 묻는 질문 제목 -->
+            <div class="pt-3 text-center">
+                <p class="mb-0 mt-3 mt-md-5">문의 전 읽어주세요</p>
+                <h3 class="fw-bold">자주 묻는 질문</h3>
+                <div class="stick mb-3 mb-md-5"></div>
+            </div>
+            <!-- 아코디언 -->
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne"
+                                aria-expanded="true" aria-controls="collapseOne">
+                            Q1. 입금은 어디로 하나요?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>This is the first item's accordion body.</strong> It is shown by default, until the
+                            collapse
+                            plugin adds the appropriate classes that we use to style each element. These classes control
+                            the
+                            overall appearance, as well as the showing and hiding via CSS transitions. You can modify
+                            any of
+                            this with custom CSS or overriding our default variables. It's also worth noting that just
+                            about
+                            any
+                            HTML can go within the <code>.accordion-body</code>, though the transition does limit
+                            overflow.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Q2. 입금 확인은 언제 되나요?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>This is the second item's accordion body.</strong> It is hidden by default, until
+                            the
+                            collapse plugin adds the appropriate classes that we use to style each element. These
+                            classes
+                            control the overall appearance, as well as the showing and hiding via CSS transitions. You
+                            can
+                            modify any of this with custom CSS or overriding our default variables. It's also worth
+                            noting
+                            that
+                            just about any HTML can go within the <code>.accordion-body</code>, though the transition
+                            does
+                            limit
+                            overflow.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Q3. 당일에도 스터디 날짜 변경이 가능한가요?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the
+                            collapse plugin adds the appropriate classes that we use to style each element. These
+                            classes
+                            control the overall appearance, as well as the showing and hiding via CSS transitions. You
+                            can
+                            modify any of this with custom CSS or overriding our default variables. It's also worth
+                            noting
+                            that
+                            just about any HTML can go within the <code>.accordion-body</code>, though the transition
+                            does
+                            limit
+                            overflow.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Q4. 이걸 하드코딩 안 하고 어떻게 쓰지...
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the
+                            collapse plugin adds the appropriate classes that we use to style each element. These
+                            classes
+                            control the overall appearance, as well as the showing and hiding via CSS transitions. You
+                            can
+                            modify any of this with custom CSS or overriding our default variables. It's also worth
+                            noting
+                            that
+                            just about any HTML can go within the <code>.accordion-body</code>, though the transition
+                            does
+                            limit
+                            overflow.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <!-- 문의하기 -->
+            <div class="pt-3 text-center">
+                <p class="mb-0 mt-3 mt-md-5">이메일 문의</p>
+                <h3 class="fw-bold">문의하기</h3>
+                <div class="stick mb-3 mb-md-5"></div>
+
+            </div>
+            <form method="POST" action="">
+                {%csrf_token%}
+                <div class="bg-light rounded shadow p-3 text-center">
+                    <div class="mb-3 text-start">
+                        <label for="questionEmail" class="form-label fw-bold">답변 받으실 이메일 주소</label>
+                        <input type="email" class="form-control" id="questionEmail"
+                               placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3 text-start">
+                        <label for="questionContent" class="form-label fw-bold">문의 내용</label>
+                        <textarea class="form-control" id="questionContent" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-dark px-5">전송</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
