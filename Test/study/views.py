@@ -35,8 +35,8 @@ def activate(request,uid64,token):
         user.is_active = True
         user.save()
         auth.login(request,user)
-        return redirect('main')
-    return redirect('main')
+        return redirect('index')
+    return redirect('index')
 
 
 
@@ -142,6 +142,7 @@ def enroll(request): # 등록하기 화면
                     setattr(form,f'day{i}',form.day1 + timedelta(weeks=i-1))
                 form.base_date = form.day1
                 form.user_id = request.user.id
+                form.name = request.user.first_name
                 form.save()
 
                 return redirect('index')
@@ -275,8 +276,10 @@ def signup_hw(request): # 회원가입 화면
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             password2 = form.cleaned_data['password2']
+            email = form.cleaned_data['email']
+            name = form.cleaned_data['name']
             if password == password2:
-                user = User.objects.create_user(username = username,password = password)
+                user = User.objects.create_user(first_name = name,email = email, username = username, password = password)
                 user.is_active = False
                 user.save()
                 
@@ -289,67 +292,60 @@ def signup_hw(request): # 회원가입 화면
                     'token' : default_token_generator.make_token(user)
                 })
 
-                email = EmailMessage('인증을 위한 메일입니다',message,to=['ppm5377@naver.com'])
-                email.send()
+                act_email = EmailMessage('인증을 위한 메일입니다',message,to=[email])
+                act_email.send()
                 # user = authenticate(username = username , password = password)
                 # auth.login(request,user)
-                return redirect('main')
+                return redirect('index')
             else:
-                form = Signup_form(initial ={'username':username}) #비밀번호 새로입력받기
+                return render(request,'signup.html',{'error' : '비밀번호를 다시 확인해주세요', 'username' : username})
+        else:
+            redirect('signup')
+    else:
+        return render(request,'signup.html')
+
+    
+
+# def signup(request): #회원가입
+#     if request.method == 'POST':
+#         form = Signup_form(request.POST)
+
+#         if form.is_valid():
+#             username = form.cleaned_data['username']
+#             password = form.cleaned_data['password']
+#             password2 = form.cleaned_data['password2']
+#             if password == password2:
+#                 user = User.objects.create_user(username = username,password = password)
+#                 user.is_active = False
+#                 user.save()
                 
-                return render(request,'student/signup.html',{'form' : form})
+#                 current_site = get_current_site(request) 
+#                 # localhost:8000
+#                 message = render_to_string('activate.html',{
+#                     'user': user,
+#                     'domain': current_site.domain,
+#                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#                     'token' : default_token_generator.make_token(user)
+#                 })
+
+#                 email = EmailMessage('인증을 위한 메일입니다',message,to=['ppm5377@naver.com'])
+#                 email.send()
+#                 # user = authenticate(username = username , password = password)
+#                 # auth.login(request,user)
+#                 return redirect('main')
+#             else:
+#                 form = Signup_form(initial ={'username':username}) #비밀번호 새로입력받기
+                
+#                 return render(request,'student/signup.html',{'form' : form})
 
             
             
            
-        else:
-            return render(request,'student/signup.html',{'form' : form})
-    else:
-        form = Signup_form()
-        return render(request,'student/signup.html',{'form' : form})
-
-    return render(request, 'signup.html')
-
-def signup(request): #회원가입
-    if request.method == 'POST':
-        form = Signup_form(request.POST)
-
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            password2 = form.cleaned_data['password2']
-            if password == password2:
-                user = User.objects.create_user(username = username,password = password)
-                user.is_active = False
-                user.save()
-                
-                current_site = get_current_site(request) 
-                # localhost:8000
-                message = render_to_string('activate.html',{
-                    'user': user,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token' : default_token_generator.make_token(user)
-                })
-
-                email = EmailMessage('인증을 위한 메일입니다',message,to=['ppm5377@naver.com'])
-                email.send()
-                # user = authenticate(username = username , password = password)
-                # auth.login(request,user)
-                return redirect('main')
-            else:
-                form = Signup_form(initial ={'username':username}) #비밀번호 새로입력받기
-                
-                return render(request,'student/signup.html',{'form' : form})
-
-            
-            
-           
-        else:
-            return render(request,'student/signup.html',{'form' : form})
-    else:
-        form = Signup_form()
-        return render(request,'student/signup.html',{'form' : form})
+#         else:
+#             return render(request,'student/signup.html',{'form' : form})
+#     else:
+#         form = Signup_form()
+#         return render(request,'student/signup.html',{'form' : form})
 
 
 

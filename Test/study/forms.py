@@ -12,9 +12,12 @@ class Enroll_form(forms.ModelForm):
     
     
 class Signup_form(forms.Form):
+    name = forms.CharField(max_length=4)
     username = forms.CharField(max_length=10)
     password = forms.CharField(max_length=10)
     password2 = forms.CharField(max_length=10)
+    email = forms.CharField(max_length=100)
+
     
 class Login_form(forms.Form):
     username = forms.CharField(max_length=10)

@@ -12,6 +12,7 @@ urlpatterns = [
     #path('detail/',my_study,name='detail'),
     # path('enroll/',Enroll.as_view(),name='enroll'),
     # path('change/',change_day,name='change'),
+    path('activate/<uid64>/<token>',activate,name='activate'),
 
 
     # 아래는 템플릿 테스트
