@@ -1,4 +1,5 @@
 from time import time
+from django.contrib.auth.backends import ModelBackend
 from django.core import validators
 from django.db import models
 from django.db.models.base import Model
@@ -9,7 +10,7 @@ from django.utils import timezone
 # Create your models here.
 
 
-class Student(models.Model):
+class Student(models.Model): 
     name = models.CharField(max_length=4,validators=[MinLengthValidator(2)])
    
     number = models.CharField(max_length=11, validators=[MinLengthValidator(10)])
@@ -31,8 +32,7 @@ class Student(models.Model):
     
     user_id = models.IntegerField(default=0, unique=True)
 
-    
-    
+
 
     def __str__(self) -> str:
         return self.name + f'({self.number[3:]})'

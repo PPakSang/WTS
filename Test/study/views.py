@@ -5,7 +5,7 @@ from django.http import response
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -80,24 +80,7 @@ def signup(request): #회원가입
         form = Signup_form()
         return render(request,'student/signup.html',{'form' : form})
 
-def login(request): #로그인
-    if request.method == 'POST':
-        form = Login_form(request.POST)
 
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(username = username , password = password)
-
-            if user is not None :
-                auth.login(request,user)
-                return redirect('main')
-           
-            return render(request,'student/login.html',{'form':form})    
-       
-    else:
-        form = Login_form()
-        return render(request,'student/login.html',{'form':form})  
     
 @login_required(login_url='/login/')
 def logout(request): #로그아웃
@@ -265,7 +248,7 @@ def enroll(request): # 등록하기 화면
 
 #         return redirect('main')
 
-
+@login_required(login_url='/login/')
 def inquire(request): # 조회하기 화면
     try:
         student = Student.objects.get(user_id = request.user.id)
@@ -314,8 +297,46 @@ def inquire(request): # 조회하기 화면
 def change(request): # 변경하기 화면
     return render(request, 'change.html')
 
+
 def login_hw(request): # 로그인 화면
-    return render(request, 'login.html')
+    if request.method == 'POST':
+        form = Login_form(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username = username , password = password)
+
+            if user is not None :
+                auth.login(request,user)
+                return redirect('index')
+           
+            return render(request,'login.html',{'error':'아이디 혹은 비밀번호가 틀렸습니다'})    
+       
+    else:
+        return render(request,'login.html')
+
+
+# def login(request): #로그인
+#     if request.method == 'POST':
+#         form = Login_form(request.POST)
+
+#         if form.is_valid():
+#             username = form.cleaned_data['username']
+#             password = form.cleaned_data['password']
+#             user = authenticate(username = username , password = password)
+
+#             if user is not None :
+#                 auth.login(request,user)
+#                 return redirect('main')
+           
+#             return render(request,'student/login.html',{'form':form})    
+       
+#     else:
+#         form = Login_form()
+#         return render(request,'student/login.html',{'form':form})  
+
+
 
 def signup_hw(request): # 회원가입 화면
     return render(request, 'signup.html')
