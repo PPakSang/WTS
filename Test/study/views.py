@@ -111,25 +111,7 @@ def logout(request): #로그아웃
 
 
 
-@login_required(login_url='/login/')
-def my_study(request): #조회하기
 
-    try:
-        student = Student.objects.get(user_id = request.user.id)
-        days =get_days(student)
-        for i in days :
-            if (i - datetime.date.today()).days>=0:
-                next_day = i
-                break
-        if next_day == None:
-            next_day = '추가등록이 필요합니다'
-        
-
-    except :
-        return render(request,'student/error.html',{'is_study':False})
-
-    return render(request,'student/detail.html',{'student':student,'days':days,'next_day':next_day})
-    
 
 
 
@@ -216,7 +198,19 @@ def change_day(request,i): #요일변경
 ############################
 
 
+def get_basedates(student): #첫 고정 참여일
+    arr = []
+    for i in range(0,4):
+        arr.append(str(student.base_date + timedelta(weeks=i)))
+    return arr
 
+def get_days(student): #변경한 날짜
+    arr = []
+    arr.append(student.day1)
+    arr.append(student.day2)
+    arr.append(student.day3)
+    arr.append(student.day4)
+    return arr
 
 
 # 여기서부터 템플릿 테스트 뷰
@@ -246,34 +240,76 @@ def enroll(request): # 등록하기 화면
 
 
 
-class Enroll(LoginRequiredMixin,generic.CreateView): #등록하기
-    model = Student
-    fields=['name','number','level','day1']
-    template_name = 'student/enroll.html'
-    login_url = '/login/'
+# class Enroll(LoginRequiredMixin,generic.CreateView): #등록하기
+#     model = Student
+#     fields=['name','number','level','day1']
+#     template_name = 'student/enroll.html'
+#     login_url = '/login/'
     
-    def get(self, request, *args, **kwargs) :
-        try:
+#     def get(self, request, *args, **kwargs) :
+#         try:
             
-            Student.objects.get(user_id = self.request.user.id)
-            return render(request,'student/error.html',{'is_enroll':True})
-        except:
-            return super().get(request,*args,**kwargs)
+#             Student.objects.get(user_id = self.request.user.id)
+#             return render(request,'student/error.html',{'is_enroll':True})
+#         except:
+#             return super().get(request,*args,**kwargs)
 
-    def form_valid(self, form):
+#     def form_valid(self, form):
         
-        form = form.save(commit = False)
-        for i in range(2,5):
-            setattr(form,f'day{i}',form.day1 + timedelta(weeks=i-1))
-        form.base_date = form.day1
-        form.user_id = self.request.user.id
-        form.save()
+#         form = form.save(commit = False)
+#         for i in range(2,5):
+#             setattr(form,f'day{i}',form.day1 + timedelta(weeks=i-1))
+#         form.base_date = form.day1
+#         form.user_id = self.request.user.id
+#         form.save()
 
-        return redirect('main')
+#         return redirect('main')
 
 
 def inquire(request): # 조회하기 화면
-    return render(request, 'inquire.html')
+    try:
+        student = Student.objects.get(user_id = request.user.id)
+        days =get_days(student)
+        left_day = 4 
+        for i in days :
+            if (i - datetime.date.today()).days>=0:
+                next_day = i
+                break
+            left_day -= 1
+        if next_day == None:
+            next_day = '추가등록이 필요합니다'
+        base_dates = get_basedates(student)
+        print(base_dates)
+
+        
+
+    except :
+        redirect('enroll')
+
+    return render(request,'inquire.html',
+    {'student' : student,'days' : days,'next_day': next_day, 'left_day' : left_day, 'base_dates' : base_dates}
+    )   
+
+
+# @login_required(login_url='/login/')
+# def my_study(request): #조회하기
+
+#     try:
+#         student = Student.objects.get(user_id = request.user.id)
+#         days =get_days(student)
+#         for i in days :
+#             if (i - datetime.date.today()).days>=0:
+#                 next_day = i
+#                 break
+#         if next_day == None:
+#             next_day = '추가등록이 필요합니다'
+        
+
+#     except :
+#         return render(request,'student/error.html',{'is_study':False})
+
+#     return render(request,'student/detail.html',{'student':student,'days':days,'next_day':next_day})
+   
 
 def change(request): # 변경하기 화면
     return render(request, 'change.html')

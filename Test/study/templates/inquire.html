@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
-{% block title %}WANTOSPEAK{% endblock %}
-{% block content %}
+{% extends 'base.html' %} {% block title %}WANTOSPEAK{% endblock %} {% block content %}
 
 <!-- 중간 카테고리 -->
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
@@ -30,29 +28,25 @@
                 <div class="row mb-2">
                     <label for="infoName" class="col-3 col-form-label fw-bold">이름</label>
                     <div class="col-9">
-                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoName"
-                               value="홍길동">
+                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoName" value="{{student.name}}">
                     </div>
                 </div>
                 <div class="row mb-2">
                     <label for="infoPhone" class="col-3 col-form-label fw-bold">연락처</label>
                     <div class="col-9">
-                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoPhone"
-                               value="010-1234-5678">
+                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoPhone" value="{{student.number}}">
                     </div>
                 </div>
                 <div class="row mb-2">
                     <label for="infoLevel" class="col-3 col-form-label fw-bold">레벨</label>
                     <div class="col-9">
-                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoLevel"
-                               value="왕초급">
+                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoLevel" value="{{student.get_level_display}}">
                     </div>
                 </div>
                 <div class="row">
                     <label for="infoRemainCount" class="col-3 col-form-label fw-bold">남은 회차</label>
                     <div class="col-9">
-                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoRemainCount"
-                               value="3회">
+                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoRemainCount" value="{{left_day}}">
                     </div>
                 </div>
             </div>
@@ -66,38 +60,38 @@
             <div class="p-3 rounded border">
                 <table class="table table-hover">
                     <thead>
-                    <tr>
-                        <th scope="col">회차</th>
-                        <th scope="col">참여 날짜</th>
-                        <th scope="col">변경 날짜</th>
-                        <th scope="col">참석 여부</th>
-                    </tr>
+                        <tr>
+                            <th scope="col">회차</th>
+                            <th scope="col">참여 날짜</th>
+                            <th scope="col">변경 날짜</th>
+                            <th scope="col">참석 여부</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>2021-05-26</td>
-                        <td>-</td>
-                        <td>O</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>2021-06-02</td>
-                        <td>2021-06-03</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>2021-06-09</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>2021-06-16</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>{{base_dates.0}}</td>
+                            <td>{{student.day1|date:"Y-m-d"}}</td>
+                            <td>O</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>{{base_dates.1}}</td>
+                            <td>{{student.day2|date:"Y-m-d"}}</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>{{base_dates.2}}</td>
+                            <td>{{student.day3|date:"Y-m-d"}}</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>{{base_dates.3}}</td>
+                            <td>{{student.day4|date:"Y-m-d"}}</td>
+                            <td>-</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
