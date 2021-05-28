@@ -127,7 +127,7 @@ def index(request): # 메인 화면
     
     return render(request, 'index.html')
 
-# @login_required(login_url=)
+@login_required(login_url='/login/')
 def enroll(request): # 등록하기 화면
     try:
         Student.objects.get(user_id = request.user.id)
