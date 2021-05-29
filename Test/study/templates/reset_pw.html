@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"> {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
 
-    <title>Change PW</title>
+    <title>Reset PW</title>
 </head>
 
 <body class="bg-light">
@@ -52,7 +52,7 @@
     <!--로그인 박스-->
     <section class="container align-content-center">
         <div class="row justify-content-center" id="find_id_row">
-            <div class="col-lg-4 col-md-7 col-sm-9 h-100 pt-5 mx-2 bg-white" id="loginBox_col">
+            <div class="col-lg-4 col-md-7 col-sm-9 h-100 pt-5 mx-2 bg-white" id="formBox_col">
                 <p class="lead text-muted" id="small_title">one, two, speak study</p>
                 <h2 class="font-weight-bold">Want To Speak</h2>
                 <div class="stick"></div>
@@ -61,7 +61,7 @@
                     <form method="POST" action="">
                         {% csrf_token %}
                         <input class="form-control mb-2" type="text" id="input_password" name="password" placeholder="비밀번호" required>
-                        <input class="form-control mb-2" type="text" id="input_password2" name="password2" placeholder="비밀번호 확인" required> {{error}}
+                        <input class="form-control mb-2" type="text" id="input_password2" name="password2" placeholder="비밀번호 확인" required> {{error}}{{message}}
                         <button class="btn w-100 btn-warning" type="submit">비밀번호 변경</button>
                     </form>
                 </div>

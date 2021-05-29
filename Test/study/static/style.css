@@ -174,11 +174,11 @@ body {
 
 /*로그인 전체 박스 */
 
-#loginBox_row {
-    margin-top: 10%;
+#formBox_row {
+    margin-top: 5%;
 }
 
-#loginBox_col {
+#formBox_col {
     text-align: center;
     align-items: center;
     border: 1px;
