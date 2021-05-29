@@ -24,39 +24,45 @@
     <div class="row gx-5" id="enroll">
 
         <!-- 안내사항 -->
-        <div class="col-md-6 py-3">
+        <div class="col py-3">
             <p class="mb-0 mt-3 mt-md-5">숙지해주세요</p>
             <h3 class="fw-bold">안내사항</h3>
             <div class="stick mb-3 mb-md-5"></div>
             <div class="bg-dark rounded" style="height: 300px"></div>
         </div>
 
-        <!-- 변경 전 -->
-        <div class="col-md-3 py-3">
+        <!-- 스터디 날짜 변경 -->
+        <div class="col py-3">
+
             <p class="mb-0 mt-3 mt-md-5">선택해주세요</p>
-            <h3 class="fw-bold">변경 전</h3>
+            <h3 class="fw-bold">스터디 날짜 변경</h3>
             <div class="stick mb-3 mb-md-5"></div>
 
-            <button type="button" class="btn btn-dark rounded w-100" style="height: 300px"
-                    data-bs-toggle="modal" data-bs-target="#fromModal">
-                <span class="change-btn-icon"><i class="far fa-calendar-alt"></i></span>
-                <span class="row justify-content-center change-btn-content">FROM</span>
-            </button>
+            <div class="row mb-3">
+                <div class="col">
+                    <button type="button" class="btn btn-dark rounded w-100" style="height: 230px"
+                            data-bs-toggle="modal" data-bs-target="#fromModal">
+                        <span class="change-btn-icon"><i class="far fa-calendar-alt"></i></span>
+                        <span class="row justify-content-center change-btn-content">FROM</span>
+                        <span class="row justify-content-center change-btn-content" id="fromDate">선택해주세요.</span>
+                    </button>
+                </div>
+
+                <div class="col">
+                    <button type="button" class="btn btn-dark rounded w-100" style="height: 230px"
+                            data-bs-toggle="modal" data-bs-target="#toModal">
+                        <span class="change-btn-icon"><i class="far fa-calendar-check"></i></span>
+                        <span class="row justify-content-center change-btn-content">TO</span>
+                        <span class="row justify-content-center change-btn-content" id="toDate">선택해주세요.</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="row gx-0 mt-4">
+                <button type="submit" class="btn btn-dark change-btn-content">변경하기</button>
+            </div>
         </div>
 
-
-        <!-- 변경 후 -->
-        <div class="col-md-3 py-3">
-            <p class="mb-0 mt-3 mt-md-5">선택해주세요</p>
-            <h3 class="fw-bold">변경 후</h3>
-            <div class="stick mb-3 mb-md-5"></div>
-
-            <button type="button" class="btn btn-dark rounded w-100" style="height: 300px"
-                    data-bs-toggle="modal" data-bs-target="#toModal">
-                <span class="change-btn-icon"><i class="far fa-calendar-check"></i></span>
-                <span class="row justify-content-center change-btn-content">TO</span>
-            </button>
-        </div>
 
     </div>
 
@@ -74,6 +80,7 @@
 </div>
 
 
+
 <!-- Modal 1: 변경 전 날짜 선택 -->
 <div class="modal fade" id="fromModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="fromModalLabel" aria-hidden="true">
@@ -87,29 +94,29 @@
                 홍길동님의 변경 가능한 스터디 참여일입니다.<br><br>
                 <!-- Radio -->
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="fromRadios1"
-                           value="fromOption1" disabled>
+                    <input class="form-check-input" type="radio" name="fromRadios" id="fromRadios1"
+                           value="2021-05-26" disabled>
                     <label class="form-check-label" for="fromRadios1">
                         2021-05-26
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="fromRadios2"
-                           value="fromOption2" checked>
+                    <input class="form-check-input" type="radio" name="fromRadios" id="fromRadios2"
+                           value="2021-06-02" checked>
                     <label class="form-check-label" for="fromRadios2">
                         2021-06-02
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="fromRadios3"
-                           value="fromOption3">
+                    <input class="form-check-input" type="radio" name="fromRadios" id="fromRadios3"
+                           value="2021-06-09">
                     <label class="form-check-label" for="fromRadios3">
                         2021-06-09
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="fromRadios4"
-                           value="fromOption4">
+                    <input class="form-check-input" type="radio" name="fromRadios" id="fromRadios4"
+                           value="2021-06-16">
                     <label class="form-check-label" for="fromRadios4">
                         2021-06-16
                     </label>
@@ -117,14 +124,16 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">선택하기</button>
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal"
+                        onclick="fromDate()">선택하기</button>
             </div>
         </div>
     </div>
 </div>
 
 
-<!-- Modal 1: 변경 전 날짜 선택 -->
+
+<!-- Modal 2: 변경 후 날짜 선택 -->
 <div class="modal fade" id="toModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="toModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -135,12 +144,13 @@
             </div>
             <div class="modal-body">
                 <label for="toDatePicker" class="form-label fw-bold">날짜 선택</label>
-                        <input type="text" name="changeDay" class="form-control"
-                               id="toDatePicker" placeholder="연도-월-일">
+                <input type="text" name="changeDay" class="form-control"
+                       id="toDatePicker" placeholder="연도-월-일">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">변경하기</button>
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal"
+                        onclick="toDate()">선택하기</button>
             </div>
         </div>
     </div>
@@ -177,6 +187,38 @@
 
         }); //datepicker end
     }); //ready end
+</script>
+
+
+<!-- From, To 버튼의 text를 선택 날짜로 변경 -->
+<script>
+    function fromDate(){
+        var chk_radio = document.getElementsByName('fromRadios');
+		var sel_type = null;
+
+        // 어느 라디오가 체크되어 있는지 판단 후 값 가져오기
+		for(var i=0; i<chk_radio.length; i++){
+			if(chk_radio[i].checked == true){
+				sel_type = chk_radio[i].value;
+			}
+		}
+		if(sel_type == null){
+                alert("변경할 날짜를 선택하세요.");
+			return false;
+		}
+
+        // from 버튼의 text 변경
+		var element = document.getElementById("fromDate");
+        element.innerText = sel_type;
+        element.style.color="#119dff";
+    }
+
+    function toDate(){
+        var element = document.getElementById("toDate");
+        var text = document.getElementById("toDatePicker").value;
+        element.innerText = text;
+        element.style.color="#119dff";
+    }
 </script>
 
 {% endblock %}
