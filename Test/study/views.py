@@ -2,7 +2,7 @@ from datetime import timedelta
 from typing import ContextManager
 from django import http
 from django.http import response
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponsePermanentRedirect
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -57,24 +57,7 @@ def only_admin(request):
         return redirect('main')
 
 
-@login_required(login_url='/login/')
-def change_day(request,i): #요일변경
-    if request.method == 'POST':
-        
-        
-        student = Student.objects.get(user_id = request.user.id)
-        date = datetime.date.fromisoformat(request.POST['day'])
-        today = datetime.date.today()
-        base_date = student.base_date #기준 주차 첫 참여일
-        first_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-1) #해당 주차의 첫째주
-        last_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-7)
-        if (date - today).days >= 2 and first_date <= date <= last_date: #2일 뒤부터 and 그 주의 첫날과 마지막날 사이여야함
-            setattr(student,f'day{i}',request.POST['day'])
-            student.save()
-            return redirect('detail')
-        else:
-            return render(request,'student/change_day.html',{'error':'날짜를 다시 입력해주세요'})
-    return render(request,'student/change_day.html')
+
 
 
 
@@ -218,9 +201,49 @@ def inquire(request): # 조회하기 화면
 
 #     return render(request,'student/detail.html',{'student':student,'days':days,'next_day':next_day})
    
-
+@login_required(login_url='/login/')
 def change(request): # 변경하기 화면
-    return render(request, 'change.html')
+    student = Student.objects.get(user_id = request.user.id)
+    if request.method == 'POST':
+        student = Student.objects.get(user_id = request.user.id)
+
+        i = int(request.POST['i']) #몇주차 변경하는지
+        date = datetime.date.fromisoformat(request.POST['day'])
+        today = datetime.date.today()
+
+        base_date = student.base_date #기준 주차 첫 참여일
+        first_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-1) #해당 주차의 첫째주
+        last_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-7)
+        
+        if (date - today).days >= 2 and first_date <= date <= last_date: #2일 뒤부터 and 그 주의 첫날과 마지막날 사이여야함
+            setattr(student,f'day{i}',request.POST['day'])
+            student.save()
+            return redirect('inquire')
+        else:
+            return render(request,'change.html',{'student' : student, 'error':'규정에 따른 날짜를 다시 입력해주세요'})
+    return render(request,'change.html',{'student' : student})
+    
+
+
+# @login_required(login_url='/login/')
+# def change_day(request,i): #요일변경
+#     if request.method == 'POST':
+#         student = Student.objects.get(user_id = request.user.id)
+#         date = datetime.date.fromisoformat(request.POST['day'])
+#         today = datetime.date.today()
+#         base_date = student.base_date #기준 주차 첫 참여일
+#         first_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-1) #해당 주차의 첫째주
+#         last_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-7)
+#         if (date - today).days >= 2 and first_date <= date <= last_date: #2일 뒤부터 and 그 주의 첫날과 마지막날 사이여야함
+#             setattr(student,f'day{i}',request.POST['day'])
+#             student.save()
+#             return redirect('detail')
+#         else:
+#             return render(request,'student/change_day.html',{'error':'날짜를 다시 입력해주세요'})
+#     return render(request,'student/change_day.html')
+
+
+
 
 
 def login_hw(request): # 로그인 화면
