@@ -147,7 +147,10 @@ body {
     color: var(--text-color-white);
 }
 
-
+.table-hover-custom > tbody > tr:hover {
+  background: rgba(0, 0, 0, 0.075);
+  color: #212529;
+}
 /* 아코디언 색 변경 */
 
 .accordion-button:not(.collapsed) {
