@@ -23,4 +23,7 @@ urlpatterns = [
     path('login/', login_hw, name='login'),
     path('signup/', signup_hw, name='signup'),
     path('faq/', faq, name='faq'),
+    path('findid/',find_id,name='find_id'),
+    path('findpw/',find_pw,name='find_pw'),
+    path('resetpw/<uid64>/<token>',reset_pw,name='reset_pw'),
 ]

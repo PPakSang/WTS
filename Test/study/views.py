@@ -23,20 +23,11 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes,force_text
 from django.contrib.auth.tokens import default_token_generator
 
-
+import json
 # Create your views here.
 
 
-def activate(request,uid64,token):
-    uid = force_text(urlsafe_base64_decode(uid64))
-    user = User.objects.get(pk = uid)
-    
-    if user is not None and default_token_generator.check_token(user,token):
-        user.is_active = True
-        user.save()
-        auth.login(request,user)
-        return redirect('index')
-    return redirect('index')
+
 
 
 
@@ -87,7 +78,7 @@ def only_admin(request):
 
     
 
-############################
+############################ view가 아닌 호출함수
 
 
 def get_basedates(student): #첫 고정 참여일
@@ -103,6 +94,9 @@ def get_days(student): #변경한 날짜
     arr.append(student.day3)
     arr.append(student.day4)
     return arr
+
+############################  
+
 
 
 # 여기서부터 템플릿 테스트 뷰
@@ -264,6 +258,57 @@ def login_hw(request): # 로그인 화면
     else:
         return render(request,'login.html')
 
+def find_id(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        user = User.objects.filter(first_name = name, email = email)
+        if user.count() != 0:
+            return render(request,'find_id.html',{'username' : 'ID : ' + user[0].username + '입니다'}) 
+        else :
+            return render(request,'find_id.html',{'error' : '이름 혹은 이메일을 다시 입력해주세요'})        
+    return render(request,'find_id.html')
+
+def find_pw(request):
+    if request.method == 'POST':
+        name = request.POST['username']
+        email = request.POST['email']
+        user = User.objects.filter(username = name, email = email)
+        if user.count() != 0:
+            
+            message = render_to_string('reset_pw_message.html',{
+                "domain" : get_current_site(request),
+                "uid" : urlsafe_base64_encode(force_bytes(user[0].pk)),
+                "token" : default_token_generator.make_token(user[0]),
+            }) 
+            
+            email = EmailMessage('원투스픽 비밀번호 초기화',message,to=[email])
+            email.send()
+            return render(request,'find_pw.html',{'message' : '이메일을 확인하여주세요'}) 
+        else :
+            return render(request,'find_pw.html',{'error' : '아이디 혹은 이메일을 다시 입력해주세요'})        
+    return render(request,'find_pw.html')
+
+def reset_pw(request,uid64,token):
+    #uid64 는 이미 byte 화 및 uid 해시 되어서 날라갔음, 그걸 다시 받는것
+    #받은걸 복호화 및 그걸 다시 str로 바꿔야함
+    uid = force_text(urlsafe_base64_decode(uid64))
+    user = User.objects.get(pk = uid)
+    if user is not None and default_token_generator.check_token(user,token):
+        if request.method == 'POST':
+            user = User.objects.get(pk = uid)
+            password = request.POST['password']
+            password2 = request.POST['password2']
+            if password == password2:
+                user.set_password(password)
+                user.save()
+                return redirect('login')
+            else:
+                return render(request,'reset_pw.html',{'error' : "비밀번호를 다시 확인해주세요"})
+        else:
+            return render(request,'reset_pw.html')
+    else:
+        return HttpResponse('잘못된 경로입니다')
 
 # def login(request): #로그인
 #     if request.method == 'POST':
@@ -326,6 +371,18 @@ def signup_hw(request): # 회원가입 화면
             return render(request,'signup.html',{'form_error' : '양식을 정확히 다시 작성해주세요'})
     else:
         return render(request,'signup.html')
+
+
+def activate(request,uid64,token):
+    uid = force_text(urlsafe_base64_decode(uid64))
+    user = User.objects.get(pk = uid)
+    
+    if user is not None and default_token_generator.check_token(user,token):
+        user.is_active = True
+        user.save()
+        auth.login(request,user)
+        return redirect('index')
+    return redirect('index')
 
     
 
