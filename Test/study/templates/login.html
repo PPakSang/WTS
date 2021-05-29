@@ -60,8 +60,8 @@
                 <div class="px-4 justify-content-center" id="login_input">
                     <form method="POST" action="">
                         {% csrf_token %}
-                        <input class="form-control mb-2" type="text" id="input_id" name="username" placeholder="아이디" required>
-                        <input class="form-control mb-2" type="password" id="input_password" name="password" placeholder="비밀번호" required> {{error}}
+                        <input class="form-control mb-2" autocomplete='off' type="text" id="input_id" name="username" placeholder="아이디" required>
+                        <input class="form-control mb-2" autocomplete='off' type="password" id="input_password" name="password" placeholder="비밀번호" required> {{error}}
                         <button class="btn w-100 btn-warning" type="submit">로그인</button>
                     </form>
                 </div>
