@@ -298,9 +298,9 @@ def signup_hw(request): # 회원가입 화면
                 # auth.login(request,user)
                 return redirect('index')
             else:
-                return render(request,'signup.html',{'error' : '비밀번호를 다시 확인해주세요', 'username' : username})
+                return render(request,'signup.html',{'password_error' : '비밀번호를 다시 확인해주세요', 'username' : username})
         else:
-            redirect('signup')
+            return render(request,'signup.html',{'form_error' : '양식을 정확히 다시 작성해주세요'})
     else:
         return render(request,'signup.html')
 
