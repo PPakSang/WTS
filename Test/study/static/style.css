@@ -296,6 +296,64 @@ body {
   font-weight: bold;
 }
 
+/*이메일 인증확인 페이지*/
+
+.mailBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+  border: 1px;
+  border-color: lightgray;
+  border-style: solid;
+  border-radius: 10px;
+  margin-top: 10%;
+}
+/*스터디 로고*/
+.logo {
+  font-size: 1.5rem;
+}
+
+/*유저 이메일*/
+.mailBox #user_mail {
+  color: #1050c2;
+  text-decoration: underline;
+}
+
+/*상위 메일 텍스트*/
+.mailBox #mail_title1,
+.mailBox #mail_title2 {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.mailBox #mail_title1 {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/*유의사항*/
+.mailBox_notice .notice_title {
+  text-align: center;
+  font-weight: bold;
+}
+
+.mailBox_notice .notice_content {
+  font-size: 00.95rem;
+}
+
+/*이메일 재전송 버튼*/
+#input_resend {
+  border: 1px;
+  border-style: solid;
+  padding: 5px;
+  width: 80%;
+}
+
+#input_resend:hover {
+  background-color: #ffd511;
+  border-color: #ffd511;
+}
 @media screen and (max-width: 768px) {
   #login_footer {
     visibility: hidden;

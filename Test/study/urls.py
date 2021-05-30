@@ -26,4 +26,5 @@ urlpatterns = [
     path('findid/',find_id,name='find_id'),
     path('findpw/',find_pw,name='find_pw'),
     path('resetpw/<uid64>/<token>',reset_pw,name='reset_pw'),
+    path('checkemail/', checkemail, name='check_email'),
 ]
