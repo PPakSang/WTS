@@ -28,25 +28,29 @@
                 <div class="row mb-2">
                     <label for="infoName" class="col-3 col-form-label fw-bold">이름</label>
                     <div class="col-9">
-                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoName" value="{{student.name}}">
+                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2"
+                               id="infoName" value="{{student.name}}">
                     </div>
                 </div>
                 <div class="row mb-2">
                     <label for="infoPhone" class="col-3 col-form-label fw-bold">연락처</label>
                     <div class="col-9">
-                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoPhone" value="{{student.number}}">
+                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2"
+                               id="infoPhone" value="{{student.number}}">
                     </div>
                 </div>
                 <div class="row mb-2">
                     <label for="infoLevel" class="col-3 col-form-label fw-bold">레벨</label>
                     <div class="col-9">
-                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoLevel" value="{{student.get_level_display}}">
+                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2"
+                               id="infoLevel" value="{{student.get_level_display}}">
                     </div>
                 </div>
                 <div class="row">
                     <label for="infoRemainCount" class="col-3 col-form-label fw-bold">남은 회차</label>
                     <div class="col-9">
-                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2" id="infoRemainCount" value="{{left_day}}">
+                        <input type="text" readonly class="form-control-plaintext bg-white rounded border ps-2"
+                               id="infoRemainCount" value="{{left_day}}">
                     </div>
                 </div>
             </div>
@@ -57,43 +61,64 @@
             <p class="mb-0 mt-3 mt-md-5">고정 참여일</p>
             <h3 class="fw-bold">스터디 참여 날짜</h3>
             <div class="stick mb-3 mb-md-5"></div>
-            <div class="p-3 rounded border">
-                <table class="table table-hover">
+            <div class="p-3 rounded border row">
+                <table class="table table-hover-custom col">
+                    <thead>
+                    <tr>
+                        <th scope="col">회차</th>
+                        <th scope="col">기존 참여 예정일</th>
+                        <th scope="col">변경일</th>
+                        <th scope="col">변경하러 가기</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr id="hoverNotRow">
+                        <th scope="row">1</th>
+                        <td>{{base_dates.0}}</td>
+                        <td>{{student.day1|date:"Y-m-d"}}</td>
+                        <td rowspan="4" valign="middle" id="hoverNot">
+                            <a href="{% url 'change' %}">
+                                <button class="btn btn-dark p-4">날짜 변경</button>
+                            </a>
+                        </td>
+                    </tr>
+                    <script>
+                            $('#hoverNotRow').hover(function() {
+                              $('#hoverNot').css("background-color", "#fff");
+                            });
+
+                    </script>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>{{base_dates.1}}</td>
+                        <td>{{student.day2|date:"Y-m-d"}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>{{base_dates.2}}</td>
+                        <td>{{student.day3|date:"Y-m-d"}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>{{base_dates.3}}</td>
+                        <td>{{student.day4|date:"Y-m-d"}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--
+                <table class="table col">
                     <thead>
                         <tr>
-                            <th scope="col">회차</th>
-                            <th scope="col">참여 날짜</th>
-                            <th scope="col">변경 날짜</th>
-                            <th scope="col">참석 여부</th>
+                            <th scope="col">변경하러 가기</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>{{base_dates.0}}</td>
-                            <td>{{student.day1|date:"Y-m-d"}}</td>
-                            <td>O</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>{{base_dates.1}}</td>
-                            <td>{{student.day2|date:"Y-m-d"}}</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>{{base_dates.2}}</td>
-                            <td>{{student.day3|date:"Y-m-d"}}</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>{{base_dates.3}}</td>
-                            <td>{{student.day4|date:"Y-m-d"}}</td>
-                            <td>-</td>
+                            <td rowspan="4"></td>
                         </tr>
                     </tbody>
                 </table>
+                -->
             </div>
         </div>
     </div>
