@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.admin.decorators import action
 from .models import *
 # Register your models here.
 
