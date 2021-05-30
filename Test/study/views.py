@@ -2,7 +2,6 @@ from datetime import timedelta
 from typing import ContextManager
 from django import http
 from django.http import response
-from django.http.response import HttpResponse, HttpResponsePermanentRedirect
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -263,7 +262,7 @@ def find_id(request):
         name = request.POST['name']
         email = request.POST['email']
         user = User.objects.filter(first_name = name, email = email)
-        if user.count() != 0:
+        if user.count() != 0: # ==0 이면 해당 유저가 없음
             return render(request,'find_id.html',{'username' : 'ID : ' + user[0].username + '입니다'}) 
         else :
             return render(request,'find_id.html',{'error' : '이름 혹은 이메일을 다시 입력해주세요'})        
@@ -274,8 +273,7 @@ def find_pw(request):
         name = request.POST['username']
         email = request.POST['email']
         user = User.objects.filter(username = name, email = email)
-        if user.count() != 0:
-            
+        if user.count() != 0: # ==0 이면 해당 유저가 없음
             message = render_to_string('reset_pw_message.html',{
                 "domain" : get_current_site(request),
                 "uid" : urlsafe_base64_encode(force_bytes(user[0].pk)),
@@ -293,21 +291,22 @@ def reset_pw(request,uid64,token):
     #uid64 는 이미 byte 화 및 uid 해시 되어서 날라갔음, 그걸 다시 받는것
     #받은걸 복호화 및 그걸 다시 str로 바꿔야함
     uid = force_text(urlsafe_base64_decode(uid64))
-    user = User.objects.get(pk = uid)
-    if user is not None and default_token_generator.check_token(user,token):
-        if request.method == 'POST':
-            user = User.objects.get(pk = uid)
-            password = request.POST['password']
-            password2 = request.POST['password2']
-            if password == password2:
-                user.set_password(password)
-                user.save()
-                return redirect('login')
+    try :
+        user = User.objects.get(pk = uid)
+        if user is not None and default_token_generator.check_token(user,token): #해당 pk 에 따른 user가 존재하고, 토큰이 유효할 시
+            if request.method == 'POST':
+                user = User.objects.get(pk = uid)
+                password = request.POST['password']
+                password2 = request.POST['password2']
+                if password == password2:
+                    user.set_password(password)
+                    user.save()
+                    return redirect('login')
+                else:
+                    return render(request,'reset_pw.html',{'error' : "비밀번호를 다시 확인해주세요"})
             else:
-                return render(request,'reset_pw.html',{'error' : "비밀번호를 다시 확인해주세요"})
-        else:
-            return render(request,'reset_pw.html')
-    else:
+                return render(request,'reset_pw.html')
+    except:
         return HttpResponse('잘못된 경로입니다')
 
 # def login(request): #로그인
@@ -346,6 +345,10 @@ def signup_hw(request): # 회원가입 화면
             password2 = form.cleaned_data['password2']
             email = form.cleaned_data['email']
             name = form.cleaned_data['name']
+
+            if User.objects.filter(username = username).count() != 0 :
+                return render(request,'signup.html',{'id_error' : '이미 존재하는 ID 입니다'})
+
             if password == password2:
                 user = User.objects.create_user(first_name = name,email = email, username = username, password = password)
                 user.is_active = False

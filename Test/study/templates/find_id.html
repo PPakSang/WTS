@@ -61,7 +61,7 @@
                     <form method="POST" action="">
                         {% csrf_token %}
                         <input class="form-control mb-2" type="text" id="input_name" name="name" placeholder="이름" required>
-                        <input class="form-control mb-2" type="text" id="input_eamil" name="email" placeholder="이메일" required> {{error}} {% if username %} {{username}}
+                        <input class="form-control mb-2" type="email" id="input_eamil" name="email" placeholder="이메일" required> {{error}} {% if username %} {{username}}
                         <p><a href="{% url 'login' %}">로그인하러가기</a></p>{% endif %}
                         <button class="btn w-100 btn-warning" type="submit">ID찾기</button>
                     </form>

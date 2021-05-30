@@ -61,7 +61,7 @@
                     <form method="POST" action="">
                         {% csrf_token %}
                         <input class="form-control mb-2" type="text" id="input_name" name="username" placeholder="아이디" required>
-                        <input class="form-control mb-2" type="text" id="input_eamil" name="email" placeholder="이메일" required> {{error}}{{message}}
+                        <input class="form-control mb-2" type="email" id="input_eamil" name="email" placeholder="이메일" required> {{error}}{{message}}
                         <button class="btn w-100 btn-warning" type="submit">비밀번호 찾기</button>
                     </form>
                 </div>
