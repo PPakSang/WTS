@@ -366,6 +366,10 @@ body {
   padding-right: 5%;
 }
 
+#goto_login {
+  text-decoration: underline;
+}
+
 @media screen and (max-width: 768px) {
   #login_footer {
     visibility: hidden;

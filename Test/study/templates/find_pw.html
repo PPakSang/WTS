@@ -53,16 +53,16 @@
                         <div class="row mb-1">
                             <label for="input_name" class="col-sm-2 col-form-label">아이디</label>
                             <div class="col-sm-10">
-                                <input class="form-control mb-2" type="text" id="input_name" name="username" required>
+                                <input class="form-control mb-2" type="text" id="input_name" autocomplete="off" name="username" required>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <label for="input_eamil" class="col-sm-2 col-form-label">이메일</label>
                             <div class="col-sm-10">
-                                <input class="form-control mb-2" type="email" id="input_eamil" name="email" required> {{error}}{{message}}
+                                <input class="form-control mb-2" type="email" id="input_eamil" autocomplete="off" name="email" required> {{error}}{{message}}
                             </div>
                         </div>
-                        <button class="btn mb-5 w-100 btn-warning" type="submit">비밀번호 찾기</button>
+                        <button class="btn mb-4 w-100 btn-warning" type="submit">비밀번호 찾기</button>
                     </form>
                     <a class="login_find" href="{% url 'find_id' %}">아이디 찾기</a>
                 </div>
