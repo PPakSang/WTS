@@ -2,7 +2,7 @@ from datetime import timedelta
 from typing import ContextManager
 from django import http
 from django.http import response
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
