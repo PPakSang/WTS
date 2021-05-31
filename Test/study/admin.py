@@ -8,7 +8,9 @@ class Student_Admin(admin.ModelAdmin):
     list_display = [Student.__str__,'changed_day']
     list_filter = ['changed_day']
     search_fields = ['name']
-    
-    
 
- 
+
+
+@admin.register(Faq)
+class Faq_Admin(admin.ModelAdmin):
+    pass

@@ -11,7 +11,7 @@ from django.utils import timezone
 
 
 class Student(models.Model): 
-    name = models.CharField(max_length=4,validators=[MinLengthValidator(2)])
+    name = models.CharField(max_length=10,validators=[MinLengthValidator(2)])
    
     number = models.CharField(max_length=11, validators=[MinLengthValidator(10)])
     
@@ -40,3 +40,14 @@ class Student(models.Model):
     def get_absolute_url(self):
         return redirect('detail',pk = self.id)
 
+
+
+class Faq(models.Model):
+    name = models.CharField(max_length=10)
+    answer_to = models.CharField(max_length=100)
+    text = models.TextField()
+
+
+    def __str__(self) -> str:
+        return self.name + f'({self.answer_to})'
+        

@@ -433,7 +433,17 @@ def activate(request,uid64,token):
 
 
 
-def faq(request): # 자주묻는질문 화면
+def faq_view(request): # 자주묻는질문 화면
+    if request.method == 'POST':
+        if request.user.is_authenticated == False :
+            return redirect('login')
+        else:
+            name = request.user.first_name
+            answer_to = request.POST['answer_to']
+            text = request.POST['text']
+
+            faq = Faq(name = name, answer_to = answer_to, text = text)
+            faq.save()
     return render(request, 'faq.html')
 
 def checkemail(request): #인증메일 확인 부탁 페이지
