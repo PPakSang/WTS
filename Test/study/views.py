@@ -435,3 +435,6 @@ def activate(request,uid64,token):
 
 def faq(request): # 자주묻는질문 화면
     return render(request, 'faq.html')
+
+def checkemail(request): #인증메일 확인 부탁 페이지
+    return render(request, 'checkemail.html')
