@@ -22,25 +22,15 @@
 
 
         <!-- 상단 카테고리 -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand fw-bold" href="{% url 'index' %}"><i class="fas fa-cat me-2"></i>원투스픽</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <ul class="nav-items">
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="{% url 'index' %}">홈</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'enroll' %}">신청하기</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'inquire' %}">문의하기</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'login' %}">로그인</a>
+                            <a class="nav-link" href="{% url 'faq' %}">문의하기</a>
                         </li>
                     </ul>
                 </div>
@@ -52,18 +42,29 @@
     <!--로그인 박스-->
     <section class="container align-content-center">
         <div class="row justify-content-center" id="formBox_row">
-            <div class="col-lg-4 col-md-7 col-sm-9 h-100 pt-5 mx-2 bg-white" id="formBox_col">
-                <p class="lead text-muted" id="small_title">one, two, speak study</p>
-                <h2 class="font-weight-bold">Want To Speak</h2>
+            <div class="col-lg-5 col-md-9 col-sm-10 h-100 pt-5 mx-2 bg-white" id="formBox_col">
+                <p class="lead text-muted" id="small_title">Want To Speak</p>
+                <h2 class="font-weight-bold">비밀번호 찾기</h2>
                 <div class="stick"></div>
-                <div class="pt-5 pl-0 " id="loginText">비밀번호 찾기</div>
+                <div class="py-3 pl-0 " id="findText">회원가입 시 등록한 아이디와 이메일이 같아야, 비밀번호를 찾을 수 있습니다.<br> 등록한 이메일로 비밀번호 재설정 양식을 전송합니다.</div>
                 <div class="px-4 justify-content-center" id="login_input">
                     <form method="POST" action="">
                         {% csrf_token %}
-                        <input class="form-control mb-2" type="text" id="input_name" name="username" placeholder="아이디" required>
-                        <input class="form-control mb-2" type="email" id="input_eamil" name="email" placeholder="이메일" required> {{error}}{{message}}
-                        <button class="btn w-100 btn-warning" type="submit">비밀번호 찾기</button>
+                        <div class="row mb-1">
+                            <label for="input_name" class="col-sm-2 col-form-label">아이디</label>
+                            <div class="col-sm-10">
+                                <input class="form-control mb-2" type="text" id="input_name" name="username" required>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="input_eamil" class="col-sm-2 col-form-label">이메일</label>
+                            <div class="col-sm-10">
+                                <input class="form-control mb-2" type="email" id="input_eamil" name="email" required> {{error}}{{message}}
+                            </div>
+                        </div>
+                        <button class="btn mb-5 w-100 btn-warning" type="submit">비밀번호 찾기</button>
                     </form>
+                    <a class="login_find" href="{% url 'find_id' %}">아이디 찾기</a>
                 </div>
                 <div class="mt-4 pb-2">
                     <span id="q_account">

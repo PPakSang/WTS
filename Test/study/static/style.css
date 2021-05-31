@@ -355,6 +355,17 @@ body {
   background-color: #ffd511;
   border-color: #ffd511;
 }
+
+/*ID 찾기*/
+
+#findText {
+  display: flex;
+  text-align: start;
+  font-size: 00.85rem;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
 @media screen and (max-width: 768px) {
   #login_footer {
     visibility: hidden;
