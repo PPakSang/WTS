@@ -32,8 +32,31 @@
                     <div class="mb-1">2. 인증 메일 재발송은 1회만 가능합니다</div>
                 </div>
             </div>
-            <input class="my-2 bg-gradient" type="submit" value="인증 메일 재전송" id="input_resend">
+            <input class="my-2 bg-gradient" type="submit" value="인증 메일 재전송" id="input_resend" onclick="insert(); removeBtn();">
         </div>
     </div>
+    <script>
+        var doubleSubmitFlag = false;
+        function doubleSubmitCheck(){
+            if(doubleSubmitFlag){
+                return doubleSubmitFlag;
+            }else{
+                doubleSubmitFlag = true;
+                return false;
+            }
+        }
+
+        function insert(){
+            if(doubleSubmitCheck()) return;
+
+            alert("인증 메일이 재전송 되었습니다.");
+        }
+
+        var con = document.getElementById("input_resend");
+
+        function removeBtn(){
+            if(doubleSubmitCheck()) { con.style.display = 'none';}
+        }
+    </script>
 </body>
 </html>
