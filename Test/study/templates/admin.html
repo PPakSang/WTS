@@ -1,0 +1,29 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<form action="name" method="POST">
+    {%csrf_token%}
+    <div class="input-group w-25">
+        <span class="input-group-text">이름</span>
+        <input name="name" class="form-control" type="text">
+        <button class="btn btn-outline-secondary" type="submit">검색</button>
+    </div>
+</form>
+<form action="number" method="POST">
+    {%csrf_token%}
+    <div class="input-group w-25">
+        <span class="input-group-text">전화번호</span>
+        <input name="number" class="form-control" type="text">
+        <button class="btn btn-outline-secondary" type="submit">검색</button>
+    </div>
+</form>
+
+<a href="{% url 'adminpage' 'all'%}">전체보기</a> <a href="{% url 'adminpage' 'today'%}">오늘참여자</a> <br> {%for student in students%}
+<ul style="display: inline-block;">
+    <li>이름 {{student.name}}</li>
+    <li>전화번호 {{student.number}}</li>
+    <li>{{student.day1}}</li>
+    <li>{{student.day2}}</li>
+    <li>{{student.day3}}</li>
+    <li>{{student.day4}}</li>
+
+</ul>
+{%endfor%}

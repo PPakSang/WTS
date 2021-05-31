@@ -27,4 +27,5 @@ urlpatterns = [
     path('findpw/',find_pw,name='find_pw'),
     path('resetpw/<uid64>/<token>',reset_pw,name='reset_pw'),
     path('checkemail/', checkemail, name='check_email'),
+    path('onlyadmin/<option>', only_admin, name='adminpage'),
 ]

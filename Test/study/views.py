@@ -1,8 +1,8 @@
 from datetime import timedelta
 from typing import ContextManager
-from django import http
-from django.http import response
-from django.shortcuts import redirect, render, HttpResponse
+from django.db.models.query import QuerySet
+from django.http import response,HttpResponse
+from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -35,17 +35,40 @@ import json
 
     
 
-def only_admin(request):
+def only_admin(request,option):
     if request.user.is_staff:
-        if request.method == 'POST' :
-            students = Student.objects.filter(name = request.POST['name'])
-            return render(request,'student/admin.html',{'students':students})
-        studetns =Student.objects.all()
-        
 
-        return render(request,'student/admin.html',{'students':studetns})
+        if option == 'all':
+            students =Student.objects.all()
+            return render(request,'admin.html',{'students':students})
+
+        if option == 'today':
+            students = Student.objects.filter(day1 = datetime.date.today())
+            students = students | Student.objects.filter(day2 = datetime.date.today())
+            students = students | Student.objects.filter(day3 = datetime.date.today())
+            students = students | Student.objects.filter(day4 = datetime.date.today())
+            return render(request,'admin.html',{'students':students})
+            
+
+        if option == 'name':
+            if request.method == 'POST' :
+                students = Student.objects.filter(name = request.POST['name'])
+                return render(request,'admin.html',{'students':students})
+
+        if option == 'number':
+            if request.method == 'POST' :
+                students = Student.objects.filter(number = request.POST['number'])
+                return render(request,'admin.html',{'students':students})
+        
     else:
-        return redirect('main')
+        return redirect('login')
+            # studetns =Student.objects.all()
+
+    #         return render(request,'admin.html',{'students':studetns})
+    #     elif option == 'today':
+    #         if request.method 
+    # else:
+    #     return redirect('index')
 
 
 
