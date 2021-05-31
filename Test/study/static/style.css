@@ -3,6 +3,7 @@
 :root {
   --text-color-white: #f0f4f5;
   --accent-color: #ffd511;
+  --more-accent-color: #f98404;
   --text-basic-color: gray;
   --border-color: #e0edee;
 }
@@ -269,7 +270,7 @@ body {
 
 .signup_policy_link {
   font-size: 1rem;
-  color: #f98404;
+  color: var(--more-accent-color);
 }
 
 /*input태그 높이*/
