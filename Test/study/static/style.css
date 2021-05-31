@@ -156,7 +156,7 @@ body {
 /* 아코디언 색 변경 */
 
 .accordion-button:not(.collapsed) {
-  color: #f98404;
+  color: #664d03;
   font-weight: 500;
   background-color: #fffcef;
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
@@ -169,7 +169,7 @@ body {
 
 .accordion-button:not(.collapsed)::after {
   /* 메모: svg color code 변경 시 hex값이 아닌 rgba값으로 적어줘야 함 */
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23f98404'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23664d03'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
   transform: rotate(-180deg);
 }
 
