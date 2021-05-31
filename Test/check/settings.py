@@ -13,6 +13,9 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.contrib.messages import constants as messages
+from django.contrib.messages import constants as messages_constants
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -140,3 +143,12 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER	 # 응답 메일 관련 설정
 
 SESSION_COOKIE_AGE = 1000  #세션 만료 시간
 SESSION_SAVE_EVERY_REQUEST = True #요청시마다 만료시간을 갱신할건지
+
+MESSAGE_LEVEL = messages_constants.DEBUG
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}

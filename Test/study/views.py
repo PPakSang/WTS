@@ -21,6 +21,7 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes,force_text
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib import messages
 
 import json
 # Create your views here.
@@ -107,7 +108,8 @@ def index(request): # 메인 화면
 def enroll(request): # 등록하기 화면
     try:
         Student.objects.get(user_id = request.user.id)
-        return HttpResponse('이미 등록했습니다')
+        messages.warning(request, "이미 등록하셨습니다!")
+        return render(request, 'enroll.html')
     except:
         if request.method == 'POST':
             print(request.POST)
@@ -213,7 +215,8 @@ def change(request): # 변경하기 화면
             student.save()
             return redirect('inquire')
         else:
-            return render(request,'change.html',{'student' : student, 'error':'규정에 따른 날짜를 다시 입력해주세요'})
+            messages.warning(request, "변경 실패!")
+            return render(request,'change.html',{'student' : student})
     return render(request,'change.html',{'student' : student})
     
 
