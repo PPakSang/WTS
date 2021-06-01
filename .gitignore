@@ -144,4 +144,5 @@ migrations/
 
 djangoreview.txt
 
-test
+test.*
+secret.json

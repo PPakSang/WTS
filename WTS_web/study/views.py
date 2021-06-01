@@ -198,7 +198,7 @@ def inquire(request): # 조회하기 화면
         print(base_dates)
 
     except :
-        redirect('enroll')
+        return redirect('enroll')
 
     return render(request,'study/function/inquire.html',
     {'student' : student,'days' : days,'next_day': next_day, 'left_day' : left_day, 'base_dates' : base_dates}
