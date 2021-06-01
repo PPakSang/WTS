@@ -432,11 +432,11 @@ def signup_hw(request): # 회원가입 화면
                     'token' : default_token_generator.make_token(user)
                 })
 
-                act_email = EmailMessage('인증을 위한 메일입니다',message,to=[email])
+                act_email = EmailMessage('[원투스픽] 인증을 위한 메일입니다',message,to=[email])
                 act_email.send()
                 # user = authenticate(username = username , password = password)
                 # auth.login(request,user)
-                return redirect('check_email')
+                return render(request,'study/sign/checkemail.html',{"email" : email})
             else:
                 return render(request,'study/sign/signup.html',{
                     'password_error' : '비밀번호를 다시 확인해주세요', 
@@ -450,6 +450,23 @@ def signup_hw(request): # 회원가입 화면
     else:
         return render(request,'study/sign/signup.html')
 
+
+def re_send(request,email): #이메일 재전송
+    user = User.objects.filter(email = email)[0]
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    token = default_token_generator.make_token(user)
+    current_site = get_current_site(request)
+    message =render_to_string('study/sign/activate.html',{
+        "user" : user,
+        "uid" : uid,
+        "domain" : current_site.domain,
+        "token" : token,
+    })
+    re_email = EmailMessage('[원투스픽] 인증메일 재발송입니다',message,to=[email])
+    re_email.send()
+    return HttpResponse('success')
+
+    
 
 def is_duplicated(request): #ID 중복검사
     username = request.GET['username']

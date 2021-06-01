@@ -29,6 +29,7 @@ urlpatterns = [
     path('user/logout/',logout,name='logout'),
 
     path('user/isduplicated/',is_duplicated,name='is_duplicated'),
+    path('user/resend/<email>',re_send,name='re_send'),
 
     #category
     path('category/inquire/', inquire, name='inquire'),

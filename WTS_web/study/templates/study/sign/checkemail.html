@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <!--부트스트랩 CSS-->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-   <!-- Font Awesome -->
-   <script src="https://kit.fontawesome.com/dbcfa73564.js" crossorigin="anonymous"></script>
-   <!-- Google Fonts: Noto Sans KR -->
-   <link rel="preconnect" href="https://fonts.gstatic.com">
-   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"> {% load static %}
-   <link rel="stylesheet" href="{% static 'style.css' %}">
+    <!-- Jquery Reset -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--부트스트랩 CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/dbcfa73564.js" crossorigin="anonymous"></script>
+    <!-- Google Fonts: Noto Sans KR -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"> {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 
     <title>Document</title>
 </head>
+
 <body>
     <div class="row justify-content-center">
         <div class="mailBox col-md-6 col-lg-5 col-xl-4">
@@ -22,7 +26,7 @@
                 <div class="stick mt-1"></div>
             </div>
             <div class="mailBox_title">
-                <div id="mail_title1"><span id="user_mail">user@naver.com</span>으로 메일이 전송되었습니다</div>
+                <div id="mail_title1"><span id="user_mail">{{email}}</span>으로 메일이 전송되었습니다</div>
                 <div id="mail_title2">메일함에서 인증 메일 확인 부탁드립니다. <br> 인증 링크를 눌러 회원가입을 완료해 주세요.</div>
             </div>
             <div class="mailBox_notice mb-3">
@@ -37,26 +41,34 @@
     </div>
     <script>
         var doubleSubmitFlag = false;
-        function doubleSubmitCheck(){
-            if(doubleSubmitFlag){
+
+        function doubleSubmitCheck() {
+            if (doubleSubmitFlag) {
                 return doubleSubmitFlag;
-            }else{
+            } else {
                 doubleSubmitFlag = true;
                 return false;
             }
         }
 
-        function insert(){
-            if(doubleSubmitCheck()) return;
+        function insert() {
+            if (doubleSubmitCheck()) return;
+            $.ajax({
+                url : "/user/resend/"+$('#user_mail').text()
+            })
+
 
             alert("인증 메일이 재전송 되었습니다.");
         }
 
         var con = document.getElementById("input_resend");
 
-        function removeBtn(){
-            if(doubleSubmitCheck()) { con.style.display = 'none';}
+        function removeBtn() {
+            if (doubleSubmitCheck()) {
+                con.style.display = 'none';
+            }
         }
     </script>
 </body>
+
 </html>
