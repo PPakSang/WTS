@@ -133,7 +133,15 @@ dmypy.json
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
+
+
+# Personal exception
 staticfiles
 .ebextensions
 .elasticbeanstalk
 migrations/
+
+
+djangoreview.txt
+
+test
