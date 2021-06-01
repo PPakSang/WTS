@@ -410,7 +410,8 @@ def signup_hw(request): # 회원가입 화면
             name = form.cleaned_data['name']
 
             if User.objects.filter(username = username).count() != 0 :
-                return render(request,'study/sign/signup.html',{'id_error' : '이미 존재하는 ID 입니다'})
+                
+                return render(request,'study/sign/signup.html',{'form_error' : '양식을 정확히 다시 작성해주세요'})
 
             if password == password2:
                 user = User.objects.create_user(first_name = name,email = email, username = username, password = password)
@@ -432,11 +433,33 @@ def signup_hw(request): # 회원가입 화면
                 # auth.login(request,user)
                 return redirect('index')
             else:
-                return render(request,'study/sign/signup.html',{'password_error' : '비밀번호를 다시 확인해주세요', 'username' : username})
+                return render(request,'study/sign/signup.html',{
+                    'password_error' : '비밀번호를 다시 확인해주세요', 
+                    'username' : username,
+                    'email' : email,
+                    'name' : name,
+                    're' : True}
+                    )
         else:
             return render(request,'study/sign/signup.html',{'form_error' : '양식을 정확히 다시 작성해주세요'})
     else:
         return render(request,'study/sign/signup.html')
+
+
+def is_duplicated(request):
+    username = request.GET['username']
+    if User.objects.filter(username = username).count() != 0 :
+        data ={
+            "is_dp" : False,
+            "message" : "이미 존재하는 ID 입니다"
+        }
+        return HttpResponse(json.dumps(data))
+    else:
+        data ={
+            "is_dp" : True,
+            "message" : "사용가능한 ID 입니다"
+        }
+        return HttpResponse(json.dumps(data))
 
 
 def activate(request,uid64,token):
