@@ -52,13 +52,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}">홈</a>
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page" href="{% url 'index' %}">홈</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'enroll' %}">신청하기</a>
+                        <a class="nav-link {% if request.path == '/category/enroll/' %}active
+                        {% elif request.path == '/category/inquire/' %}active
+                        {% elif request.path == '/category/change/' %}active
+                        {% endif %}" href="{% url 'enroll' %}">신청하기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'faq' %}">문의하기</a>
+                        <a class="nav-link {% if request.path == '/category/faq/' %}active{% endif %}" href="{% url 'faq' %}">문의하기</a>
                     </li>
                     <li class="nav-item">
 
