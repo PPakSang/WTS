@@ -19,26 +19,26 @@
 
 
 <div class="py-2 text-center container">
-    <!-- 변경 실패 에러메시지 -->
-    <div>
-        {% for message in messages %}
-        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-            <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-            </symbol>
-        </svg>
-
-        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
-            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
-                <use xlink:href="#exclamation-triangle-fill"/>
+    <div class="row gx-5 alert-container-parent" id="enroll">
+        <!-- 변경 실패 에러메시지 -->
+        <div class="alert-container">
+            {% for message in messages %}
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                </symbol>
             </svg>
-            <strong>{{ message }}</strong> 양식에 맞게 날짜를 선택해주세요.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        {% endfor %}
-    </div>
 
-    <div class="row gx-5" id="enroll">
+            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                    <use xlink:href="#exclamation-triangle-fill"/>
+                </svg>
+                <strong>{{ message }}</strong> 양식에 맞게 날짜를 선택해주세요.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+
         <!-- 안내사항 -->
         <div class="col py-3">
             <p class="mb-0 mt-3 mt-md-5">숙지해주세요</p>
@@ -56,7 +56,8 @@
 
             <div class="row mb-3">
                 <div class="col">
-                    <button type="button" class="btn btn-dark rounded w-100" style="height: 230px" data-bs-toggle="modal" data-bs-target="#fromModal">
+                    <button type="button" class="btn btn-dark rounded w-100" style="height: 230px"
+                            data-bs-toggle="modal" data-bs-target="#fromModal">
                         <span class="change-btn-icon"><i class="far fa-calendar-alt"></i></span>
                         <span class="row justify-content-center change-btn-content">FROM</span>
                         <span class="row justify-content-center change-btn-content" id="fromDate">선택해주세요.</span>
@@ -64,7 +65,8 @@
                 </div>
 
                 <div class="col">
-                    <button type="button" class="btn btn-dark rounded w-100" style="height: 230px" data-bs-toggle="modal" data-bs-target="#toModal">
+                    <button type="button" class="btn btn-dark rounded w-100" style="height: 230px"
+                            data-bs-toggle="modal" data-bs-target="#toModal">
                         <span class="change-btn-icon"><i class="far fa-calendar-check"></i></span>
                         <span class="row justify-content-center change-btn-content">TO</span>
                         <span class="row justify-content-center change-btn-content" id="toDate">선택해주세요.</span>
@@ -101,7 +103,8 @@
 
 
 <!-- Modal 1: 변경 전 날짜 선택 -->
-<div class="modal fade" id="fromModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="fromModalLabel" aria-hidden="true">
+<div class="modal fade" id="fromModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="fromModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -112,25 +115,29 @@
                 {{student.name}}님의 변경 가능한 스터디 참여일입니다.<br><br>
                 <!-- Radio -->
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="day" id="1" value="{{student.day1|date:'Y-m-d'}}">
+                    <input class="form-check-input" type="radio" name="day" id="1"
+                           value="{{student.day1|date:'Y-m-d'}}">
                     <label class="form-check-label" for="1">
                         {{student.day1|date:"Y-m-d"}}
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="day" id="2" value="{{student.day2|date:'Y-m-d'}}" checked>
+                    <input class="form-check-input" type="radio" name="day" id="2" value="{{student.day2|date:'Y-m-d'}}"
+                           checked>
                     <label class="form-check-label" for="2">
                         {{student.day2|date:"Y-m-d"}}
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="day" id="3" value="{{student.day3|date:'Y-m-d'}}">
+                    <input class="form-check-input" type="radio" name="day" id="3"
+                           value="{{student.day3|date:'Y-m-d'}}">
                     <label class="form-check-label" for="3">
                         {{student.day3|date:"Y-m-d"}}
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="day" id="4" value="{{student.day4|date:'Y-m-d'}}">
+                    <input class="form-check-input" type="radio" name="day" id="4"
+                           value="{{student.day4|date:'Y-m-d'}}">
                     <label class="form-check-label" for="4">
                         {{student.day4|date:"Y-m-d"}}
                     </label>
@@ -146,7 +153,8 @@
 
 
 <!-- Modal 2: 변경 후 날짜 선택 -->
-<div class="modal fade" id="toModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="toModalLabel" aria-hidden="true">
+<div class="modal fade" id="toModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="toModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -196,6 +204,7 @@
 
         }); //datepicker end
     }); //ready end
+
 </script>
 
 
@@ -235,6 +244,7 @@
         element.innerText = text;
         element.style.color = "#119dff";
     }
+
 </script>
 
 {% endblock %}

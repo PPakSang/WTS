@@ -244,7 +244,7 @@ def change(request): # 변경하기 화면
             return redirect('inquire')
         else:
             messages.warning(request, "변경 실패!")
-            return render(request,'study/function/change.html',{'student' : student})
+            return render(request, 'study/function/change.html', {'student': student})
     return render(request,'study/function/change.html',{'student' : student})
 
 

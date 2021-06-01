@@ -16,10 +16,13 @@ body {
   font-family: "Noto Sans KR", sans-serif;
   /* font-weight: 100, 300, 400, 500, 700, 900 */
 }
+.alert-container-parent {
+    position: relative;
+}
 .alert-container {
     position: absolute;
     left: 50%;
-    transform:translate(-50%, -50%);
+    transform:translate(-50%, 0%);
 }
 #topBtn {
   position: fixed;
