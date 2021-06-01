@@ -446,7 +446,7 @@ def signup_hw(request): # 회원가입 화면
         return render(request,'study/sign/signup.html')
 
 
-def is_duplicated(request):
+def is_duplicated(request): #ID 중복검사
     username = request.GET['username']
     if User.objects.filter(username = username).count() != 0 :
         data ={
