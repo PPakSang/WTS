@@ -226,7 +226,10 @@ def inquire(request): # 조회하기 화면
    
 @login_required(login_url='/user/login/')
 def change(request): # 변경하기 화면
-    student = Student.objects.get(user_id = request.user.id)
+    try:
+        student = Student.objects.get(user_id = request.user.id)
+    except:
+        return redirect('enroll')
     if request.method == 'POST':
         student = Student.objects.get(user_id = request.user.id)
 
@@ -246,6 +249,8 @@ def change(request): # 변경하기 화면
             messages.warning(request, "변경 실패!")
             return render(request, 'study/function/change.html', {'student': student})
     return render(request,'study/function/change.html',{'student' : student})
+
+    
 
 
 def faq_view(request): # 자주묻는질문 화면
