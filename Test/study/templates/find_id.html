@@ -25,15 +25,15 @@
         <nav class="navbar navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand fw-bold" href="{% url 'index' %}"><i class="fas fa-cat me-2"></i>원투스픽</a>
-                    <ul class="nav-items">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{% url 'index' %}">홈</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'faq' %}">문의하기</a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="nav-items">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'index' %}">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'faq' %}">문의하기</a>
+                    </li>
+                </ul>
+            </div>
             </div>
         </nav>
 
@@ -53,18 +53,20 @@
                         <div class="row mb-1">
                             <label for="input_name" class="col-sm-2 col-form-label">이름</label>
                             <div class="col-sm-10">
-                            <input class="form-control mb-2" type="text" id="input_name" autocomplete="off" name="name" required>
-                            </div>    
+                                <input class="form-control mb-2" type="text" id="input_name" autocomplete="off" name="name" required>
+                            </div>
                         </div>
                         <div class="row mb-3">
                             <label for="input_email" class="col-sm-2 col-form-label">이메일</label>
                             <div class="col-sm-10">
-                            <input class="form-control mb-2" type="email" id="input_eamil" autocomplete="off" name="email" required> {{error}} {% if username %} {{username}}
+                                <input class="form-control mb-2" type="email" id="input_eamil" autocomplete="off" name="email" required>
                             </div>
                         </div>
-                        <p><a class="login_find" id="goto_login" href="{% url 'login' %}">로그인하러가기</a></p>{% endif %}
+
                         <button class="btn mb-4 w-100 btn-warning" type="submit">ID찾기</button>
                     </form>
+                    {{error}} {% if username %} {{username}}
+                    <p><a class="login_find" id="goto_login" href="{% url 'login' %}">로그인하러가기</a></p>{% endif %}
                 </div>
                 <a class="login_find" href="{% url 'find_pw' %}">비밀번호 찾기</a>
                 <div class="mt-4 pb-2">
