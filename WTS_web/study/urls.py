@@ -1,4 +1,5 @@
 from collections import namedtuple
+from os import name
 from django.contrib.auth.models import AnonymousUser
 from django.urls import path
 from django.utils.timezone import activate
@@ -26,6 +27,8 @@ urlpatterns = [
     path('user/checkemail/', checkemail, name='check_email'),
     path('user/activate/<uid64>/<token>',activate,name='activate'),
     path('user/logout/',logout,name='logout'),
+
+    path('user/isduplicated/',is_duplicated,name='is_duplicated'),
 
     #category
     path('category/inquire/', inquire, name='inquire'),
