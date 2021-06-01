@@ -244,7 +244,7 @@ def change(request): # 변경하기 화면
             return redirect('inquire')
         else:
             messages.warning(request, "변경 실패!")
-            return render(request,'study/function/change.html',{'student' : student})
+            return render(request, 'study/function/change.html', {'student': student})
     return render(request,'study/function/change.html',{'student' : student})
 
 
@@ -431,7 +431,7 @@ def signup_hw(request): # 회원가입 화면
                 act_email.send()
                 # user = authenticate(username = username , password = password)
                 # auth.login(request,user)
-                return redirect('index')
+                return redirect('check_email')
             else:
                 return render(request,'study/sign/signup.html',{
                     'password_error' : '비밀번호를 다시 확인해주세요', 
