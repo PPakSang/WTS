@@ -16,14 +16,24 @@ from pathlib import Path
 from django.contrib.messages import constants as messages
 from django.contrib.messages import constants as messages_constants
 
+
+import json
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
+secret_file = os.path.join(BASE_DIR, "secret.json") #BASE_DIR 경로 + secret.json
+
+with open(secret_file) as f:
+    secret = json.load(f)
+
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-goh7v4ed=5i!)gn2ffx7wk_m@zir5a0nmtue1^3*3qvopb7or0'
+SECRET_KEY = secret['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -136,7 +146,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_HOST = 'smtp.gmail.com' 		 # 메일 호스트 서버
 EMAIL_PORT = '587' 			 # 서버 포트
 EMAIL_HOST_USER = 'a01072265378@gmail.com' 	 # 우리가 사용할 Gmail
-EMAIL_HOST_PASSWORD = 'kangkh418'		 # 우리가 사용할 Gmail password
+EMAIL_HOST_PASSWORD = secret['EMAIL_HOST_PASSWORD']		 # 우리가 사용할 Gmail password
 EMAIL_USE_TLS = True			 # TLS 보안 설정
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER	 # 응답 메일 관련 설정
 
