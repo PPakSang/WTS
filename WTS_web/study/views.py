@@ -136,7 +136,7 @@ def index(request): # 메인 화면
 def enroll(request): # 등록하기 화면
     try:
         Student.objects.get(user_id = request.user.id)
-        messages.warning(request, "이미 등록하셨습니다!")
+        messages.error(request, "이미 등록하셨습니다!")
         return render(request, 'study/function/enroll.html')
     except:
         if request.method == 'POST':
@@ -246,7 +246,7 @@ def change(request): # 변경하기 화면
             student.save()
             return redirect('inquire')
         else:
-            messages.warning(request, "변경 실패!")
+            messages.error(request, "변경 실패!")
             return render(request, 'study/function/change.html', {'student': student})
     return render(request,'study/function/change.html',{'student' : student})
 
@@ -306,7 +306,7 @@ def login_hw(request): # 로그인 화면
                 auth.login(request,user)
                 return redirect('index')
 
-            messages.warning(request, "다시 입력해주세요!")
+            messages.error(request, "다시 입력해주세요!")
             return render(request,'study/sign/login.html')
        
     else:
