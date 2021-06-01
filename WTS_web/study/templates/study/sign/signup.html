@@ -47,7 +47,8 @@
 
                     <div class="mb-2">
                         <label for="passwordInput_check" class="form-label">비밀번호 확인</label>
-                        <input type="password" class="form-control" autocomplete='off' name="password2" id="passwordInput_check"> {{password_error}}
+                        <input type="password" class="form-control" autocomplete='off' name="password2" id="passwordInput_check"> 
+                        <div class="error" id="pw_error">{{password_error}} </div>
                     </div>
                     <div class="mb-2">
                         <label for="nameInput" class="form-label">이름</label>
