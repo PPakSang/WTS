@@ -198,7 +198,7 @@ def inquire(request): # 조회하기 화면
         print(base_dates)
 
     except :
-        redirect('enroll')
+        return redirect('enroll')
 
     return render(request,'study/function/inquire.html',
     {'student' : student,'days' : days,'next_day': next_day, 'left_day' : left_day, 'base_dates' : base_dates}
@@ -300,8 +300,9 @@ def login_hw(request): # 로그인 화면
             if user is not None :
                 auth.login(request,user)
                 return redirect('index')
-           
-            return render(request,'study/sign/login.html',{'error':'아이디 혹은 비밀번호가 틀렸습니다'})    
+
+            messages.warning(request, "다시 입력해주세요!")
+            return render(request,'study/sign/login.html')
        
     else:
         return render(request,'study/sign/login.html')
