@@ -267,8 +267,17 @@ body {
   text-decoration: none;
 }
 
-#pw_error {
+#pw_error,
+#id_dup {
+  font-size: 0.9rem;
   color: #e74c3c;
+}
+
+#id_dup_btn {
+  font-size: 000.95rem;
+  border-style: solid;
+  border-color: lightgray;
+  /*background-color: lightgray;*/
 }
 
 /*정책 링크*/
