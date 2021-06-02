@@ -425,7 +425,7 @@ def signup_hw(request): # 회원가입 화면
                     'name' : name,
                     're' : True}
                     )
-            if password == password2:
+            if password == password2 and len(password) >=4:
                 user = User.objects.create_user(first_name = name,email = email, username = username, password = password)
                 user.is_active = False
                 user.save()
@@ -446,7 +446,7 @@ def signup_hw(request): # 회원가입 화면
                 return render(request,'study/sign/checkemail.html',{"email" : email})
             else:
                 return render(request,'study/sign/signup.html',{
-                    'password_error' : '비밀번호를 다시 확인해주세요', 
+                    'password_error' : '비밀번호를 다시 확인해주세요 (4자이상)', 
                     'username' : username,
                     'email' : email,
                     'name' : name,
@@ -473,7 +473,17 @@ def re_send(request,email): #이메일 재전송
     re_email.send()
     return HttpResponse('success')
 
+def validate_username(username): #ID 유효성검사
+    validate_list = [
+        lambda u : len(u)>=5,
+        lambda u : len(u)<20,
+        lambda u : any(l.islower() for l in u), #소문자 필수
+        lambda u : all(l.islower() or l.isdigit() or l =='_' for l in u)] #영소문자, 숫자, 언더바만 아이디로 사용가능
     
+    for validator in validate_list :
+        if not validator(username):
+            return True
+
 
 def is_duplicated(request): #ID 중복검사
     username = request.GET['username']
@@ -481,6 +491,12 @@ def is_duplicated(request): #ID 중복검사
         data ={
             "is_dp" : False,
             "message" : "이미 존재하는 ID 입니다"
+        }
+        return HttpResponse(json.dumps(data))
+    elif validate_username(username) :
+        data ={
+            "is_dp" : False,
+            "message" : "5자 이상, 영소문자, 숫자, '_' 조합으로만 가능합니다"
         }
         return HttpResponse(json.dumps(data))
     else:
