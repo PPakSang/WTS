@@ -136,7 +136,6 @@ dmypy.json
 
 
 # Personal exception
-staticfiles
 .ebextensions
 .elasticbeanstalk
 migrations/
