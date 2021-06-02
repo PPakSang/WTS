@@ -152,6 +152,12 @@ body {
   height: 2em;
 }
 
+#enrollTime {
+    display: none;
+}
+#changeTime {
+    display: none;
+}
 .change-btn-icon {
   font-size: 3em;
   color: var(--text-color-white);
