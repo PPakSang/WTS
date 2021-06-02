@@ -17,12 +17,12 @@ body {
   /* font-weight: 100, 300, 400, 500, 700, 900 */
 }
 .alert-container-parent {
-    position: relative;
+  position: relative;
 }
 .alert-container {
-    position: absolute;
-    left: 50%;
-    transform:translate(-50%, 0%);
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
 }
 #topBtn {
   position: fixed;
@@ -265,6 +265,10 @@ body {
 .signup_title a {
   color: #000;
   text-decoration: none;
+}
+
+#pw_error {
+  color: #e74c3c;
 }
 
 /*정책 링크*/

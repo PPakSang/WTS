@@ -75,7 +75,7 @@
             </div>
 
             <div class="row gx-0 mt-4">
-                <form action="" method="POST">
+                <form action="" method="POST" autocomplete="off">
                     {% csrf_token %}
                     <!-- POST 정보 넘기기 위함 -->
                     <input type="text" id="request_day" name="day" class="day" style="display: none;">
@@ -163,7 +163,7 @@
             </div>
             <div class="modal-body">
                 <label for="toDatePicker" class="form-label fw-bold">날짜 선택</label>
-                <input type="text" name="changeDay" class="form-control" id="toDatePicker" placeholder="연도-월-일">
+                <input type="text" name="changeDay" class="form-control" id="toDatePicker" placeholder="연도-월-일" autocomplete="off">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
