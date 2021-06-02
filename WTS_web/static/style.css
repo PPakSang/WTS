@@ -274,6 +274,10 @@ body {
   text-decoration: none;
 }
 
+#form_error {
+  color: #e74c3c;
+}
+
 #pw_error,
 #id_dup,
 #email_error {
