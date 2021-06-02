@@ -30,7 +30,7 @@ class Student(models.Model):
     
     changed_day = models.DateField(default=datetime.date.today(),verbose_name='등록하기 한날')
     
-    user_id = models.IntegerField(default=0, unique=True)
+    user_id = models.IntegerField(default=0)
 
 
 

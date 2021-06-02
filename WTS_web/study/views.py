@@ -436,7 +436,7 @@ def signup_hw(request): # 회원가입 화면
                     )
             if validate_password(password):
                 return render(request,'study/sign/signup.html',{
-                    'password_error' : '4자이상, 영대소문자, 특수문자 조합으로만 가능합니다', 
+                    'password_error' : '4자이상, 영대소문자, 숫자, 특수문자 조합으로만 가능합니다', 
                     'username' : username,
                     'email' : email,
                     'name' : name,
