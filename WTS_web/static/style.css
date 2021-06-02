@@ -275,7 +275,8 @@ body {
 }
 
 #pw_error,
-#id_dup {
+#id_dup,
+#email_error {
   font-size: 0.9rem;
   color: #e74c3c;
 }
