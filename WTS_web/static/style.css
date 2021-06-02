@@ -152,6 +152,12 @@ body {
   height: 2em;
 }
 
+#enrollTime {
+    display: none;
+}
+#changeTime {
+    display: none;
+}
 .change-btn-icon {
   font-size: 3em;
   color: var(--text-color-white);
@@ -272,6 +278,10 @@ body {
 .signup_title a {
   color: #000;
   text-decoration: none;
+}
+
+#form_error {
+  color: #e74c3c;
 }
 
 #pw_error,

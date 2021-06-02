@@ -70,17 +70,9 @@
                         </select>
                     </div>
                     <div class="mb-3 text-start">
-                        <label for="formDay" class="form-label fw-bold">평일/주말</label>
-                        <select name="time" id="formDay" class="form-select">
-                            <option selected>선택해주세요.</option>
-                            <option value="1">평일</option>
-                            <option value="2">주말 오후 1시</option>
-                            <option value="3">주말 오후 4시</option>
-                        </select>
-                    </div>
-                    <div class="mb-3 text-start">
                         <label for="formDate" class="form-label fw-bold">첫 번째 참여일</label>
-                        <input type="text" name="day1" class="form-control" id="formDate" placeholder="연도-월-일">
+                        <input type="text" name="day1" class="form-control" id="formDate" placeholder="연도-월-일"
+                                onchange="showTimeInput()">
                         <script>
                             $(function() {
                                 $('#formDate').datepicker({
@@ -111,7 +103,31 @@
                                 }); //datepicker end
                             }); //ready end
 
+
+                            // 주말 선택 시 '시간' 폼 등장
+                            function showTimeInput() {
+                                var date = document.getElementById('formDate').value; // 날짜
+                                var day = new Date(date).getDay(); // 요일 (0:일요일 ~ 6:토요일)
+
+                                if(day == 0 || day == 6) { // 주말이면 시간 입력 폼 보여주기
+                                  var target = document.getElementById('enrollTime');
+                                  target.style.display = "block";
+                                }
+
+                                else { // 평일이면 시간 입력 폼 사라짐
+                                  var target = document.getElementById('enrollTime');
+                                  target.style.display = "none";
+                                }
+                            }
                         </script>
+                    </div>
+                    <div class="mb-3 text-start" id="enrollTime">
+                        <label for="formDay" class="form-label fw-bold">시간</label>
+                        <select name="time" id="formDay" class="form-select">
+                            <option selected>선택해주세요.</option>
+                            <option value="1">오후 1시</option>
+                            <option value="2">오후 4시</option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-dark px-5">등록</button>
                 </div>
