@@ -147,13 +147,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_HOST = 'smtp.gmail.com' 		 # 메일 호스트 서버
 EMAIL_PORT = '587' 			 # 서버 포트
-<<<<<<< HEAD
-EMAIL_HOST_USER = 'qorgp13@gmail.com' 	 # 우리가 사용할 Gmail
-EMAIL_HOST_PASSWORD = 'dnjsghkdurh33'		 # 우리가 사용할 Gmail password
-=======
 EMAIL_HOST_USER = 'trapped.in.mask@gmail.com' 	 # 우리가 사용할 Gmail
 EMAIL_HOST_PASSWORD = secret['EMAIL_HOST_PASSWORD']		 # 우리가 사용할 Gmail password
->>>>>>> c123e195dd01d96d1832d5cb0a691f2a8b3b67d8
 EMAIL_USE_TLS = True			 # TLS 보안 설정
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER	 # 응답 메일 관련 설정
 
