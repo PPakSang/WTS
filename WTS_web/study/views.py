@@ -400,7 +400,16 @@ def logout(request): #로그아웃
     auth.logout(request)
     return redirect('index')
 
-
+def validate_password(password): #password 유효성검사
+    validate_list = [
+        lambda p : len(p)>= 4,
+        lambda p : len(p)<=20,
+        lambda p : all(x.islower() or x.isupper() or (x in ['!', '@', '#', '$', '%', '^', '&', '*', '_']) or x.isdigit() for x in p),
+        lambda p : any(x.islower() for x in p)
+    ]
+    for validator in validate_list:
+        if not validator(password):
+            return True
 
 
 def signup_hw(request): # 회원가입 화면
@@ -425,7 +434,15 @@ def signup_hw(request): # 회원가입 화면
                     'name' : name,
                     're' : True}
                     )
-            if password == password2 and len(password) >=4:
+            if validate_password(password):
+                return render(request,'study/sign/signup.html',{
+                    'password_error' : '4자이상, 영대소문자, 특수문자 조합으로만 가능합니다', 
+                    'username' : username,
+                    'email' : email,
+                    'name' : name,
+                    're' : True}
+                    )
+            if password == password2 :
                 user = User.objects.create_user(first_name = name,email = email, username = username, password = password)
                 user.is_active = False
                 user.save()
@@ -446,7 +463,7 @@ def signup_hw(request): # 회원가입 화면
                 return render(request,'study/sign/checkemail.html',{"email" : email})
             else:
                 return render(request,'study/sign/signup.html',{
-                    'password_error' : '비밀번호를 다시 확인해주세요 (4자이상)', 
+                    'password_error' : '비밀번호를 다시 확인해주세요 ', 
                     'username' : username,
                     'email' : email,
                     'name' : name,
@@ -473,6 +490,8 @@ def re_send(request,email): #이메일 재전송
     re_email.send()
     return HttpResponse('success')
 
+
+
 def validate_username(username): #ID 유효성검사
     validate_list = [
         lambda u : len(u)>=5,
@@ -483,6 +502,7 @@ def validate_username(username): #ID 유효성검사
     for validator in validate_list :
         if not validator(username):
             return True
+
 
 
 def is_duplicated(request): #ID 중복검사
