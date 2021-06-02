@@ -16,6 +16,13 @@ body {
   font-family: "Noto Sans KR", sans-serif;
   /* font-weight: 100, 300, 400, 500, 700, 900 */
 }
+
+/*네비바 원투스픽 로고*/
+.logo_wts {
+  width: 3rem;
+  height: 3rem;
+}
+
 .alert-container-parent {
   position: relative;
 }
