@@ -275,7 +275,8 @@ body {
 }
 
 #pw_error,
-#id_dup {
+#id_dup,
+#email_error {
   font-size: 0.9rem;
   color: #e74c3c;
 }
@@ -308,6 +309,7 @@ body {
 #emailInput,
 #nameInput {
   height: 40px;
+  font-size: 0.9rem;
 }
 
 /*회원가입 입력폼 */
