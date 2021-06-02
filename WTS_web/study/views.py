@@ -151,7 +151,7 @@ def enroll(request): # 등록하기 화면
                 form.name = request.user.first_name
                 form.save()
 
-                return redirect('index')
+                return redirect('detail')
         return render(request, 'study/function/enroll.html')
 
 
@@ -414,10 +414,17 @@ def signup_hw(request): # 회원가입 화면
             email = form.cleaned_data['email']
             name = form.cleaned_data['name']
 
-            if User.objects.filter(username = username).count() != 0 :
-                
+            if User.objects.filter(username = username).count() != 0 : #ID 중복시
                 return render(request,'study/sign/signup.html',{'form_error' : '양식을 정확히 다시 작성해주세요'})
-
+           
+            if User.objects.filter(email = email).count() != 0 : #이메일 중복 시
+                return render(request,'study/sign/signup.html',{
+                    'email_error' : '중복된 이메일입니다', 
+                    'username' : username,
+                    'email' : email,
+                    'name' : name,
+                    're' : True}
+                    )
             if password == password2:
                 user = User.objects.create_user(first_name = name,email = email, username = username, password = password)
                 user.is_active = False
