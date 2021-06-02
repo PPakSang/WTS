@@ -308,6 +308,7 @@ body {
 #emailInput,
 #nameInput {
   height: 40px;
+  font-size: 0.9rem;
 }
 
 /*회원가입 입력폼 */

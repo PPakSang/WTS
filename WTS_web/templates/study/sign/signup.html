@@ -36,10 +36,10 @@
                     {% csrf_token %}
                     <div class="mb-2">
                         <label for="idInput" class="form-label align-middle">아이디</label>
-                        <input type="text" class="form-control" value="{{username}}" name="username" id="idInput">
+                        <input type="text" class="form-control" value="{{username}}" autocomplete="off" name="username" id="idInput">
                         <div class="mt-2">
                             <span class="btn btn-light p-2 py-1 is_dp" id="id_dup_btn" onclick="is_duplicated()">중복체크</span>
-                            <span class="is_duplicated ms-1 pt-5 align-self-center" id="id_dup"></span>
+                            <div class="is_duplicated ms-1 pt-1 align-self-center" id="id_dup"></div>
                         </div>
                     </div>
                     <div class="mb-2">
@@ -54,7 +54,7 @@
                     </div>
                     <div class="mb-2">
                         <label for="nameInput" class="form-label">이름(한글)</label>
-                        <input type="text" name="name" class="form-control" value="{{name}}" autocomplete='off' id="nameInput">
+                        <input type="text" name="name" class="form-control" value="{{name}}" autocomplete='off' placeholder="4자 이하로 입력해주세요." id="nameInput">
                     </div>
                     <div class="mb-3">
                         <label for="emailInput" class="form-label">이메일 인증</label>
