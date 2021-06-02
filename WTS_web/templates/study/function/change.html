@@ -163,7 +163,17 @@
             </div>
             <div class="modal-body">
                 <label for="toDatePicker" class="form-label fw-bold">날짜 선택</label>
-                <input type="text" name="changeDay" class="form-control" id="toDatePicker" placeholder="연도-월-일" autocomplete="off">
+                <input type="text" name="changeDay" class="form-control" id="toDatePicker" placeholder="연도-월-일"
+                       autocomplete="off" onchange="showTimeInput()">
+
+                <div id="changeTime" class="mt-3">
+                    <label for="toTimePicker" class="form-label fw-bold">시간</label>
+                    <select name="time" id="toTimePicker" class="form-select">
+                        <option selected>선택해주세요.</option>
+                        <option value="1">오후 1시</option>
+                        <option value="2">오후 4시</option>
+                    </select>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
@@ -205,6 +215,23 @@
         }); //datepicker end
     }); //ready end
 
+
+    // 주말 선택 시 '시간' 입력받는 폼 등장
+    function showTimeInput() {
+        var date = document.getElementById('toDatePicker').value; // 날짜
+        var day = new Date(date).getDay(); // 요일 (0:일요일 ~ 6:토요일)
+
+        if(day == 0 || day == 6) { // 주말이면 시간 입력 폼 보여주기
+            var target = document.getElementById('changeTime');
+            target.style.display = "block";
+        }
+
+        else { // 평일이면 시간 입력 폼 사라짐
+            var target = document.getElementById('changeTime');
+            target.style.display = "none";
+        }
+    }
+
 </script>
 
 
@@ -244,6 +271,8 @@
         element.innerText = text;
         element.style.color = "#119dff";
     }
+
+
 
 </script>
 
