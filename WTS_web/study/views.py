@@ -65,13 +65,14 @@ def only_admin(request,option):
 
 
 def admin_detail(request,user_id):
-    student = Student.objects.get(user_id = user_id)
+    student = Student.objects.get(pk = user_id)
     print(student)
     return render(request,'study/admin_detail.html',{"student" : student})
 
 def check_in(request,user_id):
-    student = Student.objects.get(user_id = user_id)
+    student = Student.objects.get(pk = user_id)
     student.check_in = str(student.check_in) + str(datetime.date.today())+'/'
+    print()
     student.save()
     return redirect('adminpage','today')
 

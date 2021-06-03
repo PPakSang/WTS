@@ -18,7 +18,8 @@
             <td>{{student.day2|date:'Y-m-d'}}</td>
             <td>{{student.day3|date:'Y-m-d'}}</td>
             <td>{{student.day4|date:'Y-m-d'}}</td>
-            <td><a href="{ % url 'reset_student' student.user_id%}">재등록</a></td>
+            <td><a href="{ % url 'reset_student' student.pk%}">재등록</a></td>
+            <td></td>
         </tr>
     </tbody>
 </table>
