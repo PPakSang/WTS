@@ -283,20 +283,19 @@ def change(request): # 변경하기 화면
         student = Student.objects.get(user_id = request.user.id)
         try:
             i = int(request.POST['i']) #몇주차 변경하는지
+            if  getattr(student,f'day{i}')<= datetime.date.today(): #당일변경 막기
+                messages.error(request, "변경 실패!")
+                return render(request, 'study/function/change.html', {'student': student})
             date = datetime.date.fromisoformat(request.POST['day'])
             today = datetime.date.today()
         except:
             messages.error(request, "변경 실패!")
             return render(request, 'study/function/change.html', {'student': student})
-        
-
         base_date = student.base_date #기준 주차 첫 참여일
         first_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-1) #해당 주차의 첫째주
         last_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-7)
-        if request.POST['time'] == '0':
-            pass
-        else:
-            student.time = request.POST['time']
+        
+
         if (date - today).days >= 2 and first_date <= date <= last_date: #2일 뒤부터 and 그 주의 첫날과 마지막날 사이여야함
             setattr(student,f'day{i}',request.POST['day'])
             setattr(student,f'time{i}',request.POST['time'])
