@@ -26,14 +26,16 @@ class Student(models.Model):
     day2 = models.DateField(default=datetime.date.today(),verbose_name='두번째 참여일')
     day3 = models.DateField(default=datetime.date.today(),verbose_name='세번째 참여일')
     day4 = models.DateField(default=datetime.date.today(),verbose_name='네번째 참여일')
-    plus_day = models.DateField(default=datetime.date.today(),verbose_name='보너스 참여일')
+    plus_day = models.DateField(null=True,verbose_name='보너스 참여일')
     
     changed_day = models.DateField(default=datetime.date.today(),verbose_name='등록하기 한날')
     
     user_id = models.IntegerField(default=0)
 
 
-
+    check_in = models.TextField(null=True, verbose_name="출석체크")
+    comment = models.TextField(null=True, verbose_name="참고사항")
+    
     def __str__(self) -> str:
         return self.name + f'({self.number[3:]})'
 
