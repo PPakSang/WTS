@@ -142,18 +142,41 @@ def get_days(student): #변경한 날짜
 
 #function_view
 
+def get_left_day(student):
+    days = get_days(student)
+    left_day = 4
+    for i in days :
+        if (i - datetime.date.today()).days>=0:
+            break
+        left_day -= 1
+    return left_day
+
+
 def index(request): # 메인 화면
-    
-    return render(request, 'study/main/index.html')
+    try:
+        student = Student.objects.get(user_id = request.user.pk)
+        left_day = get_left_day(student)
+        if left_day !=0 :
+            return render(request, 'study/main/index.html',{"enroll" : "재등록하기"})
+        else : 
+            return render(request, 'study/main/index.html',{"enroll" : "등록하기"})
+    except:
+        return render(request, 'study/main/index.html',{"enroll" : "등록하기"})
 
 
 
 @login_required(login_url='/user/login/')
 def enroll(request): # 등록하기 화면
     try:
-        Student.objects.get(user_id = request.user.id)
-        messages.error(request, "이미 등록하셨습니다!")
-        return render(request, 'study/function/enroll.html')
+        student = Student.objects.get(user_id = request.user.id)
+        left_day = get_left_day(student)
+        if left_day != 0 : #아직 남았다면
+            messages.error(request, "이미 등록하셨습니다!")
+            return render(request, 'study/function/enroll.html')
+        else:
+            student.user_id = 0
+            student.save()
+            return render(request, 'study/function/enroll.html')
     except:
         if request.method == 'POST':
             print(request.POST)
@@ -206,6 +229,7 @@ def inquire(request): # 조회하기 화면
         days =get_days(student)
         left_day = 4
         day = 1
+        next_day = None
         for i in days :
             if (i - datetime.date.today()).days>=0:
                 next_day = i
@@ -216,10 +240,10 @@ def inquire(request): # 조회하기 화면
         if next_day == None:
             next_time = '추가등록이 필요합니다'
             next_day = '추가등록이 필요합니다'
+        else:
+            times = ['평일','주말1시','주말4시']
+            next_time = times[int(next_time)]
         base_dates = get_basedates(student)
-
-        times = ['평일','주말1시','주말4시']
-        print(times[int(next_time)])
     except Exception as e :
         print(e)
         return redirect('enroll')
@@ -230,7 +254,7 @@ def inquire(request): # 조회하기 화면
     'next_day': next_day,
     'left_day' : left_day,
     'base_dates' : base_dates,
-    'next_time' : times[int(next_time)]}
+    'next_time' : next_time}
     )   
 
 
