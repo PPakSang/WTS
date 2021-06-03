@@ -128,6 +128,7 @@
                             function showTimeInput() {
                                 var date = document.getElementById('formDate').value; // 날짜
                                 var day = new Date(date).getDay(); // 요일 (0:일요일 ~ 6:토요일)
+                                check_value()
 
                                 if(day == 0 || day == 6) { // 주말이면 시간 입력 폼 보여주기
                                     date_add_disabled()
@@ -145,7 +146,7 @@
                     </div>
                     <div class="mb-3 text-start" id="enrollTime">
                         <label for="formDay" class="form-label fw-bold">시간</label>
-                        <select name="time" id="formDay" class="form-select" onchange="check_value()">
+                        <select name="time1" id="formDay" class="form-select" onchange="check_value()">
                             <option value="0" selected>선택해주세요.</option>
                             <option value="1">오후 1시</option>
                             <option value="2">오후 4시</option>

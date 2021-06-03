@@ -27,6 +27,7 @@
     <tbody>
         {% for student in students%}
         <tr>
+            <td><a href="{% url 'check_in' student.user_id %}">출석체크</a></td>
             <td>{{student.name}} <a href="{% url 'admin_detail' student.user_id %}">자세히 보기</a></td>
             <td>{{student.number}}</td>
         </tr>

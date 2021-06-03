@@ -69,6 +69,15 @@ def admin_detail(request,user_id):
     print(student)
     return render(request,'study/admin_detail.html',{"student" : student})
 
+def check_in(request,user_id):
+    student = Student.objects.get(user_id = user_id)
+    student.check_in = str(student.check_in) + str(datetime.date.today())+'/'
+    student.save()
+    return redirect('adminpage','today')
+
+
+
+
             # studetns =Student.objects.all()
 
     #         return render(request,'admin.html',{'students':studetns})
@@ -153,6 +162,8 @@ def enroll(request): # 등록하기 화면
                 form = form.save(commit = False)
                 for i in range(2,5):
                     setattr(form,f'day{i}',form.day1 + timedelta(weeks=i-1))
+                for i in range(2,5):
+                    setattr(form,f'time{i}',form.time1)
                 form.base_date = form.day1
                 form.user_id = request.user.id
                 form.name = request.user.first_name
@@ -193,22 +204,33 @@ def inquire(request): # 조회하기 화면
     try:
         student = Student.objects.get(user_id = request.user.id)
         days =get_days(student)
-        left_day = 4 
+        left_day = 4
+        day = 1
         for i in days :
             if (i - datetime.date.today()).days>=0:
                 next_day = i
+                next_time = getattr(student,f'time{day}')
                 break
+            day += 1
             left_day -= 1
         if next_day == None:
+            next_time = '추가등록이 필요합니다'
             next_day = '추가등록이 필요합니다'
         base_dates = get_basedates(student)
-        print(base_dates)
 
-    except :
+        times = ['평일','주말1시','주말4시']
+        print(times[int(next_time)])
+    except Exception as e :
+        print(e)
         return redirect('enroll')
 
     return render(request,'study/function/inquire.html',
-    {'student' : student,'days' : days,'next_day': next_day, 'left_day' : left_day, 'base_dates' : base_dates}
+    {'student' : student,
+    'days' : days,
+    'next_day': next_day,
+    'left_day' : left_day,
+    'base_dates' : base_dates,
+    'next_time' : times[int(next_time)]}
     )   
 
 
@@ -254,6 +276,7 @@ def change(request): # 변경하기 화면
             student.time = request.POST['time']
         if (date - today).days >= 2 and first_date <= date <= last_date: #2일 뒤부터 and 그 주의 첫날과 마지막날 사이여야함
             setattr(student,f'day{i}',request.POST['day'])
+            setattr(student,f'time{i}',request.POST['time'])
             student.save()
             return redirect('inquire')
         else:

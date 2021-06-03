@@ -17,8 +17,13 @@ class Student(models.Model):
     
     level_status = (('1','왕초급'),('2','초급'),('3','중급'))
     level = models.CharField(max_length=1,choices=level_status,blank=True)
+
     time_status = (('0','평일'),('1','주말1시'),('2','주말4시'))
-    time = models.CharField(max_length=1,default='1',choices=time_status,blank=True)
+    
+    time1 = models.CharField(max_length=1,default='0',choices=time_status,blank=True, verbose_name='첫번째 참여시간')
+    time2 = models.CharField(max_length=1,default='0',choices=time_status,blank=True, verbose_name='두번째 참여시간')
+    time3 = models.CharField(max_length=1,default='0',choices=time_status,blank=True, verbose_name='세번째 참여시간')
+    time4 = models.CharField(max_length=1,default='0',choices=time_status,blank=True, verbose_name='네번째 참여시간')
     
     base_date = models.DateField(default=datetime.date.today(),verbose_name='기준 주차')
     
@@ -29,6 +34,7 @@ class Student(models.Model):
     plus_day = models.DateField(null=True,verbose_name='보너스 참여일')
     
     changed_day = models.DateField(default=datetime.date.today(),verbose_name='등록하기 한날')
+
     
     user_id = models.IntegerField(default=0)
 
