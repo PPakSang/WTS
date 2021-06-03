@@ -58,7 +58,8 @@
                         <a class="nav-link {% if request.path == '/category/enroll/' %}active
                         {% elif request.path == '/category/inquire/' %}active
                         {% elif request.path == '/category/change/' %}active
-                        {% endif %}" href="{% url 'enroll' %}">신청하기</a>
+                        {% endif %}" href="{% url 'enroll' %}"
+                        {%if is_zero%} data-bs-toggle="modal" data-bs-target="#reModal" {% endif %}>신청하기</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/category/faq/' %}active{% endif %}" href="{% url 'faq' %}">문의하기</a>
@@ -122,7 +123,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>• <strong>홍길동</strong>님의 잔여 스터디 횟수: 0회 (스터디 재등록 가능)</p>
+                <p>• <strong>{{user.first_name}}</strong>님의 잔여 스터디 횟수: 0회 (스터디 재등록 가능)</p>
                 <p>• 재등록 진행 시 <u style="color: #BB2020">이전 스터디 참여 기록은 조회하실 수 없습니다.</u></p>
                 <p>• 확인을 누르시면 재등록을 진행합니다.</p>
             </div>
