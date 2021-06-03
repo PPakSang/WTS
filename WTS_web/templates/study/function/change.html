@@ -80,6 +80,7 @@
                     <!-- POST 정보 넘기기 위함 -->
                     <input type="text" id="request_day" name="day" class="day" style="display: none;">
                     <input type="text" id="request_week" name="i" class="i" style="display: none;">
+                    <input type="text" id="request_time" name="time" value="0" style="display: none;">
                     <button type="submit" class="btn btn-dark change-btn-content w-100">변경하기</button>
                 </form>
             </div>
@@ -168,16 +169,16 @@
 
                 <div id="changeTime" class="mt-3">
                     <label for="toTimePicker" class="form-label fw-bold">시간</label>
-                    <select name="time" id="toTimePicker" class="form-select">
-                        <option selected>선택해주세요.</option>
-                        <option value="1">오후 1시</option>
-                        <option value="2">오후 4시</option>
+                    <select name="time" id="toTimePicker" class="form-select" onchange="is_date()">
+                        <option value="0" selected >선택해주세요.</option>
+                        <option value="1" >오후 1시</option>
+                        <option value="2" >오후 4시</option>
                     </select>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-dark" data-bs-dismiss="modal" onclick="toDate()">선택하기</button>
+                <button type="button" id="date_ch" class="btn btn-dark" data-bs-dismiss="modal" onclick="toDate()">선택하기</button>
             </div>
         </div>
     </div>
@@ -217,12 +218,28 @@
 
 
     // 주말 선택 시 '시간' 입력받는 폼 등장
+    function date_add_disabled(){
+        $('#date_ch').addClass('disabled')
+    }
+    function date_remove_disabled(){
+        $('#date_ch').removeClass('disabled')
+    }
+    function is_date(){
+        if ($('#toTimePicker option:selected')[0].value == "0"){
+            date_add_disabled()
+        }
+        else{
+            date_remove_disabled()
+        }
+    }
+
     function showTimeInput() {
         var date = document.getElementById('toDatePicker').value; // 날짜
         var day = new Date(date).getDay(); // 요일 (0:일요일 ~ 6:토요일)
 
         if(day == 0 || day == 6) { // 주말이면 시간 입력 폼 보여주기
             var target = document.getElementById('changeTime');
+            date_add_disabled()
             target.style.display = "block";
         }
 
@@ -265,8 +282,11 @@
     function toDate() {
         var element = document.getElementById("toDate");
         var text = document.getElementById("toDatePicker").value;
-        var day = document.getElementById('request_day')
-        day.setAttribute('value', text)
+        var day = document.getElementById('request_day');
+        var time = document.getElementById('request_time');
+        var time_val = $('#toTimePicker option:selected')[0].value
+        day.setAttribute('value', text);
+        time.setAttribute('value',time_val)
 
         element.innerText = text;
         element.style.color = "#119dff";

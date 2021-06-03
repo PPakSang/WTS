@@ -41,5 +41,6 @@ urlpatterns = [
 
     #admin
     path('onlyadmin/<option>', only_admin, name='adminpage'),
+    path('admindetail/<user_id>',admin_detail,name='admin_detail')
     
 ]

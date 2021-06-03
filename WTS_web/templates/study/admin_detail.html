@@ -1,0 +1,24 @@
+<a href="{% url 'adminpage' 'all' %}">메인으로</a>
+<table>
+    <thead>
+        <tr>
+            <th>이름</th>
+            <th>전화번호</th>
+            <th>1회차</th>
+            <th>2회차</th>
+            <th>3회차</th>
+            <th>4회차</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{student.name}}</td>
+            <td>{{student.number}}</td>
+            <td>{{student.day1|date:'Y-m-d'}}</td>
+            <td>{{student.day2|date:'Y-m-d'}}</td>
+            <td>{{student.day3|date:'Y-m-d'}}</td>
+            <td>{{student.day4|date:'Y-m-d'}}</td>
+            <td><a href="{ % url 'reset_student' student.user_id%}">재등록</a></td>
+        </tr>
+    </tbody>
+</table>

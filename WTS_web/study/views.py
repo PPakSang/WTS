@@ -61,7 +61,14 @@ def only_admin(request,option):
                 return render(request,'study/admin.html',{'students':students})
         
     else:
-        return redirect('login')
+        return redirect('index')
+
+
+def admin_detail(request,user_id):
+    student = Student.objects.get(user_id = user_id)
+    print(student)
+    return render(request,'study/admin_detail.html',{"student" : student})
+
             # studetns =Student.objects.all()
 
     #         return render(request,'admin.html',{'students':studetns})
@@ -151,7 +158,7 @@ def enroll(request): # 등록하기 화면
                 form.name = request.user.first_name
                 form.save()
 
-                return redirect('detail')
+                return redirect('inquire')
         return render(request, 'study/function/enroll.html')
 
 
@@ -236,11 +243,15 @@ def change(request): # 변경하기 화면
         i = int(request.POST['i']) #몇주차 변경하는지
         date = datetime.date.fromisoformat(request.POST['day'])
         today = datetime.date.today()
+        
 
         base_date = student.base_date #기준 주차 첫 참여일
         first_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-1) #해당 주차의 첫째주
         last_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-7)
-        
+        if request.POST['time'] == '0':
+            pass
+        else:
+            student.time = request.POST['time']
         if (date - today).days >= 2 and first_date <= date <= last_date: #2일 뒤부터 and 그 주의 첫날과 마지막날 사이여야함
             setattr(student,f'day{i}',request.POST['day'])
             student.save()

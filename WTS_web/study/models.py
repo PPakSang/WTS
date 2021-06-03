@@ -17,8 +17,8 @@ class Student(models.Model):
     
     level_status = (('1','왕초급'),('2','초급'),('3','중급'))
     level = models.CharField(max_length=1,choices=level_status,blank=True)
-    time_status = (('1','평일'),('2','주말1시'),('3','주말4시'))
-    time = models.CharField(max_length=1,choices=time_status,blank=True)
+    time_status = (('0','평일'),('1','주말1시'),('2','주말4시'))
+    time = models.CharField(max_length=1,default='1',choices=time_status,blank=True)
     
     base_date = models.DateField(default=datetime.date.today(),verbose_name='기준 주차')
     
