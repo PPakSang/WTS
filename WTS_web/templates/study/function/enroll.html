@@ -58,7 +58,7 @@
                     <div class="mb-3 text-start">
                         <label for="formPhone" class="form-label fw-bold">연락처</label>
                         <input type="tel" class="form-control" name="number" id="formPhone"
-                               placeholder="숫자만 입력해주세요. ('-' 제외)">
+                               placeholder="숫자만 입력해주세요. ('-' 제외)" onchange="check_value()">
                     </div>
                     <div class="mb-3 text-start">
                         <label for="formLevel" class="form-label fw-bold">레벨</label>
@@ -118,10 +118,16 @@
                                         flag =1
                                     }
                                     else{
-                                        date_remove_disabled()
+                                        var phone = document.getElementById('formPhone').value;
+                                        console.log(phone);
+                                        if(phone == ""){
+                                            date_add_disabled()
+                                        }
+                                        else{
+                                            date_remove_disabled()
+                                        }
                                     }
                                 })
-                                
                             }
 
                             // 주말 선택 시 '시간' 폼 등장
@@ -137,6 +143,7 @@
 
                                 else { // 평일이면 시간 입력 폼 사라짐
                                     date_remove_disabled()
+                                    check_value()
                                     var target = document.getElementById('enrollTime');
                                     target.style.display = "none";
                                 }
