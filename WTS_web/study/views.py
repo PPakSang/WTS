@@ -261,10 +261,13 @@ def change(request): # 변경하기 화면
         return redirect('enroll')
     if request.method == 'POST':
         student = Student.objects.get(user_id = request.user.id)
-
-        i = int(request.POST['i']) #몇주차 변경하는지
-        date = datetime.date.fromisoformat(request.POST['day'])
-        today = datetime.date.today()
+        try:
+            i = int(request.POST['i']) #몇주차 변경하는지
+            date = datetime.date.fromisoformat(request.POST['day'])
+            today = datetime.date.today()
+        except:
+            messages.error(request, "변경 실패!")
+            return render(request, 'study/function/change.html', {'student': student})
         
 
         base_date = student.base_date #기준 주차 첫 참여일

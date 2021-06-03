@@ -58,11 +58,11 @@
                     <div class="mb-3 text-start">
                         <label for="formPhone" class="form-label fw-bold">연락처</label>
                         <input type="tel" class="form-control" name="number" id="formPhone"
-                               placeholder="숫자만 입력해주세요. ('-' 제외)" onchange="check_value()">
+                               placeholder="숫자만 입력해주세요. ('-' 제외)" onchange="showTimeInput()">
                     </div>
                     <div class="mb-3 text-start">
                         <label for="formLevel" class="form-label fw-bold">레벨</label>
-                        <select name="level" id="formLevel" onchange="check_value()" class="form-select">
+                        <select name="level" id="formLevel" onchange="showTimeInput()" class="form-select">
                             <option value="0" selected>선택해주세요.</option>
                             <option value="1">왕초급</option>
                             <option value="2">초급</option>
@@ -109,42 +109,43 @@
                             function date_remove_disabled(){
                                 $('#enroll_btn').removeClass('disabled')
                             }
-                            function check_value(){
-                                var flag = 0
-                                $('option:selected').each(function(index,item){
-                                    console.log(item.value)
-                                    if(item.value == '0' || flag == 1){
+                            // 평일 선택시 day == 1 , 주말 선택시 day == 2
+                            function check_value(day){ 
+                                var phone = document.getElementById('formPhone').value.length;
+                                if($('option:selected')[0].value == '0'
+                                    || $('#formDate').val() == ""
+                                    || phone<10){
+                                        console.log("add1")
                                         date_add_disabled()
-                                        flag =1
                                     }
-                                    else{
-                                        var phone = document.getElementById('formPhone').value;
-                                        console.log(phone);
-                                        if(phone == ""){
-                                            date_add_disabled()
-                                        }
-                                        else{
+                                else{
+                                    if(day==1){
+                                        date_remove_disabled()
+                                    }
+                                    else if(day==2){
+                                        if($('option:selected')[1].value != '0'){
                                             date_remove_disabled()
                                         }
                                     }
-                                })
+                                }
                             }
-
+                                
                             // 주말 선택 시 '시간' 폼 등장
                             function showTimeInput() {
                                 var date = document.getElementById('formDate').value; // 날짜
                                 var day = new Date(date).getDay(); // 요일 (0:일요일 ~ 6:토요일)
-                                check_value()
+                                
 
                                 if(day == 0 || day == 6) { // 주말이면 시간 입력 폼 보여주기
                                     date_add_disabled()
+                                    check_value(2)
                                     var target = document.getElementById('enrollTime');
                                     target.style.display = "block";
                                 }
 
                                 else { // 평일이면 시간 입력 폼 사라짐
                                     date_remove_disabled()
-                                    check_value()
+                                    check_value(1)
                                     var target = document.getElementById('enrollTime');
                                     target.style.display = "none";
                                 }
@@ -153,7 +154,7 @@
                     </div>
                     <div class="mb-3 text-start" id="enrollTime">
                         <label for="formDay" class="form-label fw-bold">시간</label>
-                        <select name="time1" id="formDay" class="form-select" onchange="check_value()">
+                        <select name="time1" id="formDay" class="form-select" onchange="showTimeInput()">
                             <option value="0" selected>선택해주세요.</option>
                             <option value="1">오후 1시</option>
                             <option value="2">오후 4시</option>

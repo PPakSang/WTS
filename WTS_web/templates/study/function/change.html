@@ -169,7 +169,7 @@
 
                 <div id="changeTime" class="mt-3">
                     <label for="toTimePicker" class="form-label fw-bold">시간</label>
-                    <select name="time" id="toTimePicker" class="form-select" onchange="is_date()">
+                    <select name="time" id="toTimePicker" class="form-select" onchange="showTimeInput()">
                         <option value="0" selected >선택해주세요.</option>
                         <option value="1" >오후 1시</option>
                         <option value="2" >오후 4시</option>
@@ -178,7 +178,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button type="button" id="date_ch" class="btn btn-dark" data-bs-dismiss="modal" onclick="toDate()">선택하기</button>
+                <button type="button" id="date_ch" class="btn btn-dark disabled" data-bs-dismiss="modal" onclick="toDate()">선택하기</button>
             </div>
         </div>
     </div>
@@ -224,12 +224,19 @@
     function date_remove_disabled(){
         $('#date_ch').removeClass('disabled')
     }
-    function is_date(){
-        if ($('#toTimePicker option:selected')[0].value == "0"){
+    function check_value(day){ 
+        if($('#toDatePicker').val() == ""){
             date_add_disabled()
         }
         else{
-            date_remove_disabled()
+            if(day==1){
+                date_remove_disabled()
+            }
+            else if(day==2){
+                if($('#toTimePicker option:selected')[0].value != "0"){
+                    date_remove_disabled()
+                }
+            }
         }
     }
 
@@ -240,11 +247,13 @@
         if(day == 0 || day == 6) { // 주말이면 시간 입력 폼 보여주기
             var target = document.getElementById('changeTime');
             date_add_disabled()
+            check_value(2)
             target.style.display = "block";
         }
 
         else { // 평일이면 시간 입력 폼 사라짐
             var target = document.getElementById('changeTime');
+            check_value(1)
             target.style.display = "none";
         }
     }
