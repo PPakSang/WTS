@@ -58,7 +58,8 @@
                         <a class="nav-link {% if request.path == '/category/enroll/' %}active
                         {% elif request.path == '/category/inquire/' %}active
                         {% elif request.path == '/category/change/' %}active
-                        {% endif %}" href="{% url 'enroll' %}">신청하기</a>
+                        {% endif %}" href="{% url 'enroll' %}"
+                        {%if is_zero%} data-bs-toggle="modal" data-bs-target="#reModal" {% endif %}>신청하기</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/category/faq/' %}active{% endif %}" href="{% url 'faq' %}">문의하기</a>
