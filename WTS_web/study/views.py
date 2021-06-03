@@ -154,8 +154,12 @@ def get_left_day(student):
 
 def index(request): # 메인 화면
     try:
-        Student.objects.get(user_id = request.user.pk)
-        return render(request, 'study/main/index.html',{"enroll" : "재등록하기"})
+        student = Student.objects.get(user_id = request.user.pk)
+        left_day = get_left_day(student)
+        if left_day == 0 :
+            return render(request, 'study/main/index.html',{"enroll" : "재등록하기","is_zero" : True})
+        else:
+            return render(request, 'study/main/index.html',{"enroll" : "재등록하기","is_zero" : False})
     except:
         return render(request, 'study/main/index.html',{"enroll" : "등록하기"})
 

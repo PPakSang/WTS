@@ -33,7 +33,8 @@
         </div>
     </div>
     <div class="row pb-lg-5 gx-0" id="registration-btns">
-        <a class="col btn btn-dark me-md-3 p-5 rounded registration-btn" href="{% url 'enroll' %}">
+        <a class="col btn btn-dark me-md-3 p-5 rounded registration-btn"
+        {%if is_zero%} data-bs-toggle="modal" data-bs-target="#reModal" {% endif %} href="{% url 'enroll' %}">
             <span class="row registration-icon"><i class="far fa-calendar-check"></i></span>
             <span class="row mt-3 justify-content-center registration-title">{{enroll}}</span>
         </a>
