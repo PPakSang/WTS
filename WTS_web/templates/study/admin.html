@@ -1,4 +1,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
 <form action="name" method="POST">
     {%csrf_token%}
     <div class="input-group w-25">
@@ -20,18 +25,32 @@
 <table>
     <thead>
         <tr>
+            <th>출석체크</th>
             <th>이름</th>
             <th>전화번호</th>
+            <th>마지막 출석</th>
         </tr>
     </thead>
     <tbody>
         {% for student in students%}
         <tr>
-            <td><a href="{% url 'check_in' student.user_id %}">출석체크</a></td>
-            <td>{{student.name}} <a href="{% url 'admin_detail' student.user_id %}">자세히 보기</a></td>
+            <td><a  class="check_in" id="{{student.pk}}">출석체크</a></td>
+            <td>{{student.name}} </td>
             <td>{{student.number}}</td>
+            <td>{{student.check_in}}</td>
+            <td><a href="http://127.0.0.1:8000/admin/study/student/{{student.pk}}/change/">회원정보</a></td>
         </tr>
         {%endfor%}
     </tbody>
 </table>
 
+
+<script>
+    $('.check_in').on('click',function(){
+        console.log(this.target)
+        $(this).fadeOut()
+        $.ajax({
+            url:"/checkin/"+this.id
+        })
+    })
+</script>
