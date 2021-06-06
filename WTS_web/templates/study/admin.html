@@ -15,7 +15,7 @@
             <div class="fs-1">원투스픽 출석체크</div>
         </div>
         <div class="form_box">
-            <form action="adminpage/name" method="POST" autocomplete="off">
+            <form action="name" method="POST" autocomplete="off">
                 {%csrf_token%}
                 <div class="input-group w-25">
                     <span class="input-group-text">이름</span>
@@ -23,7 +23,7 @@
                     <button class="btn btn-outline-secondary" type="submit">검색</button>
                 </div>
             </form>
-            <form action="adminpage/number" method="POST" autocomplete="off">
+            <form action="number" method="POST" autocomplete="off">
                 {%csrf_token%}
                 <div class="input-group w-25">
                     <span class="input-group-text">전화번호</span>

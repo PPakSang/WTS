@@ -4,6 +4,8 @@ from django.contrib.auth.models import AnonymousUser
 from django.urls import path
 from django.utils.timezone import activate
 from .views import *
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     # path('',main_view,name='main'),
@@ -48,4 +50,4 @@ urlpatterns = [
     #error
     path('error/',testError,name='error')
     
-]
+]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -438,7 +438,7 @@ def find_pw(request):  #password찾기
             try:
                 email.send()
             except:
-                return HttpResponse('잘못된 경로입니다.')
+                return render(request,'study/error.html')
             return render(request,'study/sign/find_pw.html',{'message' : '이메일을 확인하여주세요'}) 
         else :
             return render(request,'study/sign/find_pw.html',{'error' : '아이디 혹은 이메일을 다시 입력해주세요'})        
@@ -540,7 +540,7 @@ def signup_hw(request): # 회원가입 화면
             if password == password2 :
                 user = User.objects.create_user(first_name = name,email = email, username = username, password = password)
                 user.is_active = False
-                user.save()
+                
                 
                 current_site = get_current_site(request) 
                 # localhost:8000
@@ -552,7 +552,11 @@ def signup_hw(request): # 회원가입 화면
                 })
 
                 act_email = EmailMessage('[원투스픽] 인증을 위한 메일입니다',message,to=[email])
-                act_email.send()
+                try:
+                    act_email.send()
+                    user.save()
+                except:
+                    return render(request, 'study/error.html')
                 # user = authenticate(username = username , password = password)
                 # auth.login(request,user)
                 return render(request,'study/sign/checkemail.html',{"email" : email})
@@ -586,7 +590,7 @@ def re_send(request,email): #이메일 재전송
         re_email.send()
         return HttpResponse('success')
     except:
-        return HttpResponse('잘못된 경로입니다')
+        return render(request,'study/error.html')
 
 
 
@@ -637,7 +641,7 @@ def activate(request,uid64,token):
             return redirect('index')
         return redirect('index')
     except:
-        return HttpResponse('잘못된 경로입니다.')
+        return render(request,'study/error.html')
 
     
 
