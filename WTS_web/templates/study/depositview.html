@@ -1,38 +1,38 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 {% load static%}
 <link rel="stylesheet" href="{% static 'admin.css'%}">
 
 
-
-
-<div>
-    <div id="logo_box">
-        <img id="logo" src="{% static 'img/logo_WTS.svg'%}" alt="">
-        <h1>원투스픽 출석체크</h1>
+<div class="container">
+    <div>
+        <div id="logo_box">
+            <img id="logo" src="{% static 'img/logo_WTS.svg'%}" alt="">
+            <div class="fs-1">원투스픽 출석체크</div>
+        </div>
+        <div class="form_box">
+            <form action="adminpage/name" method="POST" autocomplete="off">
+                {%csrf_token%}
+                <div class="input-group w-25">
+                    <span class="input-group-text">이름</span>
+                    <input name="name" class="form-control" type="text">
+                    <button class="btn btn-outline-secondary" type="submit">검색</button>
+                </div>
+            </form>
+            <form action="adminpage/number" method="POST" autocomplete="off">
+                {%csrf_token%}
+                <div class="input-group w-25">
+                    <span class="input-group-text">전화번호</span>
+                    <input name="number" class="form-control" type="text">
+                    <button class="btn btn-outline-secondary" type="submit">검색</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form_box">
-        <form action="deposit_page/name" method="POST">
-            {%csrf_token%}
-            <div class="input-group w-25">
-                <span class="input-group-text">이름</span>
-                <input name="name" class="form-control" type="text">
-                <button class="btn btn-outline-secondary" type="submit">검색</button>
-            </div>
-        </form>
-        <form action="deposit_page/number" method="POST">
-            {%csrf_token%}
-            <div class="input-group w-25">
-                <span class="input-group-text">전화번호</span>
-                <input name="number" class="form-control" type="text">
-                <button class="btn btn-outline-secondary" type="submit">검색</button>
-            </div>
-        </form>
-    </div>
-</div>
 
 <a href="{% url 'adminpage' 'all' %}">메인으로 </a><a href="{% url 'deposit_view' 'all'%}">전체보기</a> 
 <a href="{% url 'deposit_view' 'not'%}">미납자보기 </a><a href="{% url 'deposit_view' 'today' %}">금일참여미납자</a>
@@ -48,12 +48,12 @@ integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="ano
             <th>완납</th>
             <th scope="col">회원정보</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         {% for student in students%}
         <tr>
             <th scope="row">{{forloop.counter}}</th>
-            <td>{{student.name}} </td>
+            <td>{{student.name}}</td>
             <td>{{student.number}}</td>
             <td>{{student.get_deposit_display}}</td>
             <td><span class="btn btn-danger" onclick="deposit(this,1,'{{student.pk}}')">미입금</span></td>
@@ -63,7 +63,9 @@ integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="ano
             <div id="comment{{forloop.counter}}" style="display: none;">{{student.comment}}</div>
         </tr>
         {%endfor%}
-        
+        </tbody>
+    </table>
+</div>
 <script>
     // 디파짓여부
     $('.check_in').on('click',function(){
@@ -93,4 +95,5 @@ integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="ano
         console.log(e)
         $('.modal-body').html($('#comment'+e.name).html())
     }
+
 </script>

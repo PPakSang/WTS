@@ -14,10 +14,10 @@ a{
 
 #logo{
     display: inline-block;
-    width: 120px;
-    vertical-align: middle;
+    width: 80px;
     
 }
+
 h1{
     line-height: 3;
 }
@@ -36,4 +36,8 @@ h1{
 }
 .input-group{
     left:75%
+}
+
+.adminMenu::after {
+    content: "｜";
 }
