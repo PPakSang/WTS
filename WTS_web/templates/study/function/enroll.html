@@ -33,7 +33,7 @@
                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
                     <use xlink:href="#exclamation-triangle-fill"/>
                 </svg>
-                <strong>{{ message }}</strong> 스터디 연장 신청은 원투스픽 카카오톡으로 문의해주세요.
+                <strong>{{ message }}</strong> 스터디 연장 신청은 마지막 스터디 참여 후 가능합니다.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             {% endfor %}
@@ -58,12 +58,12 @@
                     <div class="mb-3 text-start">
                         <label for="formPhone" class="form-label fw-bold">연락처</label>
                         <input type="tel" class="form-control" name="number" id="formPhone"
-                               placeholder="숫자만 입력해주세요. ('-' 제외)">
+                               placeholder="숫자만 입력해주세요. ('-' 제외)" onchange="showTimeInput()">
                     </div>
                     <div class="mb-3 text-start">
                         <label for="formLevel" class="form-label fw-bold">레벨</label>
-                        <select name="level" id="formLevel" class="form-select">
-                            <option selected>선택해주세요.</option>
+                        <select name="level" id="formLevel" onchange="showTimeInput()" class="form-select">
+                            <option value="0" selected>선택해주세요.</option>
                             <option value="1">왕초급</option>
                             <option value="2">초급</option>
                             <option value="3">중급</option>
@@ -102,34 +102,65 @@
 
                                 }); //datepicker end
                             }); //ready end
-
-
+                            
+                            function date_add_disabled(){
+                                $('#enroll_btn').addClass('disabled')
+                            }
+                            function date_remove_disabled(){
+                                $('#enroll_btn').removeClass('disabled')
+                            }
+                            // 평일 선택시 day == 1 , 주말 선택시 day == 2
+                            function check_value(day){ 
+                                var phone = document.getElementById('formPhone').value.length;
+                                if($('option:selected')[0].value == '0'
+                                    || $('#formDate').val() == ""
+                                    || phone<10){
+                                        console.log("add1")
+                                        date_add_disabled()
+                                    }
+                                else{
+                                    if(day==1){
+                                        date_remove_disabled()
+                                    }
+                                    else if(day==2){
+                                        if($('option:selected')[1].value != '0'){
+                                            date_remove_disabled()
+                                        }
+                                    }
+                                }
+                            }
+                                
                             // 주말 선택 시 '시간' 폼 등장
                             function showTimeInput() {
                                 var date = document.getElementById('formDate').value; // 날짜
                                 var day = new Date(date).getDay(); // 요일 (0:일요일 ~ 6:토요일)
+                                
 
                                 if(day == 0 || day == 6) { // 주말이면 시간 입력 폼 보여주기
-                                  var target = document.getElementById('enrollTime');
-                                  target.style.display = "block";
+                                    date_add_disabled()
+                                    check_value(2)
+                                    var target = document.getElementById('enrollTime');
+                                    target.style.display = "block";
                                 }
 
                                 else { // 평일이면 시간 입력 폼 사라짐
-                                  var target = document.getElementById('enrollTime');
-                                  target.style.display = "none";
+                                    date_remove_disabled()
+                                    check_value(1)
+                                    var target = document.getElementById('enrollTime');
+                                    target.style.display = "none";
                                 }
                             }
                         </script>
                     </div>
                     <div class="mb-3 text-start" id="enrollTime">
                         <label for="formDay" class="form-label fw-bold">시간</label>
-                        <select name="time" id="formDay" class="form-select">
-                            <option selected>선택해주세요.</option>
+                        <select name="time1" id="formDay" class="form-select" onchange="showTimeInput()">
+                            <option value="0" selected>선택해주세요.</option>
                             <option value="1">오후 1시</option>
                             <option value="2">오후 4시</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-dark px-5">등록</button>
+                    <button type="submit" id="enroll_btn" class="btn btn-dark px-5 disabled">등록</button>
                 </div>
             </form>
         </div>

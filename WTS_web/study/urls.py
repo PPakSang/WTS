@@ -41,5 +41,8 @@ urlpatterns = [
 
     #admin
     path('onlyadmin/<option>', only_admin, name='adminpage'),
+    path('deposit_page/<option>',deposit_view,name='deposit_view'),
+    path('checkdeposit/<option>/<user_id>',check_deposit,name='check_deposit'),
+    path('checkin/<user_id>',check_in,name='check_in')
     
 ]

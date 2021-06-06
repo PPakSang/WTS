@@ -31,23 +31,20 @@ import json
 
 
 
-
-
-    
-
 def only_admin(request,option):
     if request.user.is_staff:
 
         if option == 'all':
-            students =Student.objects.all()
-            return render(request,'study/admin.html',{'students':students})
+            new_students = Student.objects.filter(deposit = '1')
+            students = Student.objects.all().exclude(day1__gte=datetime.date.today())
+            return render(request,'study/admin.html',{'students':students, 'new_students':new_students})
 
         if option == 'today':
-            students = Student.objects.filter(day1 = datetime.date.today())
-            students = students | Student.objects.filter(day2 = datetime.date.today())
+            new_students = Student.objects.filter(day1 = datetime.date.today())
+            students = Student.objects.filter(day2 = datetime.date.today())
             students = students | Student.objects.filter(day3 = datetime.date.today())
             students = students | Student.objects.filter(day4 = datetime.date.today())
-            return render(request,'study/admin.html',{'students':students})
+            return render(request,'study/admin.html',{'new_students': new_students,'students':students})
             
 
         if option == 'name':
@@ -59,9 +56,52 @@ def only_admin(request,option):
             if request.method == 'POST' :
                 students = Student.objects.filter(number = request.POST['number'])
                 return render(request,'study/admin.html',{'students':students})
-        
+        if option == 'new':
+            new_students = Student.objects.filter(day1 = datetime.date.today())
+            return render(request,'study/admin.html',{'new_students':new_students})
     else:
-        return redirect('login')
+        return redirect('index')
+
+
+def check_deposit(request,option,user_id):
+    student = Student.objects.get(pk = user_id)
+    student.deposit = option
+    student.save()
+    return redirect('deposit_view','all')
+
+def deposit_view(request,option):
+    if option == 'name':
+        if request.method == 'POST':
+            students = Student.objects.filter(name = request.POST['name'])
+            return render(request,'study/depositview.html',{"students" : students})
+    if option == 'number':
+        if request.method == 'POST':
+            students = Student.objects.filter(number = request.POST['number'])
+            return render(request,'study/depositview.html',{"students" : students})
+    if option == 'not':
+        if request.method == 'POST':
+            students = Student.objects.all().exclude(deposit = '3')
+            return render(request,'study/depositview.html',{"students" : students})
+    if option == 'today':
+        if request.method == 'POST':
+            students = Student.objects.all().exclude(deposit = '3')
+            students = students.filter(day1 = datetime.date.today())
+            return render(request,'study/depositview.html',{"students" : students})
+
+    students = Student.objects.all()
+    return render(request,'study/depositview.html',{"students" : students})
+
+
+def check_in(request,user_id):
+    student = Student.objects.get(pk = user_id)
+    student.check_in = str(student.check_in) + str(datetime.date.today())+'/'
+    print()
+    student.save()
+    return redirect('adminpage','today')
+
+
+
+
             # studetns =Student.objects.all()
 
     #         return render(request,'admin.html',{'students':studetns})
@@ -126,18 +166,41 @@ def get_days(student): #변경한 날짜
 
 #function_view
 
+def get_left_day(student):
+    days = get_days(student)
+    left_day = 4
+    for i in days :
+        if (i - datetime.date.today()).days>=0:
+            break
+        left_day -= 1
+    return left_day
+
+
 def index(request): # 메인 화면
-    
-    return render(request, 'study/main/index.html')
+    try:
+        student = Student.objects.get(user_id = request.user.pk)
+        left_day = get_left_day(student)
+        if left_day == 0 :
+            return render(request, 'study/main/index.html',{"enroll" : "재등록하기","is_zero" : True})
+        else:
+            return render(request, 'study/main/index.html',{"enroll" : "재등록하기","is_zero" : False})
+    except:
+        return render(request, 'study/main/index.html',{"enroll" : "등록하기"})
 
 
 
 @login_required(login_url='/user/login/')
 def enroll(request): # 등록하기 화면
     try:
-        Student.objects.get(user_id = request.user.id)
-        messages.error(request, "이미 등록하셨습니다!")
-        return render(request, 'study/function/enroll.html')
+        student = Student.objects.get(user_id = request.user.id)
+        left_day = get_left_day(student)
+        if left_day != 0 : #아직 남았다면
+            messages.error(request, "이미 등록하셨습니다!")
+            return render(request, 'study/function/enroll.html')
+        else:
+            student.user_id = 0
+            student.save()
+            return render(request, 'study/function/enroll.html')
     except:
         if request.method == 'POST':
             print(request.POST)
@@ -146,12 +209,14 @@ def enroll(request): # 등록하기 화면
                 form = form.save(commit = False)
                 for i in range(2,5):
                     setattr(form,f'day{i}',form.day1 + timedelta(weeks=i-1))
+                for i in range(2,5):
+                    setattr(form,f'time{i}',form.time1)
                 form.base_date = form.day1
                 form.user_id = request.user.id
                 form.name = request.user.first_name
                 form.save()
 
-                return redirect('detail')
+                return redirect('inquire')
         return render(request, 'study/function/enroll.html')
 
 
@@ -186,22 +251,34 @@ def inquire(request): # 조회하기 화면
     try:
         student = Student.objects.get(user_id = request.user.id)
         days =get_days(student)
-        left_day = 4 
+        left_day = 4
+        day = 1
+        next_day = None
         for i in days :
             if (i - datetime.date.today()).days>=0:
                 next_day = i
+                next_time = getattr(student,f'time{day}')
                 break
+            day += 1
             left_day -= 1
         if next_day == None:
+            next_time = '추가등록이 필요합니다'
             next_day = '추가등록이 필요합니다'
+        else:
+            times = ['평일','주말1시','주말4시']
+            next_time = times[int(next_time)]
         base_dates = get_basedates(student)
-        print(base_dates)
-
-    except :
+    except Exception as e :
+        print(e)
         return redirect('enroll')
 
     return render(request,'study/function/inquire.html',
-    {'student' : student,'days' : days,'next_day': next_day, 'left_day' : left_day, 'base_dates' : base_dates}
+    {'student' : student,
+    'days' : days,
+    'next_day': next_day,
+    'left_day' : left_day,
+    'base_dates' : base_dates,
+    'next_time' : next_time}
     )   
 
 
@@ -232,17 +309,24 @@ def change(request): # 변경하기 화면
         return redirect('enroll')
     if request.method == 'POST':
         student = Student.objects.get(user_id = request.user.id)
-
-        i = int(request.POST['i']) #몇주차 변경하는지
-        date = datetime.date.fromisoformat(request.POST['day'])
-        today = datetime.date.today()
-
+        try:
+            i = int(request.POST['i']) #몇주차 변경하는지
+            if  getattr(student,f'day{i}')<= datetime.date.today(): #당일변경 막기
+                messages.error(request, "변경 실패!")
+                return render(request, 'study/function/change.html', {'student': student})
+            date = datetime.date.fromisoformat(request.POST['day'])
+            today = datetime.date.today()
+        except:
+            messages.error(request, "변경 실패!")
+            return render(request, 'study/function/change.html', {'student': student})
         base_date = student.base_date #기준 주차 첫 참여일
         first_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-1) #해당 주차의 첫째주
         last_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-7)
         
+
         if (date - today).days >= 2 and first_date <= date <= last_date: #2일 뒤부터 and 그 주의 첫날과 마지막날 사이여야함
             setattr(student,f'day{i}',request.POST['day'])
+            setattr(student,f'time{i}',request.POST['time'])
             student.save()
             return redirect('inquire')
         else:
@@ -400,7 +484,16 @@ def logout(request): #로그아웃
     auth.logout(request)
     return redirect('index')
 
-
+def validate_password(password): #password 유효성검사
+    validate_list = [
+        lambda p : len(p)>= 4,
+        lambda p : len(p)<=20,
+        lambda p : all(x.islower() or x.isupper() or (x in ['!', '@', '#', '$', '%', '^', '&', '*', '_']) or x.isdigit() for x in p),
+        lambda p : any(x.islower() for x in p)
+    ]
+    for validator in validate_list:
+        if not validator(password):
+            return True
 
 
 def signup_hw(request): # 회원가입 화면
@@ -425,7 +518,15 @@ def signup_hw(request): # 회원가입 화면
                     'name' : name,
                     're' : True}
                     )
-            if password == password2 and len(password) >=4:
+            if validate_password(password):
+                return render(request,'study/sign/signup.html',{
+                    'password_error' : '4자이상, 영대소문자, 숫자, 특수문자 조합으로만 가능합니다', 
+                    'username' : username,
+                    'email' : email,
+                    'name' : name,
+                    're' : True}
+                    )
+            if password == password2 :
                 user = User.objects.create_user(first_name = name,email = email, username = username, password = password)
                 user.is_active = False
                 user.save()
@@ -446,7 +547,7 @@ def signup_hw(request): # 회원가입 화면
                 return render(request,'study/sign/checkemail.html',{"email" : email})
             else:
                 return render(request,'study/sign/signup.html',{
-                    'password_error' : '비밀번호를 다시 확인해주세요 (4자이상)', 
+                    'password_error' : '비밀번호를 다시 확인해주세요 ', 
                     'username' : username,
                     'email' : email,
                     'name' : name,
@@ -473,6 +574,8 @@ def re_send(request,email): #이메일 재전송
     re_email.send()
     return HttpResponse('success')
 
+
+
 def validate_username(username): #ID 유효성검사
     validate_list = [
         lambda u : len(u)>=5,
@@ -483,6 +586,7 @@ def validate_username(username): #ID 유효성검사
     for validator in validate_list :
         if not validator(username):
             return True
+
 
 
 def is_duplicated(request): #ID 중복검사
