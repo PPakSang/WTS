@@ -458,7 +458,7 @@ def reset_pw(request,uid64,token): #password 초기화
             else:
                 return render(request,'study/sign/reset_pw.html')
     except:
-        return HttpResponse('잘못된 경로입니다')
+        return render(request, 'study/error.html')
 
 # def login(request): #로그인
 #     if request.method == 'POST':
@@ -668,3 +668,6 @@ def activate(request,uid64,token):
 
 def checkemail(request): #인증메일 확인 부탁 페이지
     return render(request, 'study/sign/checkemail.html')
+
+def testError(request): # 에러 페이지 테스트
+    return render(request, 'study/error.html')
