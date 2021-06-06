@@ -34,9 +34,11 @@ body {
 
 #kakao-talk-channel-chat-button {
   position: fixed;
+  transform: scale(0.8);
+  bottom: 70px;
+  right: 10px;
   z-index: 9999;
 }
-
 #topBtn {
   position: fixed;
   bottom: 25px;
