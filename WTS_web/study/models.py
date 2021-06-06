@@ -1,5 +1,6 @@
 from time import time
 from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth.tokens import default_token_generator
 from django.core import validators
 from django.db import models
 from django.db.models.base import Model
@@ -32,6 +33,10 @@ class Student(models.Model):
     day3 = models.DateField(default=datetime.date.today(),verbose_name='세번째 참여일')
     day4 = models.DateField(default=datetime.date.today(),verbose_name='네번째 참여일')
     plus_day = models.DateField(null=True,verbose_name='보너스 참여일')
+
+    deposit_status = (("1","미입금"),("2","예약금"),("3","완납"),)
+    deposit = models.CharField(max_length=1,default='1',choices=deposit_status)
+    
     
     changed_day = models.DateField(default=datetime.date.today(),verbose_name='등록하기 한날')
 

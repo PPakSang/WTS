@@ -31,23 +31,20 @@ import json
 
 
 
-
-
-    
-
 def only_admin(request,option):
     if request.user.is_staff:
 
         if option == 'all':
-            students =Student.objects.all()
-            return render(request,'study/admin.html',{'students':students})
+            new_students = Student.objects.filter(deposit = '1')
+            students = Student.objects.all().exclude(day1__gte=datetime.date.today())
+            return render(request,'study/admin.html',{'students':students, 'new_students':new_students})
 
         if option == 'today':
-            students = Student.objects.filter(day1 = datetime.date.today())
-            students = students | Student.objects.filter(day2 = datetime.date.today())
+            new_students = Student.objects.filter(day1 = datetime.date.today())
+            students = Student.objects.filter(day2 = datetime.date.today())
             students = students | Student.objects.filter(day3 = datetime.date.today())
             students = students | Student.objects.filter(day4 = datetime.date.today())
-            return render(request,'study/admin.html',{'students':students})
+            return render(request,'study/admin.html',{'new_students': new_students,'students':students})
             
 
         if option == 'name':
@@ -59,15 +56,41 @@ def only_admin(request,option):
             if request.method == 'POST' :
                 students = Student.objects.filter(number = request.POST['number'])
                 return render(request,'study/admin.html',{'students':students})
-        
+        if option == 'new':
+            new_students = Student.objects.filter(day1 = datetime.date.today())
+            return render(request,'study/admin.html',{'new_students':new_students})
     else:
         return redirect('index')
 
 
-def admin_detail(request,user_id):
+def check_deposit(request,option,user_id):
     student = Student.objects.get(pk = user_id)
-    print(student)
-    return render(request,'study/admin_detail.html',{"student" : student})
+    student.deposit = option
+    student.save()
+    return redirect('deposit_view','all')
+
+def deposit_view(request,option):
+    if option == 'name':
+        if request.method == 'POST':
+            students = Student.objects.filter(name = request.POST['name'])
+            return render(request,'study/depositview.html',{"students" : students})
+    if option == 'number':
+        if request.method == 'POST':
+            students = Student.objects.filter(number = request.POST['number'])
+            return render(request,'study/depositview.html',{"students" : students})
+    if option == 'not':
+        if request.method == 'POST':
+            students = Student.objects.all().exclude(deposit = '3')
+            return render(request,'study/depositview.html',{"students" : students})
+    if option == 'today':
+        if request.method == 'POST':
+            students = Student.objects.all().exclude(deposit = '3')
+            students = students.filter(day1 = datetime.date.today())
+            return render(request,'study/depositview.html',{"students" : students})
+
+    students = Student.objects.all()
+    return render(request,'study/depositview.html',{"students" : students})
+
 
 def check_in(request,user_id):
     student = Student.objects.get(pk = user_id)
