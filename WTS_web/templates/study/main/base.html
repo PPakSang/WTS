@@ -137,11 +137,25 @@
     </div>
 </div>
 
-<!-- 위로 가기 버튼 -->
-<div id="topBtn">
-    <a href="#">
-        <i class="fas fa-arrow-alt-circle-up"></i>
-    </a>
+<div class="fixedBtns">
+    <!--카톡 문의 버튼-->
+    <div 
+    id="kakao-talk-channel-chat-button"
+    data-channel-public-id="_ZRzXK"
+    data-title="question"
+    data-size="small"
+    data-color="yellow"
+    data-shape="pc"
+    data-support-multiple-densities="true"
+    ></div>
+
+
+    <!-- 위로 가기 버튼 -->
+    <div id="topBtn">
+        <a href="#">
+            <i class="fas fa-arrow-alt-circle-up"></i>
+        </a>
+    </div>
 </div>
 
 <!-- 부트스트랩 JS -->
@@ -149,5 +163,22 @@
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
 </body>
+
+<!--카톡 문의 버튼 js-->
+<script>
+    window.kakaoAsyncInit = function() {
+      Kakao.Channel.createChatButton({
+        container: '#kakao-talk-channel-chat-button',
+      });
+    };
+  
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://developers.kakao.com/sdk/js/kakao.channel.min.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    })(document, 'script', 'kakao-js-sdk');
+  </script>
 
 </html>
