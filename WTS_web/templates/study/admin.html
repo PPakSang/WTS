@@ -44,7 +44,7 @@ integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="ano
             <th scope="col">이름</th>
             <th scope="col">전화번호</th>
             <th scope="col">참여정보</th>
-            <th>신규 여부</th>
+            <th>입금여부</th>
             <th>참고사항</th>
             <th scope="col">회원정보</th>
         </tr>
@@ -58,7 +58,7 @@ integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="ano
             <td>{{student.name}} </td>
             <td>{{student.number}}</td>
             <td>{{student.check_in}}</td>
-            <td>O</td>
+            <td>{{student.get_deposit_display}}</td>
             <td><button type="button" name="{{forloop.counter}}" id="comment_open_{{forloop.counter}}" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="comment(this)">열기</button></td>
             <td><a href="http://127.0.0.1:8000/admin/study/student/{{student.pk}}/change/" target="_blank">회원정보</a></td>
             <div id="comment{{forloop.counter}}" style="display: none;">{{student.comment}}</div>
@@ -73,7 +73,7 @@ integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="ano
             <td>{{student.name}} </td>
             <td>{{student.number}}</td>
             <td>{{student.check_in}}</td>
-            <td>X</td>
+            <td>{{student.get_deposit_display}}</td>
             <td><button type="button" name="{{forloop.counter}}" id="comment_open_{{forloop.counter}}" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="comment(this)">열기</button></td>
             <td><a href="http://127.0.0.1:8000/admin/study/student/{{student.pk}}/change/" target="_blank">회원정보</a></td>
             <div id="comment{{forloop.counter}}" style="display: none;">{{student.comment}}</div>

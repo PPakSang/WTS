@@ -34,7 +34,8 @@ integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="ano
     </div>
 </div>
 
-<a href="{% url 'deposit_view' 'all'%}">전체보기</a> <a href="{% url 'deposit_view' 'not'%}">미납자보기</a>
+<a href="{% url 'adminpage' 'all' %}">메인으로 </a><a href="{% url 'deposit_view' 'all'%}">전체보기</a> 
+<a href="{% url 'deposit_view' 'not'%}">미납자보기 </a><a href="{% url 'deposit_view' 'today' %}">금일참여미납자</a>
 <table class="table">
     <thead>
         <tr>
@@ -55,9 +56,9 @@ integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="ano
             <td>{{student.name}} </td>
             <td>{{student.number}}</td>
             <td>{{student.get_deposit_display}}</td>
-            <td><span class="btn btn-danger" onclick="deposit(1,'{{student.pk}}')">미입금</span></td>
-            <td><span class="btn btn-secondary" onclick="deposit(2,'{{student.pk}}')">예약금</span></td>
-            <td><span class="btn btn-success" onclick="deposit(3,'{{student.pk}}')">완납</span></td>
+            <td><span class="btn btn-danger" onclick="deposit(this,1,'{{student.pk}}')">미입금</span></td>
+            <td><span class="btn btn-secondary" onclick="deposit(this,2,'{{student.pk}}')">예약금</span></td>
+            <td><span class="btn btn-success" onclick="deposit(this,3,'{{student.pk}}')">완납</span></td>
             <td><a href="http://127.0.0.1:8000/admin/study/student/{{student.pk}}/change/" target="_blank">회원정보</a></td>
             <div id="comment{{forloop.counter}}" style="display: none;">{{student.comment}}</div>
         </tr>
@@ -74,11 +75,12 @@ integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="ano
         })
     })
 
-    function deposit(option,pk){
+    function deposit(tag,option,pk){
         $.ajax({
-            url : `/checkdeposit/${option}/${user_id}`,
+            url : `/checkdeposit/${option}/${pk}`,
             success : function(){
-                
+                alert(tag.innerHTML + " 처리되었습니다")
+            
             }
 
 

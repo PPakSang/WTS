@@ -36,7 +36,7 @@ def only_admin(request,option):
 
         if option == 'all':
             new_students = Student.objects.filter(deposit = '1')
-            students = Student.objects.all().exclude(day1__gte=datetime.date.today())
+            students = Student.objects.all().exclude(deposit= '1')
             return render(request,'study/admin.html',{'students':students, 'new_students':new_students})
 
         if option == 'today':
@@ -64,41 +64,47 @@ def only_admin(request,option):
 
 
 def check_deposit(request,option,user_id):
-    student = Student.objects.get(pk = user_id)
-    student.deposit = option
-    student.save()
-    return redirect('deposit_view','all')
+    if request.user.is_staff:
+        student = Student.objects.get(pk = user_id)
+        student.deposit = option
+        student.save()
+        return redirect('deposit_view','all')
+    else:
+        return redirect('index')
 
 def deposit_view(request,option):
-    if option == 'name':
-        if request.method == 'POST':
-            students = Student.objects.filter(name = request.POST['name'])
+    if request.user.is_staff:
+        if option == 'name':
+            if request.method == 'POST':
+                students = Student.objects.filter(name = request.POST['name'])
+                return render(request,'study/depositview.html',{"students" : students})
+        if option == 'number':
+            if request.method == 'POST':
+                students = Student.objects.filter(number = request.POST['number'])
+                return render(request,'study/depositview.html',{"students" : students})
+        if option == 'not':
+            students = Student.objects.all().exclude(deposit = "3")
             return render(request,'study/depositview.html',{"students" : students})
-    if option == 'number':
-        if request.method == 'POST':
-            students = Student.objects.filter(number = request.POST['number'])
-            return render(request,'study/depositview.html',{"students" : students})
-    if option == 'not':
-        if request.method == 'POST':
-            students = Student.objects.all().exclude(deposit = '3')
-            return render(request,'study/depositview.html',{"students" : students})
-    if option == 'today':
-        if request.method == 'POST':
+        if option == 'today':
             students = Student.objects.all().exclude(deposit = '3')
             students = students.filter(day1 = datetime.date.today())
             return render(request,'study/depositview.html',{"students" : students})
 
-    students = Student.objects.all()
-    return render(request,'study/depositview.html',{"students" : students})
+        students = Student.objects.all()
+        return render(request,'study/depositview.html',{"students" : students})
+    else:
+        return redirect('index')
 
 
 def check_in(request,user_id):
-    student = Student.objects.get(pk = user_id)
-    student.check_in = str(student.check_in) + str(datetime.date.today())+'/'
-    print()
-    student.save()
-    return redirect('adminpage','today')
-
+    if request.user.is_staff:
+        student = Student.objects.get(pk = user_id)
+        student.check_in = str(student.check_in) + str(datetime.date.today())+'/'
+        print()
+        student.save()
+        return redirect('adminpage','today')
+    else:
+        return redirect('index')
 
 
 
@@ -309,6 +315,7 @@ def change(request): # 변경하기 화면
         return redirect('enroll')
     if request.method == 'POST':
         student = Student.objects.get(user_id = request.user.id)
+
         try:
             i = int(request.POST['i']) #몇주차 변경하는지
             if  getattr(student,f'day{i}')<= datetime.date.today(): #당일변경 막기
@@ -319,6 +326,7 @@ def change(request): # 변경하기 화면
         except:
             messages.error(request, "변경 실패!")
             return render(request, 'study/function/change.html', {'student': student})
+
         base_date = student.base_date #기준 주차 첫 참여일
         first_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-1) #해당 주차의 첫째주
         last_date = base_date - timedelta(weeks=1-i,days=base_date.isoweekday()-7)
@@ -427,7 +435,10 @@ def find_pw(request):  #password찾기
             }) 
             
             email = EmailMessage('원투스픽 비밀번호 초기화',message,to=[email])
-            email.send()
+            try:
+                email.send()
+            except:
+                return HttpResponse('잘못된 경로입니다.')
             return render(request,'study/sign/find_pw.html',{'message' : '이메일을 확인하여주세요'}) 
         else :
             return render(request,'study/sign/find_pw.html',{'error' : '아이디 혹은 이메일을 다시 입력해주세요'})        
@@ -560,19 +571,22 @@ def signup_hw(request): # 회원가입 화면
 
 
 def re_send(request,email): #이메일 재전송
-    user = User.objects.filter(email = email)[0]
-    uid = urlsafe_base64_encode(force_bytes(user.pk))
-    token = default_token_generator.make_token(user)
-    current_site = get_current_site(request)
-    message =render_to_string('study/sign/activate.html',{
-        "user" : user,
-        "uid" : uid,
-        "domain" : current_site.domain,
-        "token" : token,
-    })
-    re_email = EmailMessage('[원투스픽] 인증메일 재발송입니다',message,to=[email])
-    re_email.send()
-    return HttpResponse('success')
+    try:
+        user = User.objects.filter(email = email)[0]
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        token = default_token_generator.make_token(user)
+        current_site = get_current_site(request)
+        message =render_to_string('study/sign/activate.html',{
+            "user" : user,
+            "uid" : uid,
+            "domain" : current_site.domain,
+            "token" : token,
+        })
+        re_email = EmailMessage('[원투스픽] 인증메일 재발송입니다',message,to=[email])
+        re_email.send()
+        return HttpResponse('success')
+    except:
+        return HttpResponse('잘못된 경로입니다')
 
 
 
@@ -612,15 +626,18 @@ def is_duplicated(request): #ID 중복검사
 
 
 def activate(request,uid64,token):
-    uid = force_text(urlsafe_base64_decode(uid64))
-    user = User.objects.get(pk = uid)
-    
-    if user is not None and default_token_generator.check_token(user,token):
-        user.is_active = True
-        user.save()
-        auth.login(request,user)
+    try:
+        uid = force_text(urlsafe_base64_decode(uid64))
+        user = User.objects.get(pk = uid)
+        
+        if user is not None and default_token_generator.check_token(user,token):
+            user.is_active = True
+            user.save()
+            auth.login(request,user)
+            return redirect('index')
         return redirect('index')
-    return redirect('index')
+    except:
+        return HttpResponse('잘못된 경로입니다.')
 
     
 
