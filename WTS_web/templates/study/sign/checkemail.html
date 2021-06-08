@@ -36,7 +36,10 @@
                     <div class="mb-1">2. 인증 메일 재발송은 1회만 가능합니다</div>
                 </div>
             </div>
-            <input class="my-2 bg-gradient" type="submit" value="인증 메일 재전송" id="input_resend" onclick="insert(); removeBtn();">
+            <div class="my-2 row email_Btn">
+                <a href="{% url 'index' %}" id="input_home">홈으로 가기</a>
+                <input class= "bg-gradient" type="submit" value="인증 메일 재전송" id="input_resend" onclick="insert(); removeBtn();">
+            </div>
         </div>
     </div>
     <script>
