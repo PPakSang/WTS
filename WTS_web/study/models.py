@@ -46,6 +46,8 @@ class Student(models.Model):
 
     check_in = models.TextField(null=True, verbose_name="출석체크")
     comment = models.TextField(null=True, verbose_name="참고사항")
+
+    is_mailed = models.IntegerField(default = 0)
     
     def __str__(self) -> str:
         return self.name + f'({self.number[3:]})'

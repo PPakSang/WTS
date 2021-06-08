@@ -398,6 +398,8 @@ def faq_view(request): # 자주묻는질문 화면
 #sign_view
 
 def login_hw(request): # 로그인 화면
+    if request.user.is_authenticated:
+        return redirect('index')
     if request.method == 'POST':
         form = Login_form(request.POST)
 
@@ -448,7 +450,12 @@ def find_pw(request):  #password찾기
             
             email = EmailMessage('원투스픽 비밀번호 초기화',message,to=[email])
             try:
-                email.send()
+                if user.last_name == '2' :
+                    return render(request,'study/error.html')    
+                else:
+                    email.send()
+                    user.last_name = 2
+                    user.save()
             except:
                 return render(request,'study/error.html')
             return render(request,'study/sign/find_pw.html',{'message' : '이메일을 확인하여주세요'}) 
@@ -474,6 +481,7 @@ def reset_pw(request,uid64,token): #password 초기화
                 password2 = request.POST['password2']
                 if password == password2:
                     user.set_password(password)
+                    user.last_name = 1
                     user.save()
                     return redirect('login')
                 else:
@@ -520,6 +528,8 @@ def validate_password(password): #password 유효성검사
 
 
 def signup_hw(request): # 회원가입 화면
+    if request.user.is_authenticated:
+        return redirect('index')
     if request.method == 'POST':
         form = Signup_form(request.POST)
 
@@ -543,7 +553,7 @@ def signup_hw(request): # 회원가입 화면
                     )
             if validate_password(password):
                 return render(request,'study/sign/signup.html',{
-                    'password_error' : '4자이상, 영대소문자, 숫자, 특수문자 조합으로만 가능합니다', 
+                    'password_error' : '4자이상, 영문자포함, 숫자, 특수문자 조합으로만 가능합니다', 
                     'username' : username,
                     'email' : email,
                     'name' : name,
@@ -593,6 +603,10 @@ def signup_hw(request): # 회원가입 화면
 def re_send(request,email): #이메일 재전송
     try:
         user = User.objects.filter(email = email)[0]
+        if(user.last_name == '1'):
+            return HttpResponse('그런 행동이 저희를 힘들게합니다.')
+        user.last_name = 1
+        user.save()
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = default_token_generator.make_token(user)
         current_site = get_current_site(request)
@@ -605,7 +619,8 @@ def re_send(request,email): #이메일 재전송
         re_email = EmailMessage('[원투스픽] 인증메일 재발송입니다',message,to=[email])
         re_email.send()
         return HttpResponse('success')
-    except:
+    except Exception as e:
+        print(e)
         return render(request,'study/error.html')
 
 
