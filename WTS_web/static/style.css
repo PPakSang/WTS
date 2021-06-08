@@ -395,15 +395,33 @@ body {
   font-size: 00.95rem;
 }
 
-/*이메일 재전송 버튼*/
-#input_resend {
+/*이메일 재전송, 홈 버튼*/
+.email_Btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+#input_resend,
+#input_home {
+  display: flex;
+  justify-content: center;
   border: 1px;
   border-style: solid;
   padding: 5px;
-  width: 80%;
+  width: 45%;
 }
 
-#input_resend:hover {
+#input_home {
+  text-decoration: none;
+  border-color: #000;
+  color: #000;
+  background-color: #f0f0f0;
+}
+
+#input_resend:hover,
+#input_home:hover {
   background-color: #ffd511;
   border-color: #ffd511;
 }
