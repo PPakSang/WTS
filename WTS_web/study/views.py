@@ -538,8 +538,10 @@ def signup_hw(request): # 회원가입 화면
                     're' : True}
                     )
             if password == password2 :
-                user = User.objects.create_user(first_name = name,email = email, username = username, password = password)
+                user = User(first_name = name,email = email, username = username)
+                user.set_password(password)
                 user.is_active = False
+                user.save()
                 
                 
                 current_site = get_current_site(request) 
@@ -550,15 +552,17 @@ def signup_hw(request): # 회원가입 화면
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                     'token' : default_token_generator.make_token(user)
                 })
-
+                
                 act_email = EmailMessage('[원투스픽] 인증을 위한 메일입니다',message,to=[email])
-                try:
-                    act_email.send()
-                    user.save()
-                except:
-                    return render(request, 'study/error.html')
+                # try:
+                #     act_email.send()
+                    
+                # except:
+                #     return render(request, 'study/error.html')
+                act_email.send()
                 # user = authenticate(username = username , password = password)
                 # auth.login(request,user)
+                
                 return render(request,'study/sign/checkemail.html',{"email" : email})
             else:
                 return render(request,'study/sign/signup.html',{
@@ -640,7 +644,8 @@ def activate(request,uid64,token):
             auth.login(request,user)
             return redirect('index')
         return redirect('index')
-    except:
+    except Exception as e:
+        print(e)
         return render(request,'study/error.html')
 
     

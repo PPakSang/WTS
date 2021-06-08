@@ -59,7 +59,7 @@
             <td><span class="btn btn-danger" onclick="deposit(this,1,'{{student.pk}}')">미입금</span></td>
             <td><span class="btn btn-secondary" onclick="deposit(this,2,'{{student.pk}}')">예약금</span></td>
             <td><span class="btn btn-success" onclick="deposit(this,3,'{{student.pk}}')">완납</span></td>
-            <td><a href="http://127.0.0.1:8000/admin/study/student/{{student.pk}}/change/" target="_blank">회원정보</a></td>
+            <td><a href="/admin/study/student/{{student.pk}}/change/" target="_blank">회원정보</a></td>
             <div id="comment{{forloop.counter}}" style="display: none;">{{student.comment}}</div>
         </tr>
         {%endfor%}
