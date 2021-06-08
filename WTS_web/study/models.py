@@ -14,7 +14,7 @@ from django.utils import timezone
 class Student(models.Model): 
     name = models.CharField(max_length=10,validators=[MinLengthValidator(2)])
    
-    number = models.CharField(max_length=11, validators=[MinLengthValidator(10)])
+    number = models.IntegerField(max_length=11, validators=[MinLengthValidator(10)])
     
     level_status = (('1','왕초급'),('2','초급'),('3','중급'))
     level = models.CharField(max_length=1,choices=level_status,blank=True)
