@@ -202,16 +202,25 @@ def enroll(request): # 등록하기 화면
         left_day = get_left_day(student)
         if left_day != 0 : #아직 남았다면
             messages.error(request, "이미 등록하셨습니다!")
-            return render(request, 'study/function/enroll.html')
+            return render(request, 'study/function/enroll.html',{"error" : "스터디 연장 신청은 마지막 스터디 참여 후 가능합니다."})
         else:
             student.user_id = 0
             student.save()
             return render(request, 'study/function/enroll.html')
     except:
         if request.method == 'POST':
-            print(request.POST)
             form = Enroll_form(request.POST)
-            if form.is_valid():
+            day1 = datetime.date.fromisoformat(request.POST['day1'])
+
+            if  day1 < datetime.date.today(): #지난 날 신청할 때
+                messages.error(request, "등록 실패!")
+                return render(request,'study/function/enroll.html',{"error" : "지난날은 신청할 수 없습니다."})
+
+            if day1 == datetime.date.today() + timedelta(days=1) and datetime.datetime.today().hour >=22: #당일 10시 넘어서 다음날 신청할 때
+                messages.error(request, "등록 실패!")
+                return render(request,'study/function/enroll.html',{"error" : "22시 이후에는 다음날 신청이 불가합니다."})
+
+            if form.is_valid() :
                 form = form.save(commit = False)
                 for i in range(2,5):
                     setattr(form,f'day{i}',form.day1 + timedelta(weeks=i-1))
@@ -223,6 +232,9 @@ def enroll(request): # 등록하기 화면
                 form.save()
 
                 return redirect('inquire')
+            else:
+                messages.error(request,'등록 실패!')
+                return render(request,'study/function/enroll.html')
         return render(request, 'study/function/enroll.html')
 
 
