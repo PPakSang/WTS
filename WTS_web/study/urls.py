@@ -4,6 +4,8 @@ from django.contrib.auth.models import AnonymousUser
 from django.urls import path
 from django.utils.timezone import activate
 from .views import *
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     # path('',main_view,name='main'),
@@ -41,7 +43,11 @@ urlpatterns = [
 
     #admin
     path('onlyadmin/<option>', only_admin, name='adminpage'),
-    path('admindetail/<user_id>',admin_detail,name='admin_detail'),
-    path('checkin/<user_id>',check_in,name='check_in')
+    path('deposit_page/<option>',deposit_view,name='deposit_view'),
+    path('checkdeposit/<option>/<user_id>',check_deposit,name='check_deposit'),
+    path('checkin/<user_id>',check_in,name='check_in'),
+
+    #error
+    path('error/',testError,name='error')
     
-]
+]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

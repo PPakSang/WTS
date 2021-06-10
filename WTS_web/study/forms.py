@@ -8,6 +8,7 @@ class Enroll_form(forms.ModelForm):
     class Meta:
         model = Student
         fields = ['level','number','day1','time1']
+            
     
     
     

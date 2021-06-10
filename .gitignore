@@ -140,6 +140,7 @@ staticfiles
 .ebextensions
 .elasticbeanstalk
 migrations/
+logs
 
 
 djangoreview.txt

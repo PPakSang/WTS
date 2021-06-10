@@ -34,42 +34,35 @@
         </div>
     </div>
 
-    <a href="{% url 'adminpage' 'all'%}" class="adminMenu">전체보기</a>
-    <a href="{% url 'adminpage' 'today'%}" class="adminMenu">금일참여명단</a>
-    <a href="{% url 'adminpage' 'new'%}">금일신규등록</a><br>
-    <table class="table">
-        <thead>
+<a href="{% url 'adminpage' 'all' %}">메인으로 </a><a href="{% url 'deposit_view' 'all'%}">전체보기</a> 
+<a href="{% url 'deposit_view' 'not'%}">미납자보기 </a><a href="{% url 'deposit_view' 'today' %}">금일참여미납자</a>
+<table class="table">
+    <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">출석체크</th>
             <th scope="col">이름</th>
             <th scope="col">전화번호</th>
-            <th scope="col">참여정보</th>
-            <th>신규 여부</th>
-            <th>참고사항</th>
+            <th>입금 여부</th>
+            <th>미입금</th>
+            <th>예약금</th>
+            <th>완납</th>
             <th scope="col">회원정보</th>
         </tr>
         </thead>
         <tbody>
-        {% for student in new_students%}
+        {% for student in students%}
         <tr>
             <th scope="row">{{forloop.counter}}</th>
-            <td><span id="{{student.pk}}" class="btn btn-primary check_in">출석</span></td>
             <td>{{student.name}}</td>
             <td>{{student.number}}</td>
-            <td>{{student.check_in}}</td>
-            <td>O</td>
-            <td>
-                <button type="button" name="{{forloop.counter}}" id="comment_open_{{forloop.counter}}"
-                        class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        onclick="comment(this)">열기
-                </button>
-            </td>
+            <td>{{student.get_deposit_display}}</td>
+            <td><span class="btn btn-danger" onclick="deposit(this,1,'{{student.pk}}')">미입금</span></td>
+            <td><span class="btn btn-secondary" onclick="deposit(this,2,'{{student.pk}}')">예약금</span></td>
+            <td><span class="btn btn-success" onclick="deposit(this,3,'{{student.pk}}')">완납</span></td>
             <td><a href="/admin/study/student/{{student.pk}}/change/" target="_blank">회원정보</a></td>
             <div id="comment{{forloop.counter}}" style="display: none;">{{student.comment}}</div>
         </tr>
         {%endfor%}
-        {% for student in students%}
         </tbody>
     </table>
 </div>
@@ -84,5 +77,23 @@
         })
     })
 
+    function deposit(tag,option,pk){
+        $.ajax({
+            url : `/checkdeposit/${option}/${pk}`,
+            success : function(){
+                alert(tag.innerHTML + " 처리되었습니다")
+            
+            }
+
+
+        })
+    }
+
+
+    // 모달 생성시 text
+    function comment(e){
+        console.log(e)
+        $('.modal-body').html($('#comment'+e.name).html())
+    }
 
 </script>

@@ -31,6 +31,19 @@ body {
   left: 50%;
   transform: translate(-50%, 0%);
 }
+
+#channel-chat-button {
+  position: fixed;
+  transform: scale(0.6);
+  bottom: 65px;
+  right: 10px;
+  z-index: 9999;
+}
+
+#kakao_q {
+  display: none;
+}
+
 #topBtn {
   position: fixed;
   bottom: 25px;
@@ -153,10 +166,10 @@ body {
 }
 
 #enrollTime {
-    display: none;
+  display: none;
 }
 #changeTime {
-    display: none;
+  display: none;
 }
 .change-btn-icon {
   font-size: 3em;
@@ -382,15 +395,33 @@ body {
   font-size: 00.95rem;
 }
 
-/*이메일 재전송 버튼*/
-#input_resend {
+/*이메일 재전송, 홈 버튼*/
+.email_Btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+#input_resend,
+#input_home {
+  display: flex;
+  justify-content: center;
   border: 1px;
   border-style: solid;
   padding: 5px;
-  width: 80%;
+  width: 45%;
 }
 
-#input_resend:hover {
+#input_home {
+  text-decoration: none;
+  border-color: #000;
+  color: #000;
+  background-color: #f0f0f0;
+}
+
+#input_resend:hover,
+#input_home:hover {
   background-color: #ffd511;
   border-color: #ffd511;
 }
@@ -412,6 +443,14 @@ body {
 @media screen and (max-width: 768px) {
   #login_footer {
     visibility: hidden;
+  }
+
+  #channel-chat-button {
+    visibility: hidden;
+  }
+
+  #kakao_q {
+    display: block;
   }
 }
 
