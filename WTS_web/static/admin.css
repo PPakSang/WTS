@@ -35,9 +35,14 @@ h1{
     margin-right: 30px;
 }
 .input-group{
-    left:75%
+    left:75%;
 }
 
 .adminMenu::after {
     content: "｜";
+}
+
+
+.menu a::after{
+    content:" | "
 }

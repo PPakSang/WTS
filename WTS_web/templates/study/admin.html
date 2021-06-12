@@ -60,7 +60,7 @@
             <td>{{student.name}}</td>
             <td>{{student.number}}</td>
             <td>{{student.check_in}}</td>
-            <td>{{student.get_deposit_display}}</td>
+            <td>{{student.get_deposit_display}} / {{student.get_pay_way_display}}</td>
             <td><button type="button" name="{{forloop.counter}}" id="comment_open_{{forloop.counter}}" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="comment(this)">열기</button></td>
             <td><a href="/admin/study/student/{{student.pk}}/change/" target="_blank">회원정보</a></td>
             <div id="comment{{forloop.counter}}" style="display: none;">{{student.comment}}</div>
@@ -75,7 +75,7 @@
             <td>{{student.name}}</td>
             <td>{{student.number}}</td>
             <td>{{student.check_in}}</td>
-            <td>{{student.get_deposit_display}}</td>
+            <td>{{student.get_deposit_display}} / {{student.get_pay_way_display}}</td>
             <td><button type="button" name="{{forloop.counter}}" id="comment_open_{{forloop.counter}}" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="comment(this)">열기</button></td>
             <td><a href="/admin/study/student/{{student.pk}}/change/" target="_blank">회원정보</a></td>
             <div id="comment{{forloop.counter}}" style="display: none;">{{student.comment}}</div>

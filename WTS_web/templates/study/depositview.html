@@ -34,18 +34,21 @@
         </div>
     </div>
 
-<a href="{% url 'adminpage' 'all' %}">메인으로 </a><a href="{% url 'deposit_view' 'all'%}">전체보기</a> 
-<a href="{% url 'deposit_view' 'not'%}">미납자보기 </a><a href="{% url 'deposit_view' 'today' %}">금일참여미납자</a>
+<div class="menu">
+    <a href="{% url 'adminpage' 'all' %}">메인으로 </a><a href="{% url 'deposit_view' 'all'%}">전체보기</a> 
+    <a href="{% url 'deposit_view' 'not'%}">미납자보기 </a><a href="{% url 'deposit_view' 'today' %}">금일참여미납자</a>
+</div>
 <table class="table">
     <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">이름</th>
             <th scope="col">전화번호</th>
-            <th>입금 여부</th>
+            <th>입금 여부 / 입금 방법</th>
             <th>미입금</th>
             <th>예약금</th>
             <th>완납</th>
+            <th>결제방법</th>
             <th scope="col">회원정보</th>
         </tr>
         </thead>
@@ -55,10 +58,17 @@
             <th scope="row">{{forloop.counter}}</th>
             <td>{{student.name}}</td>
             <td>{{student.number}}</td>
-            <td>{{student.get_deposit_display}}</td>
+            <td>{{student.get_deposit_display}} / {{student.get_pay_way_display}}</td>
             <td><span class="btn btn-danger" onclick="deposit(this,1,'{{student.pk}}')">미입금</span></td>
             <td><span class="btn btn-secondary" onclick="deposit(this,2,'{{student.pk}}')">예약금</span></td>
             <td><span class="btn btn-success" onclick="deposit(this,3,'{{student.pk}}')">완납</span></td>
+            <td>
+                <select name="" id="{{student.pk}}">
+                    <option value="1">계좌</option>
+                    <option value="2">카드</option>
+                    <option value="3">현금</option>
+                </select>
+            </td>
             <td><a href="/admin/study/student/{{student.pk}}/change/" target="_blank">회원정보</a></td>
             <div id="comment{{forloop.counter}}" style="display: none;">{{student.comment}}</div>
         </tr>
@@ -78,8 +88,12 @@
     })
 
     function deposit(tag,option,pk){
+        var way = $(`#${pk} option:selected`).val()
+        if(option==1){
+            way = "0"
+        }
         $.ajax({
-            url : `/checkdeposit/${option}/${pk}`,
+            url : `/checkdeposit/${option}/${pk}/${way}`,
             success : function(){
                 alert(tag.innerHTML + " 처리되었습니다")
             

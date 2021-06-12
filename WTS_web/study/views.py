@@ -63,10 +63,11 @@ def only_admin(request,option):
         return redirect('index')
 
 
-def check_deposit(request,option,user_id):
+def check_deposit(request,option,user_id,way):
     if request.user.is_staff:
         student = Student.objects.get(pk = user_id)
         student.deposit = option
+        student.pay_way = way
         student.save()
         return redirect('deposit_view','all')
     else:

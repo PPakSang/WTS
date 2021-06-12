@@ -32,10 +32,13 @@ class Student(models.Model):
     day2 = models.DateField(default=datetime.date.today(),verbose_name='두번째 참여일')
     day3 = models.DateField(default=datetime.date.today(),verbose_name='세번째 참여일')
     day4 = models.DateField(default=datetime.date.today(),verbose_name='네번째 참여일')
-    plus_day = models.DateField(null=True,verbose_name='보너스 참여일')
+    plus_day = models.DateField(default=datetime.date.today() - datetime.timedelta(days=365),verbose_name='보너스 참여일')
 
     deposit_status = (("1","미입금"),("2","예약금"),("3","완납"),)
     deposit = models.CharField(max_length=1,default='1',choices=deposit_status)
+
+    pay_way_status = (("0","미납"),("1","계좌"),("2","카드"),("3","현금"))
+    pay_way = models.CharField(max_length=1,default='0',choices=pay_way_status)
     
     
     changed_day = models.DateField(default=datetime.date.today(),verbose_name='등록하기 한날')
@@ -44,8 +47,8 @@ class Student(models.Model):
     user_id = models.IntegerField(default=0)
 
 
-    check_in = models.TextField(null=True, verbose_name="출석체크")
-    comment = models.TextField(null=True, verbose_name="참고사항")
+    check_in = models.TextField(blank=True, null=True, verbose_name="출석체크")
+    comment = models.TextField(blank=True, null=True, verbose_name="참고사항")
 
     is_mailed = models.IntegerField(default = 0)
     
