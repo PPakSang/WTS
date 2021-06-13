@@ -158,7 +158,8 @@ body {
 }
 
 .schedule{
-  min-width: 50rem;
+  max-width: 100%;
+  max-height: 35rem;
 }
 
 /* 부트스트랩 최신 버전에서 datepicker 깨짐 현상 해결 */
