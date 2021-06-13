@@ -206,6 +206,10 @@ body {
   transform: rotate(-180deg);
 }
 
+/* footer */
+.footer-content::after {
+    content: "｜";
+}
 /*login 혜원*/
 
 /*네비바*/
