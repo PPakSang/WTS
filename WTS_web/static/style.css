@@ -162,6 +162,9 @@ body {
   max-height: 35rem;
 }
 
+.container{
+  max-width: 60rem;
+}
 /* 부트스트랩 최신 버전에서 datepicker 깨짐 현상 해결 */
 
 .datepicker td,
