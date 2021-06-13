@@ -1,5 +1,5 @@
 {% extends 'study/main/base.html' %} {% block title %}WANTOSPEAK{% endblock %} {% block content %}
-
+{% load static %}
 <!-- 중간 카테고리 -->
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
     <div class="container-fluid">
@@ -100,8 +100,10 @@
             <div class="stick"></div>
         </div>
     </div>
-    <div class="row pb-lg-5 gx-0" style="height: 400px">
-        <div class="col bg-dark rounded"></div>
+    <div class="row pb-lg-5 gx-0" >
+        <div class="col rounded">
+            <img class="border schedule" src="{% static 'img/schedule.jpg'%}" alt="">
+        </div>
     </div>
 </div>
 

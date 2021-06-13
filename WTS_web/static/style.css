@@ -17,6 +17,13 @@ body {
   /* font-weight: 100, 300, 400, 500, 700, 900 */
 }
 
+/* 조회하기 */
+
+.inquire{
+  max-width: 50rem;
+  margin:auto;
+}
+
 /*네비바 원투스픽 로고*/
 .logo_wts {
   width: 4rem;
@@ -227,12 +234,6 @@ body {
 
 #mid-nav{
   font-weight: 600;
-}
-
-.nav_enroll{
-  font-size: 1.4rem;
-  display: contents;
-  color: #ed7303 !important;
 }
 
 .nav-items .nav-item a {
