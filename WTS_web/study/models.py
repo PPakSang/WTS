@@ -63,6 +63,7 @@ class Student(models.Model):
 class Faq(models.Model):
     name = models.CharField(max_length=10)
     answer_to = models.CharField(max_length=100)
+    user_id = models.IntegerField(default=0)
     text = models.TextField()
 
 

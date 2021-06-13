@@ -17,13 +17,6 @@ body {
   /* font-weight: 100, 300, 400, 500, 700, 900 */
 }
 
-/* 조회하기 */
-
-.inquire{
-  max-width: 50rem;
-  margin:auto;
-}
-
 /*네비바 원투스픽 로고*/
 .logo_wts {
   width: 4rem;
@@ -163,12 +156,6 @@ body {
   height: 12px;
   background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
 }
-
-.schedule{
-  max-width: 100%;
-  max-height: 35rem;
-}
-
 
 /* 부트스트랩 최신 버전에서 datepicker 깨짐 현상 해결 */
 
@@ -505,14 +492,11 @@ body {
   #mid-nav-container {
     display: none;
   }
-  #registration-btns {
-    flex-direction: column;
-  }
-  .registration-btn {
-    margin-top: 10px;
-  }
   #enroll {
     flex-direction: column;
+  }
+  .registration-title {
+    font-size: 0.875rem;
   }
 
   .footer-text {

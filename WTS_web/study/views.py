@@ -16,7 +16,7 @@ from .forms import *
 
 import bcrypt
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, message
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes,force_text
@@ -364,12 +364,20 @@ def faq_view(request): # 자주묻는질문 화면
         if request.user.is_authenticated == False :
             return redirect('login')
         else:
+            if Faq.objects.filter(user_id = request.user.pk).count() >= 2 :
+                messages.error(request,"문의하신 내용이 답변 대기중입니다.")
+                return render(request, 'study/function/faq.html')
+                
             name = request.user.first_name
             answer_to = request.POST['answer_to']
             text = request.POST['text']
+            
 
             faq = Faq(name = name, answer_to = answer_to, text = text)
+            faq.user_id = request.user.pk
             faq.save()
+            messages.success(request,"문의가 완료되었습니다.")
+
     return render(request, 'study/function/faq.html')
 
 
