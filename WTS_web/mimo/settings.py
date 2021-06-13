@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'mimo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if DEBUG == True :
+if DEBUG == False :
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -163,7 +163,7 @@ EMAIL_USE_TLS = True			 # TLS 보안 설정
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER	 # 응답 메일 관련 설정
 
 
-SESSION_COOKIE_AGE = 1000  #세션 만료 시간
+SESSION_COOKIE_AGE = 3000  #세션 만료 시간
 SESSION_SAVE_EVERY_REQUEST = True #요청시마다 만료시간을 갱신할건지
 
 MESSAGE_LEVEL = messages_constants.DEBUG

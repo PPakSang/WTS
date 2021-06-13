@@ -214,6 +214,16 @@ body {
   display: flex;
 }
 
+#mid-nav{
+  font-weight: 600;
+}
+
+.nav_enroll{
+  font-size: 1.4rem;
+  display: contents;
+  color: #ed7303 !important;
+}
+
 .nav-items .nav-item a {
   color: gray;
 }
@@ -438,6 +448,18 @@ body {
 
 #goto_login {
   text-decoration: underline;
+}
+
+.explain{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  color: red;
+  padding: 2rem;
+}
+
+.sub_text{
+  font-size: 1rem;
 }
 
 @media screen and (max-width: 768px) {

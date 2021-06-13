@@ -44,6 +44,7 @@ def only_admin(request,option):
             students = Student.objects.filter(day2 = datetime.date.today())
             students = students | Student.objects.filter(day3 = datetime.date.today())
             students = students | Student.objects.filter(day4 = datetime.date.today())
+            students = students | Student.objects.filter(plus_day = datetime.date.today())
             return render(request,'study/admin.html',{'new_students': new_students,'students':students})
             
 
