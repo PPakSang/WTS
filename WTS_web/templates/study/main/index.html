@@ -85,7 +85,7 @@
     </div>
 </div>
 
-<!-- 오시는 길 -->
+<!-- 지도 -->
 <div class="py-3 text-center container" id="location">
     <div class="row py-3 py-md-5 gx-0">
         <div class="col-lg-6 col-md-8 mx-auto">
@@ -94,13 +94,23 @@
             <div class="stick"></div>
         </div>
     </div>
-    <div class="row pb-lg-5 gx-0" style="height: 500px">
+    <div class="row pb-lg-5 gx-0" id="map-box">
         <div class="col bg-dark rounded" id="map"></div>
         <script>
+            var filter = "win16|win32|win64|mac";
+            if(navigator.platform){
+                if(0 > filter.indexOf(navigator.platform.toLowerCase())){
+                    var lv = 5 // (모바일) 지도의 확대 레벨
+                }
+                else{
+                    var lv = 4 // (PC) 지도의 확대 레벨
+                }
+            }
+
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                 mapOption = {
-                    center: new kakao.maps.LatLng(37.55762415300855, 126.9242610037793), // 지도의 중심좌표
-                    level: 3 // 지도의 확대 레벨
+                    center: new kakao.maps.LatLng(37.55776550565466, 126.92633408259285), // 지도의 중심좌표
+                    level: lv // 지도의 확대 레벨
                 };
 
             var map = new kakao.maps.Map(mapContainer, mapOption);

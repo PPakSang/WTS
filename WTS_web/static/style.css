@@ -177,6 +177,9 @@ body {
   background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
 }
 
+#map-box {
+    height: 30em;
+}
 /* 부트스트랩 최신 버전에서 datepicker 깨짐 현상 해결 */
 
 .datepicker td,
@@ -517,7 +520,9 @@ body {
   .registration-title {
     font-size: 0.875rem;
   }
-
+  #map-box {
+    height: 15em;
+  }
   .footer-text {
     font-size: 0.75rem;
   }
