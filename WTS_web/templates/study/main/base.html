@@ -146,10 +146,8 @@
 </div>
 
 <!--신청하기 float버튼-->
-<div class="goto_enroll">
     <label class="erollbtn" for="navbar_enroll">
         <span style="font-weight: bold;">신청</span>하러 가기</label>
-</div>
 
 <!--카톡 문의 버튼-->
 <a id="channel-chat-button" href="##" onclick="void chatChannel();">
@@ -169,23 +167,23 @@
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
 
-
 <!--신청하기 float버튼-->
 <script>
     $(document).ready(function(){
-
-    var navHeight = $(".banner bg-light").height(); 
-    console.log()
-    $(".goto_enroll").hide();
-
+    
+    var navHeight = $(".navbar").height(); 
+    
+    console.log(navHeight);
+    $(".enrollbtn").hide();
+    
     $(window).scroll(function(){  // 윈도우 스크롤 기능 작동
         var rollIt = $(this).scrollTop() >= navHeight; 
 
     if(rollIt){ 
-            $(".goto_enroll").show().css({"position":"fixed"});
+            $(".enrollbtn").show().css({"position":"fixed"});
         }
         else{
-            $(".goto_enroll").hide();
+            $(".enrollbtn").hide();
         }
     });
 
@@ -201,8 +199,6 @@
         channelPublicId: '_ZRzXK',
         })
     }
-
-
 </script>
 
 <script>
@@ -219,7 +215,6 @@
       js.src = 'https://developers.kakao.com/sdk/js/kakao.channel.min.js';
       fjs.parentNode.insertBefore(js, fjs);
     })(document, 'script', 'kakao-js-sdk');
-
 
 </script>
 
