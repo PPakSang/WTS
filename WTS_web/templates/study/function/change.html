@@ -46,9 +46,12 @@
             <h3 class="fw-bold">안내사항</h3>
             <div class="stick mb-3 mb-md-5"></div>
             <div class="explain bg-light shadow rounded" style="min-height: 300px">
-                <h5>스터디 참여규정 미숙지로 지나간 회차는<br> 돌려드리지 않습니다.<br><small class="sub_text" style="color: black;">꼭 규정을 숙지하시고 기한내에 요일변경을 신청해주세요!</small></h5>
-                <h5>요일은 같은 주차 내에서 변경가능합니다.<br><small class="sub_text" style="color: black;">월요일을 한주의 시작으로 일주일 이내에서 변경가능합니다<br></small></h5>
-                <h5>고정참여일 기준 2일전까지만 변경가능합니다.<br><small class="sub_text" style="color: black;">Ex) 고정 참여일(2021.06.21)기준 (2021.06.19 11:59pm) 까지 변경가능합니다<br>상단 '조회하기'에서 기준 참여일 확인가능합니다.</small></h5></div>
+                <h5>스터디 참여규정 미숙지로 지나간 회차는<br> 돌려드리지 않습니다.<br><small class="sub_text" style="color: black;">꼭 규정을 숙지하시고
+                    기한내에 요일변경을 신청해주세요!</small></h5>
+                <h5>요일은 같은 주차 내에서 변경가능합니다.<br><small class="sub_text" style="color: black;">월요일을 한주의 시작으로 일주일 이내에서
+                    변경가능합니다<br></small></h5>
+                <h5>고정참여일 기준 2일전까지만 변경가능합니다.<br><small class="sub_text" style="color: black;">Ex) 고정 참여일(2021.06.21)기준
+                    (2021.06.19 11:59pm) 까지 변경가능합니다<br>상단 '조회하기'에서 기준 참여일 확인가능합니다.</small></h5></div>
         </div>
 
         <!-- 스터디 날짜 변경 -->
@@ -94,16 +97,16 @@
     </div>
 
     <!-- 시간표 -->
-    <div class="row py-3 py-md-5 gx-0">
-        <div class="col-lg-6 col-md-8 mx-auto">
-            <p class="my-0">고정 스케줄</p>
-            <h3 class="fw-bold">시간표</h3>
-            <div class="stick"></div>
+    <div class="py-3 text-center container" id="schedule">
+        <div class="row py-3 py-md-5 gx-0">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <p class="my-0">고정 스케줄</p>
+                <h3 class="fw-bold">시간표</h3>
+                <div class="stick"></div>
+            </div>
         </div>
-    </div>
-    <div class="row pb-lg-5 gx-0" >
-        <div class="col rounded">
-            <img class="border schedule" src="{% static 'img/schedule.jpg'%}" alt="">
+        <div class="row gx-0 rounded border mw-100">
+            <img src="{% static 'img/schedule.jpg'%}" alt="">
         </div>
     </div>
 </div>
@@ -176,15 +179,17 @@
                 <div id="changeTime" class="mt-3">
                     <label for="toTimePicker" class="form-label fw-bold">시간</label>
                     <select name="time" id="toTimePicker" class="form-select" onchange="showTimeInput()">
-                        <option value="0" selected >선택해주세요.</option>
-                        <option value="1" >오후 1시</option>
-                        <option value="2" >오후 4시</option>
+                        <option value="0" selected>선택해주세요.</option>
+                        <option value="1">오후 1시</option>
+                        <option value="2">오후 4시</option>
                     </select>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button type="button" id="date_ch" class="btn btn-dark disabled" data-bs-dismiss="modal" onclick="toDate()">선택하기</button>
+                <button type="button" id="date_ch" class="btn btn-dark disabled" data-bs-dismiss="modal"
+                        onclick="toDate()">선택하기
+                </button>
             </div>
         </div>
     </div>
@@ -264,6 +269,7 @@
         }
     }
 
+
 </script>
 
 
@@ -306,6 +312,7 @@
         element.innerText = text;
         element.style.color = "#119dff";
     }
+
 
 
 
