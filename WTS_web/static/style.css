@@ -17,12 +17,6 @@ body {
   /* font-weight: 100, 300, 400, 500, 700, 900 */
 }
 
-/* 조회하기 */
-
-.inquire{
-  margin:auto;
-}
-
 /*네비바 원투스픽 로고*/
 .logo_wts {
   width: 4rem;
