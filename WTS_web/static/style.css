@@ -62,7 +62,7 @@ body {
 
 .sns-icons {
   list-style: none;
-  padding-right: 0px;
+  padding: 0px;
 }
 
 .sns-icon {
@@ -214,6 +214,7 @@ body {
 .footer-content::after {
     content: "｜";
 }
+
 /*login 혜원*/
 
 /*네비바*/
@@ -510,4 +511,8 @@ body {
   #enroll {
     flex-direction: column;
   }
+
+  .footer-text {
+    font-size: 0.75rem;
+}
 }
