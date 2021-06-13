@@ -1,5 +1,5 @@
 {% extends 'study/main/base.html' %} {% block title %}WANTOSPEAK{% endblock %} {% block content %}
-
+{% load static %}
 <!-- 중간 카테고리 -->
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm" id="mid-nav-container">
     <div class="container-fluid">
@@ -17,7 +17,7 @@
                 <a class="nav-link" href="#location">오시는 길</a>
             </li>
             <li class="nav-item mx-3">
-                <a class="nav-link" href="#mentors">멘토 소개</a>
+                <a class="nav-link" href="#mentors">스터디 사진</a>
             </li>
         </ul>
     </div>
@@ -62,7 +62,7 @@
     </div>
     <div class="row pb-lg-5 gx-0" id="registration-btns">
         <a class="col btn btn-dark me-md-3 p-5 rounded registration-btn"
-        {%if is_zero%} data-bs-toggle="modal" data-bs-target="#reModal" {% endif %} href="{% url 'enroll' %}">
+           {%if is_zero%} data-bs-toggle="modal" data-bs-target="#reModal" {% endif %} href="{% url 'enroll' %}">
             <span class="row registration-icon"><i class="far fa-calendar-check"></i></span>
             <span class="row mt-3 justify-content-center registration-title">{{enroll}}</span>
         </a>
@@ -151,55 +151,43 @@
                 content: content2,
                 yAnchor: 1
             });
+
         </script>
     </div>
 </div>
 
-<!-- 멘토 소개 -->
+<!-- 스터디 사진 -->
 <div class="py-3 text-center container" id="mentors">
     <div class="row py-3 py-md-5 gx-0">
         <div class="col-lg-6 col-md-8 mx-auto">
-            <p class="my-0">강사진</p>
-            <h3 class="fw-bold">멘토 소개</h3>
+            <p class="my-0">스터디 환경</p>
+            <h3 class="fw-bold">스터디 사진</h3>
             <div class="stick"></div>
         </div>
     </div>
-    <div class="row row-cols-1 row-cols-md-4 g-4">
-        <div class="col">
-            <div class="card">
-                <img class="card-img-top" src="/static/img/example.jpg">
-                <div class="card-body">
-                    <h5 class="card-title">PPark</h5>
-                    <p class="card-text">과목: 영어<br>이메일: aaa@naver.com</p>
+    <div class="row mb-3">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'img/carousel.jpg' %}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'img/carousel.jpg' %}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'img/carousel.jpg' %}" class="d-block w-100" alt="...">
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img class="card-img-top" src="/static/img/example.jpg">
-                <div class="card-body">
-                    <h5 class="card-title">PPark</h5>
-                    <p class="card-text">과목: 영어<br>이메일: aaa@naver.com</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img class="card-img-top" src="/static/img/example.jpg">
-                <div class="card-body">
-                    <h5 class="card-title">PPark</h5>
-                    <p class="card-text">과목: 영어<br>이메일: aaa@naver.com</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img class="card-img-top" src="/static/img/example.jpg">
-                <div class="card-body">
-                    <h5 class="card-title">PPark</h5>
-                    <p class="card-text">과목: 영어<br>이메일: aaa@naver.com</p>
-                </div>
-            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </div>
 </div>
