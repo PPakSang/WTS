@@ -3,7 +3,7 @@
 :root {
   --text-color-white: #f0f4f5;
   --accent-color: #ffd511;
-  --more-accent-color: #f98404;
+  --more-accent-color: #ed9402;
   --text-basic-color: gray;
   --border-color: #e0edee;
 }
@@ -58,6 +58,26 @@ body {
 
 #topBtn a:hover {
   color: #212529;
+}
+
+/*신청버튼 floating ver*/
+.enrollbtn {
+  max-width: 200px;
+  font-size: 1rem;
+  text-decoration: none;
+  bottom: 25px;
+  z-index: 9999;
+  cursor: pointer;
+  color: white;
+  text-align: center;
+  background: var(--more-accent-color);
+  box-shadow: 0px 1px 2px #888;
+  border-radius: 50px;
+}
+
+.enrollbtn:hover {
+  color: white;
+  font-size: 1.1rem;
 }
 
 .sns-icons {
@@ -208,7 +228,7 @@ body {
 
 /* footer */
 .footer-content::after {
-    content: "｜";
+  content: "｜";
 }
 
 /*login 혜원*/
@@ -219,7 +239,7 @@ body {
   display: flex;
 }
 
-#mid-nav{
+#mid-nav {
   font-weight: 600;
 }
 
@@ -449,7 +469,7 @@ body {
   text-decoration: underline;
 }
 
-.explain{
+.explain {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -457,15 +477,14 @@ body {
   padding: 2rem;
 }
 
-.explain h5{
+.explain h5 {
   font-size: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.sub_text{
+.sub_text {
   font-size: 0.8rem;
   color: gray !important;
-  
 }
 
 @media screen and (max-width: 768px) {
@@ -501,5 +520,5 @@ body {
 
   .footer-text {
     font-size: 0.75rem;
-}
+  }
 }
