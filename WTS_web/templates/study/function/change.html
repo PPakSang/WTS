@@ -22,7 +22,7 @@
 <div class="py-2 container text-center">
     <div class="row gx-5 alert-container-parent" id="enroll">
         <!-- 변경 실패 에러메시지 -->
-        <div class="alert-container">
+        <div class="alert-container text-start">
             {% for message in messages %}
             <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                 <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -34,14 +34,14 @@
                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
                     <use xlink:href="#exclamation-triangle-fill"/>
                 </svg>
-                <strong>{{ message }}</strong> 양식에 맞게 날짜를 선택해주세요.
+                <strong >{{ message }}</strong> 양식에 맞게 날짜를 선택해주세요.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             {% endfor %}
         </div>
 
         <!-- 안내사항 -->
-        <div class="col py-3">
+        <div class="col text-center py-3">
             <p class="mb-0 mt-3 mt-md-5">숙지해주세요</p>
             <h3 class="fw-bold">안내사항</h3>
             <div class="stick mb-3 mb-md-5"></div>
