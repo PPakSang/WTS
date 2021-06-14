@@ -64,19 +64,19 @@
     <div class="row gx-3 pb-lg-5">
         <div class="col-4"
              {%if is_zero%} data-bs-toggle="modal" data-bs-target="#reModal" {% endif %}
-             onclick="location.href='{% url 'enroll' %}';">
+             onclick="$`'{% url 'enroll' %}'`">
             <div class="btn main-btn px-0 py-3 py-md-4 rounded w-100">
                 <div class="registration-icon"><i class="far fa-calendar-check"></i></div>
                 <div class="mt-2 registration-title">{{enroll}}</div>
             </div>
         </div>
-        <div class="col-4" onclick="location.href='{% url 'inquire' %}';">
+        <div class="col-4" onclick="$`'{% url 'inquire' %}'`">
             <div class="btn main-btn px-0 py-3 py-md-4 rounded w-100">
                 <div class="registration-icon"><i class="fas fa-search"></i></div>
                 <div class="mt-2 registration-title">조회하기</div>
             </div>
         </div>
-        <div class="col-4" onclick="location.href='{% url 'change' %}';">
+        <div class="col-4" onclick="$`'{% url 'change' %}'`">
             <div class="btn main-btn px-0 py-3 py-md-4 rounded w-100">
                 <div class="registration-icon"><i class="fas fa-exchange-alt"></i></div>
                 <div class="mt-2 registration-title">변경하기</div>
