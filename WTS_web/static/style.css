@@ -293,10 +293,6 @@ body {
   display: flex;
 }
 
-#mid-nav {
-  font-weight: 600;
-}
-
 .nav-items .nav-item a {
   color: gray;
 }
