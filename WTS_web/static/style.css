@@ -118,13 +118,13 @@ body {
 
 .registration-icon {
   font-size: 3em;
-  color: var(--text-color-white);
+  color: #f9690e;
 }
 
 .registration-title {
   font-size: 1.4rem;
   font-weight: 500;
-  color: var(--text-color-white);
+  color: #000;
 }
 
 .customoverlay {
@@ -194,15 +194,49 @@ body {
 #changeTime {
   display: none;
 }
+
+.change-btn {
+  color: #000;
+  background-color: #fde3a7;
+  border-color: #fde3a7;
+}
+
+.change-btn:hover {
+  color: #000;
+  background-color: #fcd670;
+  border-color: #ffc720;
+}
+
+.btn-check:focus + .change-btn, .change-btn:focus {
+  box-shadow: 0 0 0 0.25rem rgba(228, 201, 122, 0.568);
+}
+
+.btn-check:checked + .change-btn:focus, .btn-check:active + .change-btn:focus, .change-btn:active:focus, .change-btn.active:focus, .show > .change-btn.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.25rem rgba(228, 201, 122, 0.568);
+}
+
 .change-btn-icon {
   font-size: 3em;
-  color: var(--text-color-white);
+  color: #f89406;
 }
 
 .change-btn-content {
   font-size: 1.4rem;
   font-weight: 500;
-  color: var(--text-color-white);
+  color: #000;
+}
+
+.change-btn-submit {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: #f39c12;
+}
+
+.change-btn-submit:hover {
+  color: #fff;
+  background-color: #fcb941;
+  border-color: #ffc720;
 }
 
 .table-hover-custom > tbody > tr:hover {

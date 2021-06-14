@@ -61,7 +61,7 @@
 
             <div class="row mb-3">
                 <div class="col">
-                    <button type="button" class="btn btn-dark rounded w-100" style="height: 230px"
+                    <button type="button" class="btn change-btn rounded w-100" style="height: 230px"
                             data-bs-toggle="modal" data-bs-target="#fromModal">
                         <span class="change-btn-icon"><i class="far fa-calendar-alt"></i></span>
                         <span class="row justify-content-center change-btn-content">FROM</span>
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="col">
-                    <button type="button" class="btn btn-dark rounded w-100" style="height: 230px"
+                    <button type="button" class="btn change-btn rounded w-100" style="height: 230px"
                             data-bs-toggle="modal" data-bs-target="#toModal">
                         <span class="change-btn-icon"><i class="far fa-calendar-check"></i></span>
                         <span class="row justify-content-center change-btn-content">TO</span>
@@ -86,7 +86,7 @@
                     <input type="text" id="request_day" name="day" class="day" style="display: none;">
                     <input type="text" id="request_week" name="i" class="i" style="display: none;">
                     <input type="text" id="request_time" name="time" value="0" style="display: none;">
-                    <button type="submit" class="btn btn-dark change-btn-content w-100">변경하기</button>
+                    <button type="submit" class="btn btn-warning change-btn-submit w-100">변경하기</button>
                 </form>
             </div>
         </div>
@@ -294,7 +294,7 @@
         // from 버튼의 text 변경
         var element = document.getElementById("fromDate");
         element.innerText = sel_type;
-        element.style.color = "#119dff";
+        element.style.color = "#5181ED";
     }
 
     function toDate() {
@@ -307,7 +307,7 @@
         time.setAttribute('value',time_val)
 
         element.innerText = text;
-        element.style.color = "#119dff";
+        element.style.color = "#5181ED";
     }
 
 
