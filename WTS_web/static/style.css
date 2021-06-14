@@ -552,6 +552,9 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+  html{
+    font-size: 12px;
+  }
   /* 배너 글자 작게 */
   .banner-title {
     font-size: 1.375rem;
