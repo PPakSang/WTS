@@ -613,4 +613,7 @@ body {
     max-width: 190px;
     font-size: 0.95rem;
   }
+  .inquire-explain {
+    text-align: left;
+  }
 }
