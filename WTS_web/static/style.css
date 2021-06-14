@@ -303,7 +303,7 @@ body {
 /*로그인 전체 박스 */
 
 #formBox_row {
-  margin-top: 5%;
+  margin-top: 4rem;
 }
 
 #formBox_col {
@@ -417,7 +417,7 @@ body {
 /*회원가입 입력폼 */
 
 #signup_box {
-  margin-top: 5%;
+  margin-top: 3rem;
 }
 
 #footer_copyright {
@@ -523,17 +523,17 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  color: red;
+  color: #f13a3a;
   padding: 2rem;
 }
 
 .explain h5 {
-  font-size: 1.5rem;
+  font-size: 1.125rem;
   margin: 1rem 0;
 }
 
 .sub_text {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: gray !important;
 }
 
@@ -552,7 +552,7 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-  html{
+  html {
     font-size: 12px;
   }
   /* 배너 글자 작게 */
