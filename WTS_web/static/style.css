@@ -190,7 +190,7 @@ body {
 }
 
 #map-box {
-    height: 30em;
+  height: 30em;
 }
 /* 부트스트랩 최신 버전에서 datepicker 깨짐 현상 해결 */
 
@@ -219,11 +219,16 @@ body {
   border-color: #ffc720;
 }
 
-.btn-check:focus + .change-btn, .change-btn:focus {
+.btn-check:focus + .change-btn,
+.change-btn:focus {
   box-shadow: 0 0 0 0.25rem rgba(228, 201, 122, 0.568);
 }
 
-.btn-check:checked + .change-btn:focus, .btn-check:active + .change-btn:focus, .change-btn:active:focus, .change-btn.active:focus, .show > .change-btn.dropdown-toggle:focus {
+.btn-check:checked + .change-btn:focus,
+.btn-check:active + .change-btn:focus,
+.change-btn:active:focus,
+.change-btn.active:focus,
+.show > .change-btn.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.25rem rgba(228, 201, 122, 0.568);
 }
 
@@ -567,5 +572,18 @@ body {
   }
   .footer-text {
     font-size: 0.75rem;
+    padding-bottom: 2em;
+  }
+
+  .enrollbtn {
+    max-width: 180px;
+    font-size: 0.9rem;
+    bottom: 20px;
+    padding-top: 10px;
+  }
+
+  .enrollbtn:hover {
+    max-width: 180px;
+    font-size: 1rem;
   }
 }
