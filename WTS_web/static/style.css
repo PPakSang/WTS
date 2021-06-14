@@ -116,9 +116,21 @@ body {
   background-color: var(--accent-color);
 }
 
+.main-btn {
+  color: #000;
+  background-color: #fde3a7;
+  border-color: #fde3a7;
+}
+
+.main-btn:hover {
+  color: #000;
+  background-color: #fcd670;
+  border-color: #ffc720;
+}
+
 .registration-icon {
   font-size: 3em;
-  color: #f9690e;
+  color: #f89406;
 }
 
 .registration-title {
