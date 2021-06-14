@@ -2,34 +2,30 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'index.css' %}">
 <!-- 중간 카테고리 -->
-<nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light shadow-sm mid-nav">
     <div class="container-fluid">
-        <ul class="navbar-nav mx-auto mb-2 mb-md-0">
-            <li class="nav-item mx-3">
+        <ul class="navbar-nav mx-auto mb-0">
+            <li class="nav-item mx-2 mx-md-3">
                 <a class="nav-link" href="{% url 'enroll' %}">등록하기</a>
             </li>
-            <li class="nav-item mx-3">
+            <li class="nav-item mx-2 mx-md-3">
                 <a class="nav-link active" aria-current="page" href="#">조회하기</a>
             </li>
-            <li class="nav-item mx-3">
+            <li class="nav-item mx-2 mx-md-3">
                 <a class="nav-link" href="{% url 'change' %}">변경하기</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<div class="py-2 text-center container">
 
+<div class="py-2 text-center container">
     <!-- 안내사항 -->
-    <div class="row py-2 py-md-5 gx-0">
-        <div class="pt-3 col-lg-6 col-md-8 mx-auto">
-            <p class="my-0">숙지해주세요</p>
+    <div class="row py-3 gx-0">
+    <p class="mb-0 mt-3 mt-md-5">숙지해주세요</p>
             <h3 class="fw-bold">안내사항</h3>
-            <div class="stick"></div>
-        </div>
-    </div>
-    <div class="row pb-lg-5 gx-0">
-        <div class="explain bg-light shadow rounded">
+            <div class="stick mb-3 mb-md-5"></div>
+            <div class="explain bg-light shadow rounded">
             <h5>등록 후 꼭! 입금해주셔야 스터디 참여가능합니다<br><small class="sub_text" style="color: black;">참여 전날 밤(22시)까지 예약금
                 10,000원을 입금하셔야 정상적으로 스터디 참여가능합니다. <br>미입금 혹은 해당 시간이 지난 후 입금시 참여 제한될 수 있습니다.<br><span
                         style="color: blue;">*국민은행 91234-342165 (김성진 원투스픽 / 예약금 10,000원)</span></small></h5>

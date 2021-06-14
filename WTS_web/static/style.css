@@ -551,14 +551,41 @@ body {
   }
 }
 
-@media screen and (max-width: 992px) {
-  #mid-nav {
+@media screen and (max-width: 768px) {
+  /* 배너 글자 작게 */
+  .banner-title {
+    font-size: 1.375rem;
+  }
+  .banner-content {
+    font-size: 1rem;
+  }
+  /* 메인의 중간 메뉴바 안 보이게 */
+  #mid-nav-container {
+    display: none;
+  }
+  /* 등록, 변경, 조회, faq 페이지에서의 중간 네브 바 가로로 정렬 (기본은 세로 정렬) */
+  .mid-nav {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+  .mid-nav .navbar-nav {
     flex-direction: row;
   }
-}
-
-@media screen and (max-width: 768px) {
-  #mid-nav-container {
+  .mid-nav .navbar-nav .dropdown-menu {
+    position: absolute;
+  }
+  .mid-nav .navbar-nav .nav-link {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+  .mid-nav .navbar-nav-scroll {
+    overflow: visible;
+  }
+  .mid-nav .navbar-collapse {
+    display: flex !important;
+    flex-basis: auto;
+  }
+  .mid-nav .navbar-toggler {
     display: none;
   }
   #enroll {

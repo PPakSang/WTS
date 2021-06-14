@@ -41,7 +41,7 @@
 <body>
 <header>
     <!-- 상단 카테고리 -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand fw-bold" href="{% url 'index' %}"><img class=logo_wts
                                                                           src="{% static 'img/logo_WTS.svg'%}">원투스픽</a>
@@ -53,29 +53,29 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page"
+                        <a class="nav-link px-3 px-md-2 {% if request.path == '/' %}active{% endif %}" aria-current="page"
                            href="{% url 'index' %}">홈</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/category/enroll/' %}active
+                        <a class="nav-link px-3 px-md-2 {% if request.path == '/category/enroll/' %}active
                         {% elif request.path == '/category/inquire/' %}active
                         {% elif request.path == '/category/change/' %}active
                         {% endif %}" href="{% url 'enroll' %}"
                            {%if is_zero%} data-bs-toggle="modal" data-bs-target="#reModal" {% endif %} id="navbar_enroll">신청하기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/category/faq/' %}active{% endif %}"
+                        <a class="nav-link px-3 px-md-2 {% if request.path == '/category/faq/' %}active{% endif %}"
                            href="{% url 'faq' %}">문의하기</a>
                     </li>
                     <li class="nav-item">
 
                         {% if user.is_authenticated %}
-                        <a class="nav-link" href="{% url 'logout' %}">로그아웃</a> {% else %}
-                        <a class="nav-link" href="{% url 'login' %}">로그인</a> {% endif %}
+                        <a class="nav-link px-3 px-md-2" href="{% url 'logout' %}">로그아웃</a> {% else %}
+                        <a class="nav-link px-3 px-md-2" href="{% url 'login' %}">로그인</a> {% endif %}
                     </li>
                     {% if user.is_authenticated == False %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'signup' %}">회원가입</a>
+                        <a class="nav-link px-3 px-md-2" href="{% url 'signup' %}">회원가입</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -85,10 +85,10 @@
     <!-- 상단 배너 -->
     <div class="banner bg-light">
         <section class="py-3 text-center container">
-            <div class="row py-lg-5">
+            <div class="row py-md-4">
                 <div class="col-lg-6 col-md-8 mx-auto">
                     <h1 class="banner-title">WANT TO SPEAK?</h1>
-                    <p class="lead text-muted">One, two, speak! 영어회화 스터디는 원투스픽에서!</p>
+                    <p class="lead text-muted banner-content">One, two, speak! 영어회화 스터디는 원투스픽에서!</p>
                 </div>
             </div>
         </section>
