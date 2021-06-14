@@ -1,5 +1,6 @@
 from datetime import timedelta
 from typing import ContextManager
+from django.db.models import fields
 from django.db.models.query import QuerySet
 from django.http import response,HttpResponse
 from django.shortcuts import redirect, render
@@ -24,6 +25,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib import messages
 
 import json
+
+from django.contrib.admin.views.decorators import staff_member_required
 # Create your views here.
 
 
@@ -185,15 +188,16 @@ def get_left_day(student):
 
 
 def index(request): # 메인 화면
+    imgs = Study_img.objects.all()
     try:
         student = Student.objects.get(user_id = request.user.pk)
         left_day = get_left_day(student)
         if left_day == 0 :
-            return render(request, 'study/main/index.html',{"enroll" : "재등록하기","is_zero" : True})
+            return render(request, 'study/main/index.html',{"enroll" : "재등록하기","is_zero" : True,"imgs":imgs})
         else:
-            return render(request, 'study/main/index.html',{"enroll" : "재등록하기","is_zero" : False})
+            return render(request, 'study/main/index.html',{"enroll" : "재등록하기","is_zero" : False,"imgs":imgs})
     except:
-        return render(request, 'study/main/index.html',{"enroll" : "등록하기"})
+        return render(request, 'study/main/index.html',{"enroll" : "등록하기","imgs":imgs})
 
 
 
@@ -734,3 +738,22 @@ def checkemail(request): #인증메일 확인 부탁 페이지
 
 def testError(request): # 에러 페이지 테스트
     return render(request, 'study/error.html')
+
+class Img_update_view(generic.CreateView):
+    model = Study_img
+    fields = '__all__'
+    template_name = 'study/uploadimg.html'
+    success_url = "/uploadimg/"
+
+    def get_context_data(self, **kwargs):
+        kwargs["imgs"] = Study_img.objects.all()
+
+        return super().get_context_data(**kwargs)
+
+
+
+staff_member_required(login_url='/')
+def deleteimg(request,pk):
+    img = Study_img.objects.get(pk = pk)
+    img.delete()
+    return HttpResponse('삭제완료')

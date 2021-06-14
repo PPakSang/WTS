@@ -8,6 +8,8 @@ from django.core.validators import *
 from django.shortcuts import redirect, render
 import datetime
 from django.utils import timezone
+from django.conf import settings
+import os
 # Create your models here.
 
 
@@ -70,3 +72,11 @@ class Faq(models.Model):
     def __str__(self) -> str:
         return self.name + f'({self.answer_to})'
         
+
+class Study_img(models.Model):
+    pic = models.ImageField(upload_to = 'studypic/')
+
+    def delete(self, *args, **kwargs):
+        if self.pic :
+            os.remove(os.path.join(settings.MEDIA_ROOT,self.pic.path))
+            super(Study_img, self).delete(*args,**kwargs)
