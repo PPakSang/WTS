@@ -553,7 +553,7 @@ body {
 
 @media screen and (max-width: 768px) {
   html {
-    font-size: 12px;
+    font-size: 14px;
   }
   /* 배너 글자 작게 */
   .banner-title {
