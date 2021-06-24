@@ -1,3 +1,4 @@
+from django.conf import settings
 from datetime import timedelta
 from typing import ContextManager
 from django.db.models import fields
@@ -27,6 +28,7 @@ from django.contrib import messages
 import json
 
 from django.contrib.admin.views.decorators import staff_member_required
+from django.utils.decorators import method_decorator
 # Create your views here.
 
 
@@ -739,6 +741,11 @@ def checkemail(request): #인증메일 확인 부탁 페이지
 def testError(request): # 에러 페이지 테스트
     return render(request, 'study/error.html')
 
+
+#함수가 만들어질때 항상 실행되는 함수 dispatch 를 재정의 하는 방법
+#name 과 일치하는 클래스의 메소드에 대해서만 데코레이터를 적용하는방법
+#https://ssungkang.tistory.com/entry/Django-FBV-%EC%99%80-CBV-%EC%9D%98-decorators-%EC%82%AC%EC%9A%A9%EB%B2%95
+@method_decorator(staff_member_required,name="dispatch")
 class Img_update_view(generic.CreateView):
     model = Study_img
     fields = '__all__'
@@ -747,13 +754,22 @@ class Img_update_view(generic.CreateView):
 
     def get_context_data(self, **kwargs):
         kwargs["imgs"] = Study_img.objects.all()
-
         return super().get_context_data(**kwargs)
+    
 
+import boto3
 
-
-staff_member_required(login_url='/')
+@staff_member_required(login_url='/')
 def deleteimg(request,pk):
     img = Study_img.objects.get(pk = pk)
+    s3_client = boto3.client(
+        's3',
+        aws_access_key_id = settings.AWS_ACCESS_KEY_ID,
+        aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY,
+        region_name = settings.AWS_REGION,
+    )
+    key = img.pic.name
+    #키는 버킷이름 다음에 위치하는 경로
+    s3_client.delete_object(Bucket='elasticbeanstalk-ap-northeast-2-293437042513',Key='media/'+key)
     img.delete()
     return HttpResponse('삭제완료')

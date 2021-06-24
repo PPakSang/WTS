@@ -32,8 +32,8 @@
             <div class="stick"></div>
         </div>
     </div>
-    <div class="row pb-lg-5 gx-0" style="height: 500px">
-        <div class="col bg-dark rounded"></div>
+    <div class="row mb-lg-5 gx-0 rounded border mw-100">
+        <img src="{% static 'img/main1.jpg'%}" alt="">
     </div>
 </div>
 
@@ -115,7 +115,7 @@
 
             var map = new kakao.maps.Map(mapContainer, mapOption);
 
-            var imageSrc = '/static/img/marker.png', // 마커이미지의 주소입니다
+            var imageSrc = '{% static 'img/marker.png' %}', // 마커이미지의 주소입니다
                 imageSize = new kakao.maps.Size(70, 70), // 마커이미지의 크기입니다
                 imageOption = {
                     offset: new kakao.maps.Point(35, 70)
