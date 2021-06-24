@@ -361,6 +361,10 @@ body {
 
 /*상단 타이틀*/
 
+#staticBackdropLabel :hover{
+  cursor: pointer;
+}
+
 .signup_title {
   margin-top: 25px;
   text-align: center;
