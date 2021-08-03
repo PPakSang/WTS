@@ -103,7 +103,7 @@ else:
             'NAME': 'sys',                  
             'USER': 'wanttospeak',                      
             'PASSWORD': secret['dbpassword'],                  
-            'HOST': secret['HOST'],                     
+            'HOST': secret['HOST'],
             'PORT': '3306',                          
         }
     }
