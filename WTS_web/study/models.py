@@ -76,7 +76,7 @@ class Faq(models.Model):
 class Study_img(models.Model):
     pic = models.ImageField(upload_to = 'studypic/')
 
-    def delete(self, *args, **kwargs):
-        if self.pic :
-            os.remove(os.path.join(settings.MEDIA_ROOT,self.pic.path))
-            super(Study_img, self).delete(*args,**kwargs)
+    # def delete(self, *args, **kwargs):
+    #     if self.pic :
+    #         os.remove(os.path.join(settings.MEDIA_ROOT,self.pic.path))
+    #         super(Study_img, self).delete(*args,**kwargs)

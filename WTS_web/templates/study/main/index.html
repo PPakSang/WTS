@@ -32,8 +32,11 @@
             <div class="stick"></div>
         </div>
     </div>
-    <div class="row pb-lg-5 gx-0" style="height: 500px">
-        <div class="col bg-dark rounded"></div>
+    <div class="row mb-lg-5 gx-0 rounded border mw-100">
+        <img src="{% static 'img/top.jpg'%}" alt="">
+    </div>
+    <div class="row mb-lg-5 gx-0 rounded border mw-100">
+        <img src="{% static 'img/introduction.jpg'%}" alt="">
     </div>
 </div>
 
@@ -115,7 +118,7 @@
 
             var map = new kakao.maps.Map(mapContainer, mapOption);
 
-            var imageSrc = '/static/img/marker.png', // 마커이미지의 주소입니다
+            var imageSrc = '{% static 'img/marker.png' %}', // 마커이미지의 주소입니다
                 imageSize = new kakao.maps.Size(70, 70), // 마커이미지의 크기입니다
                 imageOption = {
                     offset: new kakao.maps.Point(35, 70)
@@ -221,8 +224,8 @@
         </div>
         <!-- 우측 고정 이미지 -->
         <div class="col-md-4 mt-4 mt-md-0">
-            <img src="{% static 'img/example.jpg' %}" class="d-block w-100 rounded" alt="이미지를 불러올 수 없습니다.">
-            <img src="{% static 'img/carousel.jpg' %}" class="d-block w-100 mt-4 rounded" alt="이미지를 불러올 수 없습니다.">
+            <img src="{% static 'img/carousel1.jpg' %}" class="d-block w-100 rounded" alt="이미지를 불러올 수 없습니다.">
+            <img src="{% static 'img/carousel2.jpg' %}" class="d-block w-100 mt-4 rounded" alt="이미지를 불러올 수 없습니다.">
         </div>
     </div>
 </div>

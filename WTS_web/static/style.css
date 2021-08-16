@@ -361,6 +361,7 @@ body {
 
 /*상단 타이틀*/
 
+
 .signup_title {
   margin-top: 25px;
   text-align: center;
@@ -401,7 +402,9 @@ body {
 .signup_policy_link {
   font-size: 1rem;
   color: var(--more-accent-color);
+  cursor: pointer;
 }
+
 
 /*input태그 높이*/
 

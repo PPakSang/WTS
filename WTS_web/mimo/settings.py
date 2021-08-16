@@ -14,6 +14,7 @@ from pathlib import Path
 from django.contrib.messages import constants as messages
 from django.contrib.messages import constants as messages_constants
 
+import storages
 
 import json
 
@@ -34,21 +35,24 @@ with open(secret_file) as f:
 SECRET_KEY = secret['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*','django-env.eba-pshbn24b.ap-northeast-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['172.31.15.66','wantospeak.com','django-env.eba-pshbn24b.ap-northeast-2.elasticbeanstalk.com']
+
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'study',
+    'storages',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
 ]
 
 MIDDLEWARE = [
@@ -99,7 +103,7 @@ else:
             'NAME': 'sys',                  
             'USER': 'wanttospeak',                      
             'PASSWORD': secret['dbpassword'],                  
-            'HOST': secret['HOST'],                     
+            'HOST': secret['HOST'],
             'PORT': '3306',                          
         }
     }
@@ -141,13 +145,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 # Default primary key field type
@@ -196,3 +200,22 @@ MESSAGE_TAGS = {
 #         },
 #     },
 # }
+
+
+# S3 설정을 위한 변수
+# AWS_xxx 의 변수들은 aws-S3, boto3 모듈을 위한 변수들이다.
+
+# 엑세스 키와 시크릿 키는 다른 파일로 작성, 임포트하여 사용
+AWS_ACCESS_KEY_ID = secret["AWS_ID"]
+AWS_SECRET_ACCESS_KEY = secret["AWS_SECRET_KEY"]
+
+AWS_REGION = 'ap-northeast-2'
+AWS_STORAGE_BUCKET_NAME = 'elasticbeanstalk-ap-northeast-2-293437042513'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (
+    AWS_STORAGE_BUCKET_NAME, AWS_REGION)
+AWS_DEFAULT_ACL = 'public-read'
+AWS_LOCATION = 'static'
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, 'media')
+DEFAULT_FILE_STORAGE = 'mimo.storage.S3DefaultStorage'
+STATICFILES_STORAGE = 'mimo.storage.S3StaticStorage'
