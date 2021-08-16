@@ -40,11 +40,17 @@
                 </form>
             </div>
             <div class="row justify-content-center">
-                    <span class="mt-2 mb-5">
+                    <span class="mt-2 mb-3">
                         <a class="login_find" href="{% url 'find_id' %}">아이디 찾기</a>
                         <span class="bar">|</span>
                     <a class="login_find" href="{% url 'find_pw' %}">비밀번호 찾기</a>
                     </span>
+            </div>
+            <div class="sns_login">
+                <h6 class="sns_login_title" style="font-size:0.9rem;">간편로그인</h6>
+                <a href="{% url 'signup' %}">
+                    <img src="/static/img/kakao_login_narrow.png">
+                </a>    
             </div>
             <div class="mt-4 pb-2">
                     <span id="q_account">

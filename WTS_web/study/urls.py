@@ -39,6 +39,7 @@ urlpatterns = [
     path('category/change/', change, name='change'),
     path('category/faq/', faq_view, name='faq'),
 
+
     #policy
 
     #admin

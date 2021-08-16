@@ -65,6 +65,10 @@
                            {%if is_zero%} data-bs-toggle="modal" data-bs-target="#reModal" {% endif %} id="navbar_enroll">신청하기</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link px-3 px-md-2 {% if request.path == '/category/qna_view/' %}active{% endif %}"
+                           href="#">공지사항</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link px-3 px-md-2 {% if request.path == '/category/faq/' %}active{% endif %}"
                            href="{% url 'faq' %}">문의하기</a>
                     </li>
