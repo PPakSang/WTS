@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ko">
 
 <head>
@@ -14,8 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet">
-    
-    {% load static %}
+
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
 </head>
@@ -28,7 +28,7 @@
         <!-- 상단 카테고리 -->
         <nav class="navbar navbar-light bg-light">
             <div class="container" style="max-width: 60rem;">
-                <a class="navbar-brand fw-bold" href="{% url 'index' %}"><img class=logo_wts src="/static/img/logo_WTS.svg"></img>원투스픽</a>
+                <a class="navbar-brand fw-bold" href="{% url 'index' %}"><img class=logo_wts src="{% static 'img/logo_WTS.svg'%}">원투스픽</a>
                     <ul class="nav-items">
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="{% url 'index' %}">홈</a>

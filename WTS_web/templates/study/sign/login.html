@@ -1,5 +1,5 @@
 {% extends 'study/sign/sign_base.html' %} {% block title %}WANTOSPEAK{% endblock %} {% block content %}
-
+{%load static%}
 <!--로그인 박스-->
 <section class="container align-content-center">
 
@@ -48,8 +48,8 @@
             </div>
             <div class="sns_login">
                 <h6 class="sns_login_title" style="font-size:0.9rem;">간편로그인</h6>
-                <a href="{% url 'signup' %}">
-                    <img src="/static/img/kakao_login_narrow.png">
+                <a href="{% url 'signup_sns' %}">
+                    <img src="{% static 'img/kakao_signup_narrow.png'%}">
                 </a>    
             </div>
             <div class="mt-4 pb-2">
