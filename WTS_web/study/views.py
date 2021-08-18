@@ -750,3 +750,19 @@ def deleteimg(request, pk):
 
 def signup_sns(request):  # sns회원가입
     return render(request, 'study/sign/signup_sns.html')
+
+
+def qna_list(request):
+    return render(request, 'study/function/qna_list.html')
+
+
+def qna_view(request):
+    return render(request, 'study/function/qna_view.html')
+
+
+def qna_enroll(request):
+    return render(request, 'study/function/qna_enroll.html')
+
+
+def qna_detail(request):
+    return render(request, 'study/function/qna_detail.html')

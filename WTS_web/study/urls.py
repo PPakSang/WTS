@@ -54,7 +54,14 @@ urlpatterns = [
     path('error/', testError, name='error'),
 
     path('uploadimg/', Img_update_view.as_view()),
-    path('deleteimg/<pk>', deleteimg)
+    path('deleteimg/<pk>', deleteimg),
+
+    # community
+    #path('qnalist/', qna_list, name='qna_list'),
+    path('category/qna/detail/', qna_detail, name='qna_detail'),
+    path('category/qna/enroll', qna_enroll, name='qna_enroll'),
+    path('category/qna/', qna_view, name='qna_view'),
+    #path('category/qna/delete/<pk>', qna_delete, name='qna_delete')
 ]
 # +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 # urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
