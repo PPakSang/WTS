@@ -331,6 +331,11 @@ body {
   font-weight: bold;
 }
 
+.sns_login_title {
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
 /* 계정찾기(+회원가입), 정책 링크태그 css*/
 
 .login_find,
@@ -360,7 +365,6 @@ body {
 /*signup 혜원*/
 
 /*상단 타이틀*/
-
 
 .signup_title {
   margin-top: 25px;
@@ -405,7 +409,6 @@ body {
   cursor: pointer;
 }
 
-
 /*input태그 높이*/
 
 #idInput,
@@ -418,6 +421,16 @@ body {
 }
 
 /*회원가입 입력폼 */
+#goto_signup_sns {
+  text-decoration: underline;
+  font-weight: normal;
+  font-size: 0.85rem;
+  color: var(--text-basic-color);
+}
+
+#goto_signup_sns:hover {
+  color: #1050c2;
+}
 
 #signup_box {
   margin-top: 3rem;

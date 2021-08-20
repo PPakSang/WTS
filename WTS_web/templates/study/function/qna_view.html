@@ -1,0 +1,33 @@
+{% extends 'study/main/base.html' %} {% block title %}WANTOSPEAK{% endblock %} {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+
+<div class="container qna">
+    <h3 class="menu_title mb-4 mt-5"> 공지사항</h3>
+    <div class="divline"></div>
+    <div class="qna_index">
+        <ul class="p-2">
+            <li class="col-6" id="qna_title">제목</li>
+            <li class="col-3" id="qna_date">작성일</li>
+            <li class="col-3" id="qna_progress">진행</li>
+        </ul>
+    </div>
+    <div class="divline"></div>
+
+    <div class="qna_list">
+    </div>
+    
+    <div class="writing_link_div">
+        <a class="writing_link px-4 py-2" href="{% url 'qna_enroll' %}"> 글쓰기</a>
+    </div>
+    <div class="view_bottom">
+        <ul class="pagination justify-content-center mt-3 mb-0">
+        </ul>
+
+        <div style="display: none;" id="num">{{num}}</div>
+    </div>
+</div>
+</div>
+
+<script src="{% static 'main.js' %}"></script>
+{% endblock %}
