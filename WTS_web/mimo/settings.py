@@ -36,14 +36,9 @@ SECRET_KEY = secret['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-<<<<<<< HEAD
-
-ALLOWED_HOSTS = ['*','172.31.15.66','wantospeak.com','django-env.eba-pshbn24b.ap-northeast-2.elasticbeanstalk.com']
-=======
->>>>>>> 33a0ee8fd3c477d9fcda8bda5e0d360fea0243a0
 
 ALLOWED_HOSTS = ['172.31.15.66', 'wantospeak.com',
-                 'django-env.eba-pshbn24b.ap-northeast-2.elasticbeanstalk.com', '*']
+                 'django-env.eba-pshbn24b.ap-northeast-2.elasticbeanstalk.com']
 
 
 # Application definition
