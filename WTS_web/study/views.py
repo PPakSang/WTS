@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-from os import access
-=======
 import boto3
->>>>>>> 33a0ee8fd3c477d9fcda8bda5e0d360fea0243a0
 from django.conf import settings
 from datetime import timedelta
 from typing import ContextManager
@@ -36,8 +32,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.decorators import method_decorator
 # Create your views here.
 
-
-<<<<<<< HEAD
+from django.urls import reverse
 
 import requests
 
@@ -45,9 +40,6 @@ import requests
 
 
 def only_admin(request,option):
-=======
-def only_admin(request, option):
->>>>>>> 33a0ee8fd3c477d9fcda8bda5e0d360fea0243a0
     if request.user.is_staff:
 
         if option == 'all':
@@ -410,7 +402,6 @@ def faq_view(request):  # 자주묻는질문 화면
 
 # sign_view
 
-<<<<<<< HEAD
 
 
 
@@ -486,8 +477,22 @@ def kakao_callback(request):
     # )
 
         email = email_response_json.get('kakao_account').get('email')
+        
+        user = User.objects.filter(email = email)
 
-        return HttpResponse(email)
+        #카카오에서 불러온 이메일과 동일한 이메일의 유저가 존재할 시 로그인 시키기
+        if user.exists() :
+           
+            login(request,user[0])
+            return redirect('index')
+        #없으면 가입
+        else:
+            hashed = bcrypt.hashpw(str(email).encode('utf-8'),bcrypt.gensalt()).decode('utf-8')
+            
+            return redirect(reverse('signup_sns') + f"?email={email}&hashed={hashed}")
+            
+            
+            
     
 
 def kakao_logout(request):
@@ -505,9 +510,6 @@ def kakao_logout(request):
 
 
 def login_hw(request): # 로그인 화면
-=======
-def login_hw(request):  # 로그인 화면
->>>>>>> 33a0ee8fd3c477d9fcda8bda5e0d360fea0243a0
     if request.user.is_authenticated:
         return redirect('index')
     if request.method == 'POST':
@@ -859,8 +861,63 @@ def deleteimg(request, pk):
     return HttpResponse('삭제완료')
 
 
+
+## rest API 에서 email 분리해서 email 던지면됨
+## 단 decode 된 hashed(bcrypt) 문자열과 email 이 같이 넘어와야함
+
 def signup_sns(request):  # sns회원가입
-    return render(request, 'study/sign/signup_sns.html')
+    encoded_em = str(request.GET['email']).encode('utf-8')
+    #절대경로로 들어오는 행위 막기위함
+    if not bcrypt.checkpw(encoded_em,request.GET['hashed'].encode('utf-8')):
+        return redirect('index')
+
+    if request.user.is_authenticated:
+        return redirect('index')
+
+    email = request.GET['email']
+
+    if request.method == 'POST':
+        form = Signup_sns_form(request.POST)
+        
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            password2 = form.cleaned_data['password2']
+            email = email
+            name = form.cleaned_data['name']
+
+            if User.objects.filter(username=username).count() != 0:  # ID 중복시
+                return render(request, 'study/sign/signup_sns.html', {'form_error': '양식을 정확히 다시 작성해주세요'})
+            if validate_password(password):
+                return render(request, 'study/sign/signup_sns.html', {
+                    'password_error': '4자이상, 영문자포함, 숫자, 특수문자 조합으로만 가능합니다',
+                    'username': username,
+                    'email': email,
+                    'name': name,
+                    're': True}
+                )
+            if password == password2:
+                user = User(first_name=name, email=email, username=username)
+                user.set_password(password)
+                user.save()
+                return redirect('index')
+            else:
+                return render(request, 'study/sign/signup_sns.html', {
+                    'password_error': '비밀번호를 다시 확인해주세요 ',
+                    'username': username,
+                    'email': email,
+                    'name': name,
+                    're': True}
+                )
+        else:
+            return render(request, 'study/sign/signup_sns.html', 
+            {'form_error': '양식을 정확히 다시 작성해주세요',
+            'email' : email})
+    return render(request, 'study/sign/signup_sns.html',{
+            'email' : email
+        })
+        
 
 
 def qna_list(request):

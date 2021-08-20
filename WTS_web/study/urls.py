@@ -31,7 +31,6 @@ urlpatterns = [
     path('user/activate/<uid64>/<token>', activate, name='activate'),
     path('user/logout/', logout, name='logout'),
 
-<<<<<<< HEAD
     #kakao
     path('kakao/login',kakao_login),
     path('kakao/callback',kakao_callback),
@@ -39,10 +38,6 @@ urlpatterns = [
 
     path('user/isduplicated/',is_duplicated,name='is_duplicated'),
     path('user/resend/<email>',re_send,name='re_send'),
-=======
-    path('user/isduplicated/', is_duplicated, name='is_duplicated'),
-    path('user/resend/<email>', re_send, name='re_send'),
->>>>>>> 33a0ee8fd3c477d9fcda8bda5e0d360fea0243a0
 
     # category
     path('category/inquire/', inquire, name='inquire'),
