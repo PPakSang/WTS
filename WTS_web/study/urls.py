@@ -30,6 +30,11 @@ urlpatterns = [
     path('user/activate/<uid64>/<token>',activate,name='activate'),
     path('user/logout/',logout,name='logout'),
 
+    #kakao
+    path('kakao/login',kakao_login),
+    path('kakao/callback',kakao_callback),
+    path('kakao/logout',kakao_logout),
+
     path('user/isduplicated/',is_duplicated,name='is_duplicated'),
     path('user/resend/<email>',re_send,name='re_send'),
 

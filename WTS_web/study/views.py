@@ -1,3 +1,4 @@
+from os import access
 from django.conf import settings
 from datetime import timedelta
 from typing import ContextManager
@@ -32,6 +33,8 @@ from django.utils.decorators import method_decorator
 # Create your views here.
 
 
+
+import requests
 
 
 
@@ -412,6 +415,93 @@ def faq_view(request): # 자주묻는질문 화면
 
 
 #sign_view
+
+#######소셜 로그인#######
+
+
+secret_file = os.path.join(settings.BASE_DIR, "secret.json") #BASE_DIR 경로 + secret.json
+
+with open(secret_file) as f:
+    secret = json.load(f)
+
+
+
+#유저정보 확인 인가코드 -> callback_url return
+def kakao_login(request):
+    REST_API_KEY = secret['KAKAO_API_KEY']
+    domain = str(get_current_site(request))
+    REDIRECT_URI ="http://" + domain + "/kakao/callback"
+    return redirect(
+        f"https://kauth.kakao.com/oauth/authorize?client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&response_type=code"
+        )
+#callback 시 error 없으면 회원가입 바로 시키기
+def kakao_callback(request):
+    try:
+        request.GET['error']
+        return redirect('index')
+    except:
+        ##### 토큰 불러오기
+        code = request.GET['code']
+        REST_API_KEY = secret['KAKAO_API_KEY']
+        domain = str(get_current_site(request))
+        REDIRECT_URI ="http://" + domain + "/kakao/callback"
+
+        data = {
+            "grant_type" : "authorization_code",
+            "client_id" : REST_API_KEY,
+            "redirect_uri" : REDIRECT_URI,
+            "code" : code,
+        }
+
+        token_request = requests.post(
+            f"https://kauth.kakao.com/oauth/token",
+            data=data
+        )
+        token_json = token_request.json()
+        access_token = token_json.get("access_token")
+
+
+        ### 이메일 불러오기
+        
+        headers = {
+            "Authorization" : f"Bearer {access_token}"
+        }
+
+        data = {
+            "property_keys":'["kakao_account.email"]'
+        }
+
+        email_response = requests.post(
+            "https://kapi.kakao.com/v2/user/me",
+            headers=headers,
+            data=data
+        )
+
+        email_response_json = email_response.json()
+
+    #     requests.post(
+    #     f"https://kapi.kakao.com/v1/user/unlink",
+    #     headers=headers
+    # )
+
+        email = email_response_json.get('kakao_account').get('email')
+
+        return HttpResponse(email)
+    
+
+def kakao_logout(request):
+    # REST_API_KEY = secret['KAKAO_API_KEY']
+    # domain = str(get_current_site(request))
+    # REDIRECT_URI ="http://" + domain + "/"
+    # return redirect(f"https://kauth.kakao.com/oauth/logout?client_id={REST_API_KEY}&logout_redirect_uri={REDIRECT_URI}")
+
+    headers = {
+            "Authorization" : f"Bearer {access_token}"
+        }
+    
+    
+
+
 
 def login_hw(request): # 로그인 화면
     if request.user.is_authenticated:
