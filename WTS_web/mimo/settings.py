@@ -39,9 +39,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*','172.31.15.66','wantospeak.com','django-env.eba-pshbn24b.ap-northeast-2.elasticbeanstalk.com']
 
-ALLOWED_HOSTS = ['172.31.15.66', 'wantospeak.com',
-                 'django-env.eba-pshbn24b.ap-northeast-2.elasticbeanstalk.com', '*']
-
 
 # Application definition
 

@@ -26,7 +26,7 @@
             <h1><a class="fw-bold" href="{% url 'index' %}">원투스픽</a></h1>
             <div class="stick"></div>
             <h4 class="mt-3">회원가입</h4>
-            <a href="{% url 'signup_sns'%}" id="goto_signup_sns">카카오톡으로 간편회원가입하러 가기</a>
+            <a href="{% url 'kakao_login'%}" id="goto_signup_sns">카카오톡으로 간편회원가입하러 가기</a>
             <div class="error" id="form_error">{{form_error}}</div>
         </div>
     </section>
@@ -66,7 +66,7 @@
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                         <label class="form-check-label" for="flexCheckDefault">
-                <span><a class="signup_policy_link" href="#">사이트 이용</a> 및 <a class="signup_policy_link" href="#">개인 정보 처리 방침</a>에 동의합니다.</span>
+                <span><a class="signup_policy_link" href="#">개인 정보 처리 방침</a>에 동의합니다.</span>
                 </label>
                     </div>
                     <button class="btn mt-3 py-2 w-100 btn-warning disabled" type="submit" id="signupBtn">가입하기</button>

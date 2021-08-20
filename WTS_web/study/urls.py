@@ -62,11 +62,11 @@ urlpatterns = [
     path('deleteimg/<pk>', deleteimg),
 
     # community
-    #path('qnalist/', qna_list, name='qna_list'),
-    path('category/qna/detail/', qna_detail, name='qna_detail'),
-    path('category/qna/enroll', qna_enroll, name='qna_enroll'),
-    path('category/qna/', qna_view, name='qna_view'),
-    #path('category/qna/delete/<pk>', qna_delete, name='qna_delete')
+    path('noticelist/', notice_list, name='notice_list'),
+    path('category/notice/detail/', notice_detail, name='notice_detail'),
+    path('category/notice/enroll', notice_enroll, name='notice_enroll'),
+    path('category/notice/', notice_view, name='notice_view'),
+    #path('category/notice/delete/<pk>', notice_delete, name='notice_delete')
 ]
 # +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 # urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import boto3
 from django.conf import settings
 from datetime import timedelta
@@ -24,13 +25,41 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_text
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib import messages
-
-import json
-
-from django.contrib.admin.views.decorators import staff_member_required
+=======
+import requests
 from django.utils.decorators import method_decorator
+from django.contrib.admin.views.decorators import staff_member_required
+import json
+>>>>>>> f4f19fcb5ec6c95140a0951bbfbfd500e4212ad9
+from django.contrib import messages
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage, message
+from django.contrib.sites.shortcuts import get_current_site
+import bcrypt
+from .forms import *
+from .models import *
+from django.contrib import auth
+from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
+from django.http import response, HttpResponse
+from django.db.models.query import QuerySet
+from django.db.models import fields
+from typing import ContextManager
+from datetime import timedelta
+from django.conf import settings
+import boto3
+from os import access
+
+
 # Create your views here.
+<<<<<<< HEAD
 
 from django.urls import reverse
 
@@ -40,6 +69,9 @@ import requests
 
 
 def only_admin(request,option):
+=======
+def only_admin(request, option):
+>>>>>>> f4f19fcb5ec6c95140a0951bbfbfd500e4212ad9
     if request.user.is_staff:
 
         if option == 'all':
@@ -399,50 +431,54 @@ def faq_view(request):  # 자주묻는질문 화면
 #             return render(request,'student/change_day.html',{'error':'날짜를 다시 입력해주세요'})
 #     return render(request,'student/change_day.html')
 
-
 # sign_view
 
+<<<<<<< HEAD
 
 
 
 
 #sign_view
 
+=======
+>>>>>>> f4f19fcb5ec6c95140a0951bbfbfd500e4212ad9
 #######소셜 로그인#######
 
 
-secret_file = os.path.join(settings.BASE_DIR, "secret.json") #BASE_DIR 경로 + secret.json
+# BASE_DIR 경로 + secret.json
+secret_file = os.path.join(settings.BASE_DIR, "secret.json")
 
 with open(secret_file) as f:
     secret = json.load(f)
 
 
-
-#유저정보 확인 인가코드 -> callback_url return
+# 유저정보 확인 인가코드 -> callback_url return
 def kakao_login(request):
     REST_API_KEY = secret['KAKAO_API_KEY']
     domain = str(get_current_site(request))
-    REDIRECT_URI ="http://" + domain + "/kakao/callback"
+    REDIRECT_URI = "http://" + domain + "/kakao/callback"
     return redirect(
         f"https://kauth.kakao.com/oauth/authorize?client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&response_type=code"
-        )
-#callback 시 error 없으면 회원가입 바로 시키기
+    )
+# callback 시 error 없으면 회원가입 바로 시키기
+
+
 def kakao_callback(request):
     try:
         request.GET['error']
         return redirect('index')
     except:
-        ##### 토큰 불러오기
+        # 토큰 불러오기
         code = request.GET['code']
         REST_API_KEY = secret['KAKAO_API_KEY']
         domain = str(get_current_site(request))
-        REDIRECT_URI ="http://" + domain + "/kakao/callback"
+        REDIRECT_URI = "http://" + domain + "/kakao/callback"
 
         data = {
-            "grant_type" : "authorization_code",
-            "client_id" : REST_API_KEY,
-            "redirect_uri" : REDIRECT_URI,
-            "code" : code,
+            "grant_type": "authorization_code",
+            "client_id": REST_API_KEY,
+            "redirect_uri": REDIRECT_URI,
+            "code": code,
         }
 
         token_request = requests.post(
@@ -452,15 +488,14 @@ def kakao_callback(request):
         token_json = token_request.json()
         access_token = token_json.get("access_token")
 
+        # 이메일 불러오기
 
-        ### 이메일 불러오기
-        
         headers = {
-            "Authorization" : f"Bearer {access_token}"
+            "Authorization": f"Bearer {access_token}"
         }
 
         data = {
-            "property_keys":'["kakao_account.email"]'
+            "property_keys": '["kakao_account.email"]'
         }
 
         email_response = requests.post(
@@ -502,16 +537,15 @@ def kakao_logout(request):
     # return redirect(f"https://kauth.kakao.com/oauth/logout?client_id={REST_API_KEY}&logout_redirect_uri={REDIRECT_URI}")
 
     headers = {
-            "Authorization" : f"Bearer {access_token}"
-        }
-    
-    
+        "Authorization": f"Bearer {access_token}"
+    }
 
 
 
 def login_hw(request): # 로그인 화면
     if request.user.is_authenticated:
         return redirect('index')
+
     if request.method == 'POST':
         form = Login_form(request.POST)
 
@@ -920,17 +954,17 @@ def signup_sns(request):  # sns회원가입
         
 
 
-def qna_list(request):
-    return render(request, 'study/function/qna_list.html')
+def notice_list(request):
+    return render(request, 'study/function/notice_list.html')
 
 
-def qna_view(request):
-    return render(request, 'study/function/qna_view.html')
+def notice_view(request):
+    return render(request, 'study/function/notice_view.html')
 
 
-def qna_enroll(request):
-    return render(request, 'study/function/qna_enroll.html')
+def notice_enroll(request):
+    return render(request, 'study/function/notice_enroll.html')
 
 
-def qna_detail(request):
-    return render(request, 'study/function/qna_detail.html')
+def notice_detail(request):
+    return render(request, 'study/function/notice_detail.html')
