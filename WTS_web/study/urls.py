@@ -32,7 +32,7 @@ urlpatterns = [
     path('user/logout/', logout, name='logout'),
 
     #kakao
-    path('kakao/login',kakao_login),
+    path('kakao/login',kakao_login,name='kakao_login'),
     path('kakao/callback',kakao_callback),
     path('kakao/logout',kakao_logout),
 
@@ -63,9 +63,9 @@ urlpatterns = [
 
     # community
     path('noticelist/', notice_list, name='notice_list'),
-    path('category/notice/detail/', notice_detail, name='notice_detail'),
+    path('category/notice/detail/<num>', notice_detail, name='notice_detail'),
     path('category/notice/enroll', notice_enroll, name='notice_enroll'),
-    path('category/notice/', notice_view, name='notice_view'),
+    path('category/notice/<num>', notice_view, name='notice_view'),
     #path('category/notice/delete/<pk>', notice_delete, name='notice_delete')
 ]
 # +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

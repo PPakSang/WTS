@@ -20,3 +20,9 @@ class Faq_Admin(admin.ModelAdmin):
 @admin.register(Study_img)
 class Img_Admin(admin.ModelAdmin):
     pass
+
+
+
+@admin.register(Notice)
+class Notice_Admin(admin.ModelAdmin):
+    pass

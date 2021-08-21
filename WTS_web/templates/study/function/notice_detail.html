@@ -22,7 +22,7 @@
     {% endfor %}
 </div>
 
-<div class="container qna" id="container">
+<div class="container notice" id="container">
     <h3 class="menu_title mb-4 mt-5"> 공지사항</h3>
     <div class="divline mb-5"></div>
     <div class="detail_view">
@@ -31,23 +31,23 @@
                 <table class="detail_table" id="detail_table">
                     <tr class="first_col" id="first_col">
                         <td class="title_title">제목</td>
-                        <td class="detail_title" colspan="3" id="title" style="text-align: start;">{{qna.title}}</td>
+                        <td class="detail_title" colspan="3" id="title" style="text-align: start;">{{notice.title}}</td>
                         <td class="title_date">작성일</td>
-                        <td class="detail_date">{{qna.date|date:"Y-m-d"}}</td>
+                        <td class="detail_date">{{notice.date|date:"Y-m-d"}}</td>
                     </tr>
                     <tr class="second_col" id="second_col">
                         <td colspan="6" id="content">
                             <div class="detail_content my-2" style="text-align: start;">
-                                {{qna.text | safe}}
+                                {{notice.text | safe}}
                             </div>
                         </td>
                     </tr>
                 </table>
             </div>
-            {% if request.user == qna.user %}
+            {% if request.user == notice.user %}
             <div class="btn_container">
                 <div class="buttons mt-2 row g-1">
-                    {% if not qna.answer %}
+                    {% if not notice.answer %}
                     <div class="col" id="modify_btn">
                         <button class="modify_btn py-1 px-4" onclick="modify_func()">수정</button>
                     </div>
@@ -68,7 +68,7 @@
                     <table class="detail_comment_table">
                         <td>
                             <textarea name="answer" class="comment_input" placeholder="답변을 입력해주세요" cols="30"
-                                rows="10">{{qna.answer}}</textarea>
+                                rows="10">{{notice.answer}}</textarea>
                         </td>
                     </table>
                     <div class="detail_comment_btn">
@@ -76,8 +76,8 @@
                     </div>
                 </form>
                 {% else %}
-                {% if qna.answer %}
-                <div class="comment_notice py-4" style="text-align: left;">{{qna.answer}}</div>{% else %}
+                {% if notice.answer %}
+                <div class="comment_notice py-4" style="text-align: left;">{{notice.answer}}</div>{% else %}
                 <div class="comment_notice py-4">아직 답변이 등록되지않았습니다{% endif %}
                 </div>
                 {% endif %}
@@ -91,7 +91,7 @@
                     <tr class="first_col">
                         <td class="title_title">제목</td>
                         <td><input name="title" type="text" class="title_input" autofocus="autofocus"
-                                required="required" autocomplete="off" value="{{qna.title}}"></td>
+                                required="required" autocomplete="off" value="{{notice.title}}"></td>
                     </tr>
                     <tr class="second_col">
                         <td colspan="2" style="padding: 1px;">
@@ -135,14 +135,14 @@
                             </div>
                             <div name="text" id="content_input" class="content_input editor" contenteditable="true"
                                 required="required">
-                                {{qna.text | safe}}
+                                {{notice.text | safe}}
                             </div>
                         </td>
                     </tr>
                 </table>
                 <input type="text" name="text" id="text" style="display: none;">
             </div>
-            {% if request.user == qna.user %}
+            {% if request.user == notice.user %}
             <div class="btn_container">
                 <div class="buttons mt-2 row g-0">
                     <div class="col">

@@ -1,36 +1,7 @@
-<<<<<<< HEAD
-import boto3
-from django.conf import settings
-from datetime import timedelta
-from typing import ContextManager
-from django.db.models import fields
-from django.db.models.query import QuerySet
-from django.http import response, HttpResponse
-from django.shortcuts import redirect, render
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-from django.views import generic
-from django.contrib import auth
-from .models import *
-from .forms import *
-
-
-import bcrypt
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import EmailMessage, message
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.utils.encoding import force_bytes, force_text
-from django.contrib.auth.tokens import default_token_generator
-=======
 import requests
 from django.utils.decorators import method_decorator
 from django.contrib.admin.views.decorators import staff_member_required
 import json
->>>>>>> f4f19fcb5ec6c95140a0951bbfbfd500e4212ad9
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes, force_text
@@ -59,7 +30,6 @@ from os import access
 
 
 # Create your views here.
-<<<<<<< HEAD
 
 from django.urls import reverse
 
@@ -69,9 +39,6 @@ import requests
 
 
 def only_admin(request,option):
-=======
-def only_admin(request, option):
->>>>>>> f4f19fcb5ec6c95140a0951bbfbfd500e4212ad9
     if request.user.is_staff:
 
         if option == 'all':
@@ -431,17 +398,12 @@ def faq_view(request):  # 자주묻는질문 화면
 #             return render(request,'student/change_day.html',{'error':'날짜를 다시 입력해주세요'})
 #     return render(request,'student/change_day.html')
 
-# sign_view
-
-<<<<<<< HEAD
 
 
 
 
 #sign_view
 
-=======
->>>>>>> f4f19fcb5ec6c95140a0951bbfbfd500e4212ad9
 #######소셜 로그인#######
 
 
@@ -878,7 +840,7 @@ class Img_update_view(generic.CreateView):
         return super().get_context_data(**kwargs)
 
 
-@staff_member_required(login_url='/')
+
 def deleteimg(request, pk):
     img = Study_img.objects.get(pk=pk)
     s3_client = boto3.client(
@@ -955,16 +917,58 @@ def signup_sns(request):  # sns회원가입
 
 
 def notice_list(request):
-    return render(request, 'study/function/notice_list.html')
+    page = int(request.GET['page'])
+    notice = Notice.objects.all().order_by('-pk')
+    page_len = notice.count()//11 + 1
+
+    notice = notice[10*(page-1):10*page]
+    num = [i+1 for i in range(10*(page-1),10*page)]
+    notice = zip(notice,num)
+    print(num)
+    notice = render_to_string(
+        'study/function/notice_list_base.html', context={"notices": notice})
+
+    context = {
+        "notice": notice,
+        "page_len": page_len
+    }
+    context = json.dumps(context)
+    return HttpResponse(context)
 
 
-def notice_view(request):
-    return render(request, 'study/function/notice_view.html')
+def notice_view(request,num):
+    #로그인 안하면
+    if not request.user.is_authenticated :
+        return render(request,'study/function/notice_view.html', {"num": num})
+    else :
+        notice = Notice.objects.all()
+        return render(request, 'study/function/notice_view.html', {"num": num,'notice' : notice})
 
 
+@staff_member_required(login_url='/')
 def notice_enroll(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        
+        new_notice = Notice(title=title, content=content)
+        new_notice.save()
+
+        return redirect('notice_view',1)
     return render(request, 'study/function/notice_enroll.html')
 
+@login_required(login_url='/user/login/')
+def notice_detail(request,num):
+    notice = Notice.objects.get(pk=num)
 
-def notice_detail(request):
-    return render(request, 'study/function/notice_detail.html')
+    if request.method == 'POST':
+        notice.title = request.POST['title']
+        notice.content = request.POST['content']
+        notice.save()
+    return render(request, 'study/function/notice_detail.html',{"notice" : notice})
+
+@staff_member_required(login_url='/')
+def notice_delete(request,num):
+    notice = Notice.objects.get(pk=num)
+    notice.delete()
+    return redirect('notice_view', 1)
