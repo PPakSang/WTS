@@ -1,6 +1,18 @@
-.container{
-    max-width: 60rem;
-  }
+:root {
+  --text-color-white: #f0f4f5;
+  --accent-color: #ffd511;
+  --more-accent-color: #ed9402;
+  --text-basic-color: gray;
+  --border-color: #e0edee;
+  --border-color-lightgray: #d1d1d1;
+  --text-color-lightgray: #c8ccd0;
+  --sub-basic-color: #3f464d;
+  --main-basic-color: #212529;
+}
+
+.container {
+  max-width: 60rem;
+}
 /*커뮤니티 글목록*/
 .divline,
 .divline2,
@@ -25,6 +37,12 @@
 .container.qna {
   min-height: calc(100vh - 263px);
   position: relative;
+}
+
+.menu_title,
+.menu_info {
+  text-align: center;
+  margin: 0px auto;
 }
 
 .qna_index ul,
