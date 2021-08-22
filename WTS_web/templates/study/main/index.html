@@ -33,22 +33,70 @@
         </div>
     </div>
     <div class="row mb-lg-5 gx-0 rounded border mw-100">
-        <img src="{% static 'img/introduction.jpg'%}" alt="">
+        <div id="carouselIntroduction" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselIntroduction" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselIntroduction" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'img/introduction.jpg' %}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'img/introduction2.jpg' %}" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselIntroduction"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselIntroduction"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
 </div>
 
 
 <!-- 시간표 -->
 <div class="py-3 text-center container" id="schedule">
-    <div class="row py-3 py-md-5 gx-0">
+    <div class="row pt-3 pt-md-5 pb-md-3 gx-0">
         <div class="col-lg-6 col-md-8 mx-auto">
             <p class="my-0">고정 스케줄</p>
             <h3 class="fw-bold">시간표</h3>
             <div class="stick"></div>
         </div>
     </div>
-    <div class="row mb-lg-5 gx-0 rounded border mw-100">
-        <img src="{% static 'img/schedule.jpg'%}" alt="">
+    <div class="row justify-content-center">
+        <img src="{% static 'img/schedule/title.png'%}" alt="" class="col-6">
+    </div>
+    <div class="row m-0 mb-lg-5 gx-3">
+        <div class="col-schedule col-md-schedule">
+            <img src="{% static 'img/schedule/1.jpg'%}" alt="" class="mw-100 mt-3">
+        </div>
+        <div class="col-schedule col-md-schedule">
+            <img src="{% static 'img/schedule/2.jpg'%}" alt="" class="mw-100 mt-3">
+        </div>
+        <div class="col-schedule col-md-schedule">
+            <img src="{% static 'img/schedule/3.jpg'%}" alt="" class="mw-100 mt-3">
+        </div>
+        <div class="col-schedule col-md-schedule">
+            <img src="{% static 'img/schedule/4.jpg'%}" alt="" class="mw-100 mt-3">
+        </div>
+        <div class="col-schedule col-md-schedule">
+            <img src="{% static 'img/schedule/5.jpg'%}" alt="" class="mw-100 mt-3">
+        </div>
+        <div class="col-schedule col-md-schedule">
+            <img src="{% static 'img/schedule/6.jpg'%}" alt="" class="mw-100 mt-3">
+        </div>
+        <div class="col-schedule col-md-schedule">
+            <img src="{% static 'img/schedule/7.jpg'%}" alt="" class="mw-100 mt-3">
+        </div>
     </div>
 </div>
 
@@ -177,13 +225,16 @@
 
 
 
+
+
+
         </script>
     </div>
 </div>
 
 <!-- 스터디 사진 -->
 <div class="py-3 text-center container" id="mentors">
-    <div class="row py-3 py-md-5 gx-0">
+    <div class="row pt-3 py-md-5 gx-0">
         <div class="col-lg-6 col-md-8 mx-auto">
             <p class="my-0">스터디 환경</p>
             <h3 class="fw-bold">스터디 사진</h3>
@@ -196,8 +247,10 @@
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     {% for img in imgs %}
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{forloop.counter0}}"
-                    class="{% if forloop.counter0 == 0 %}active{% endif%}" aria-current="true" aria-label="Slide {{forloop.counter}}"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide-to="{{forloop.counter0}}"
+                            class="{% if forloop.counter0 == 0 %}active{% endif%}" aria-current="true"
+                            aria-label="Slide {{forloop.counter}}"></button>
                     {% endfor %}
                 </div>
                 <div class="carousel-inner rounded">
@@ -231,5 +284,5 @@
 <div class="row justify-content-center">
     <a class="enrollbtn  px-5 py-3 mx-4" href="{% url 'enroll' %}">
         <span style="font-weight: bold;">신청</span>하러 가기</a>
-    </div>
+</div>
 {% endblock %}
