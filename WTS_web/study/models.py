@@ -80,3 +80,14 @@ class Study_img(models.Model):
     #     if self.pic :
     #         os.remove(os.path.join(settings.MEDIA_ROOT,self.pic.path))
     #         super(Study_img, self).delete(*args,**kwargs)
+
+
+
+
+class Notice(models.Model):
+    title = models.CharField(max_length=30)
+    content = models.CharField(max_length=1000)
+    date = models.DateField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.title+ f"({self.date})"

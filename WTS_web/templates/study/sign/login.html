@@ -1,5 +1,5 @@
 {% extends 'study/sign/sign_base.html' %} {% block title %}WANTOSPEAK{% endblock %} {% block content %}
-
+{%load static%}
 <!--로그인 박스-->
 <section class="container align-content-center">
 
@@ -40,11 +40,17 @@
                 </form>
             </div>
             <div class="row justify-content-center">
-                    <span class="mt-2 mb-5">
+                    <span class="mt-2 mb-3">
                         <a class="login_find" href="{% url 'find_id' %}">아이디 찾기</a>
                         <span class="bar">|</span>
                     <a class="login_find" href="{% url 'find_pw' %}">비밀번호 찾기</a>
                     </span>
+            </div>
+            <div class="sns_login">
+                <h6 class="sns_login_title">간편회원가입</h6>
+                <a href="{% url 'kakao_login' %}">
+                    <img src="{% static 'img/kakao_signup_narrow.png'%}">
+                </a>    
             </div>
             <div class="mt-4 pb-2">
                     <span id="q_account">
