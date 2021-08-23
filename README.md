@@ -3,7 +3,7 @@
 Since   
 2021-05-02   -  2021-06-20(최종 배포) http://wantospeak.com
 
-Object   
+Subject  
 홍대-공간대여 업무의 편의성 증대를 위한 웹사이트 구축 및 데이터 관리
    
 Member   
