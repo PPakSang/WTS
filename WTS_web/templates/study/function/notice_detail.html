@@ -107,9 +107,9 @@
                                     </a>
                                 </div>
                             </div>
-                            <div name="text" id="content_input" class="content_input editor" contenteditable="true"
+                            <div name="content" id="content_input" class="content_input editor" contenteditable="true"
                                 required="required">
-                                {{notice.text | safe}}
+                                {{notice.content | safe}}
                             </div>
                         </td>
                     </tr>
@@ -150,6 +150,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal" onclick="cancel()">예</button>
+                    <a href="{% url 'notice_delete' notice.pk %}" id="notice_delete" style="display: none;">삭제</a>
                 </div>
             </div>
         </div>
@@ -158,6 +159,10 @@
 
 
 <script text="javascript/text">
+    
+    function cancel() {
+            $('#notice_delete')[0].click()
+        }
 
     function modify_func() {
         $('.detailView_con').addClass('d-none');
