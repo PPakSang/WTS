@@ -47,41 +47,15 @@
             {% if request.user == notice.user %}
             <div class="btn_container">
                 <div class="buttons mt-2 row g-1">
-                    {% if not notice.answer %}
                     <div class="col" id="modify_btn">
                         <button class="modify_btn py-1 px-4" onclick="modify_func()">수정</button>
                     </div>
-                    {% endif %}
                     <div class="col" id="delete_btn">
                             <button class="delete_btn py-1 px-4" data-bs-toggle="modal" data-bs-target="#cancelModal">삭제</button>
                     </div>
                 </div>
             </div>
             {% endif %}
-            <div class="comment_box mb-4">
-                <div class="comment_title">
-                    답변
-                </div>
-                <form action="" method="POST">
-                    {% if request.user.is_staff %}
-                    {% csrf_token %}
-                    <table class="detail_comment_table">
-                        <td>
-                            <textarea name="answer" class="comment_input" placeholder="답변을 입력해주세요" cols="30"
-                                rows="10">{{notice.answer}}</textarea>
-                        </td>
-                    </table>
-                    <div class="detail_comment_btn">
-                        <input type="submit" value="답변하기" class="comment_btn py-1">
-                    </div>
-                </form>
-                {% else %}
-                {% if notice.answer %}
-                <div class="comment_notice py-4" style="text-align: left;">{{notice.answer}}</div>{% else %}
-                <div class="comment_notice py-4">아직 답변이 등록되지않았습니다{% endif %}
-                </div>
-                {% endif %}
-            </div>
         </div>
         <div class="writingView_con d-none">
             <div class="writing_box mt-5">
