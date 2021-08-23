@@ -44,7 +44,7 @@
                     </tr>
                 </table>
             </div>
-            {% if request.user == notice.user %}
+            {% if request.user.is_staff %}
             <div class="btn_container">
                 <div class="buttons mt-2 row g-1">
                     <div class="col" id="modify_btn">
@@ -114,9 +114,9 @@
                         </td>
                     </tr>
                 </table>
-                <input type="text" name="text" id="text" style="display: none;">
+                <input type="text" name="content" id="text" style="display: none;">
             </div>
-            {% if request.user == notice.user %}
+            {% if request.user.is_staff %}
             <div class="btn_container">
                 <div class="buttons mt-2 row g-0">
                     <div class="col">
