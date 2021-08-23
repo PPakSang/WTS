@@ -158,8 +158,6 @@ body {
   }
 }
 
-
-
 .customoverlay {
   position: relative;
   bottom: 85px;
@@ -374,6 +372,10 @@ body {
 
 #q_account {
   font-size: 00.75rem;
+}
+
+.sns_login a {
+  text-decoration: none;
 }
 
 /* | */

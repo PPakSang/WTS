@@ -65,7 +65,9 @@
                            {%if is_zero%} data-bs-toggle="modal" data-bs-target="#reModal" {% endif %} id="navbar_enroll">신청하기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-3 px-md-2 {% if request.path == '/category/qna_view/' %}active{% endif %}"
+                        <a class="nav-link px-3 px-md-2 {% if request.path == '/category/notice_view/' %}active
+                        {% elif request.path == '/category/notice_enroll/' %}active
+                        {% elif request.path == '/category/notice_detail/' %}active{% endif %}"
                            href="{% url 'notice_view' 1 %}">공지사항</a>
                     </li>
                     <li class="nav-item">
