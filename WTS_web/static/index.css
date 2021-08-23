@@ -1,6 +1,18 @@
-.container{
-    max-width: 60rem;
-  }
+:root {
+  --text-color-white: #f0f4f5;
+  --accent-color: #ffd511;
+  --more-accent-color: #ed9402;
+  --text-basic-color: gray;
+  --border-color: #e0edee;
+  --border-color-lightgray: #d1d1d1;
+  --text-color-lightgray: #c8ccd0;
+  --sub-basic-color: #3f464d;
+  --main-basic-color: #212529;
+}
+
+.container {
+  max-width: 60rem;
+}
 /*커뮤니티 글목록*/
 .divline,
 .divline2,
@@ -27,8 +39,14 @@
   position: relative;
 }
 
+.menu_title,
+.menu_info {
+  text-align: center;
+  margin: 0px auto;
+}
+
 .qna_index ul,
-.qna_list ul {
+.notice_list ul {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -47,19 +65,19 @@
   text-align: center;
 }
 
-#qna_list_title {
+#notice_list_title {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   overflow: hidden;
 }
 
-.qna_list a {
+.notice_list a {
   text-decoration: none;
   color: black;
 }
 
-.qna_list a :hover {
+.notice_list a :hover {
   font-weight: bold;
 }
 
