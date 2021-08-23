@@ -160,6 +160,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal" onclick="cancel()">예</button>
+                    <a href="{% url 'notice_delete' notice.pk %}" id="notice_delete" style="display: none;">삭제</a>
                 </div>
             </div>
         </div>
@@ -168,6 +169,10 @@
 
 
 <script text="javascript/text">
+    
+    function cancel() {
+            $('#notice_delete')[0].click()
+        }
 
     function modify_func() {
         $('.detailView_con').addClass('d-none');

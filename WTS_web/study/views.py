@@ -998,7 +998,7 @@ def notice_list(request):
     notice = notice[10*(page-1):10*page]
     num = [i+1 for i in range(10*(page-1),10*page)]
     notice = zip(notice,num)
-    print(num)
+    
     notice = render_to_string(
         'study/function/notice_list_base.html', context={"notices": notice})
 
@@ -1042,7 +1042,7 @@ def notice_detail(request,num):
     return render(request, 'study/function/notice_detail.html',{"notice" : notice})
 
 @staff_member_required(login_url='/')
-def notice_delete(request,num):
-    notice = Notice.objects.get(pk=num)
+def notice_delete(request,pk):
+    notice = Notice.objects.get(pk=pk)
     notice.delete()
     return redirect('notice_view', 1)
