@@ -2,11 +2,19 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'index.css' %}">
 
+<!-- 중간 카테고리 -->
+<nav class="navbar navbar-expand-md navbar-light shadow-sm mid-nav">
+    <div class="container-fluid">
+        <ul class="navbar-nav mx-auto mb-0">
+            <li class="nav-item mx-2 mx-md-3">
+                <a class="nav-link active" aria-current="page" href="#">공지사항</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
 <div class="container qna">
-    <p class="menu_info mb-0 mt-3 mt-md-5">알립니다</p>
-    <h3 class="menu_title mb-2"> 공지사항</h3>
-    <div class="stick mb-4"></div>
-    <div class="divline"></div>
+    <div class="divline mt-5"></div>
     <div class="qna_index">
         <ul class="p-2">
             <li class="col-2" id="qna_progress"></li>
