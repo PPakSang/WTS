@@ -422,6 +422,16 @@ def kakao_login(request):
     return redirect(
         f"https://kauth.kakao.com/oauth/authorize?client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&response_type=code"
     )
+
+def naver_login(request):
+    REST_API_KEY = secret['NAVER_API_KEY']
+    domain = str(get_current_site(request))
+    REDIRECT_URI = "http://" + domain + "/naver/callback"
+    return redirect(
+        f"https://nid.naver.com/oauth2.0/authorize?client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&response_type=code&state=ready"
+    )
+
+
 # callback 시 error 없으면 회원가입 바로 시키기
 
 
@@ -487,7 +497,71 @@ def kakao_callback(request):
             hashed = bcrypt.hashpw(str(email).encode('utf-8'),bcrypt.gensalt()).decode('utf-8')
             
             return redirect(reverse('signup_sns') + f"?email={email}&hashed={hashed}")
+
+
+
+def naver_callback(request):
+    try:
+        request.GET['error']
+        return redirect('index')
+    except:
+        # 토큰 불러오기
+        code = request.GET['code']
+        REST_API_KEY = secret['NAVER_API_KEY']
+        SECRET_KEY = secret['NAVER_SECRET_KEY']
+        domain = str(get_current_site(request))
+        REDIRECT_URI = "http://" + domain + "/naver/callback"
+
+        data = {
+            "grant_type": "authorization_code",
+            "client_id": REST_API_KEY,
+            "code": code,
+            "state":"ready",
+            "client_secret": SECRET_KEY
+        }
+
+        token_request = requests.post(
+            f"https://nid.naver.com/oauth2.0/token",
+            data=data
+        )
+        token_json = token_request.json()
+        access_token = token_json.get("access_token")
+
+
+        # 이메일 불러오기
+
+        headers = {
+            "Authorization": f"Bearer {access_token}"
+        }
+
+        email_response = requests.post(
+            "https://openapi.naver.com/v1/nid/me",
+            headers=headers,
+        )
+
+        email_response_json = email_response.json()
+
+
+    #     requests.post(
+    #     f"https://kapi.kakao.com/v1/user/unlink",
+    #     headers=headers
+    # )
+
+        email = email_response_json.get('response').get('email')
+        
+        user = User.objects.filter(email = email)
+
+        #카카오에서 불러온 이메일과 동일한 이메일의 유저가 존재할 시 로그인 시키기
+        if user.exists() :
+           
+            login(request,user[0])
+            return redirect('index')
+        #없으면 가입
+        else:
+            hashed = bcrypt.hashpw(str(email).encode('utf-8'),bcrypt.gensalt()).decode('utf-8')
             
+            return redirect(reverse('signup_sns') + f"?email={email}&hashed={hashed}")
+        
             
             
     
