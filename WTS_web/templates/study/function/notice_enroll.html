@@ -2,6 +2,17 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'index.css' %}">
 
+<!-- 중간 카테고리 -->
+<nav class="navbar navbar-expand-md navbar-light shadow-sm mid-nav">
+    <div class="container-fluid">
+        <ul class="navbar-nav mx-auto mb-0">
+            <li class="nav-item mx-2 mx-md-3">
+                <a class="nav-link active" aria-current="page" href="#">공지사항 / 글쓰기</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
 <div class="container" id="container">
 
     <div class="row gx-md-5 mt-2 alert-container-parent">
@@ -25,9 +36,6 @@
         </div>
     </div>
 
-
-    <h3 class="menu_title mb-4 mt-5"> 공지사항 <span class="submenu_writing">/ 글쓰기</span> </h3>
-    <div class="divline"></div>
     <form class="boxform" action="" method="POST">
         {% csrf_token %}
         <div class="writing_box mt-5">

@@ -23,6 +23,11 @@ body {
   height: 4rem;
 }
 
+/* 상단 배너 */
+.banner {
+  color: #ffffff;
+}
+
 .alert-container-parent {
   position: relative;
 }
@@ -152,8 +157,6 @@ body {
     width: 14.2857142857%;
   }
 }
-
-
 
 .customoverlay {
   position: relative;
@@ -369,6 +372,10 @@ body {
 
 #q_account {
   font-size: 00.75rem;
+}
+
+.sns_login a {
+  text-decoration: none;
 }
 
 /* | */
