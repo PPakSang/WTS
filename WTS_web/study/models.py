@@ -7,6 +7,7 @@ from django.db.models.base import Model
 from django.core.validators import *
 from django.shortcuts import redirect, render
 import datetime
+from datetime import timedelta
 from django.utils import timezone
 from django.conf import settings
 import os
@@ -91,3 +92,8 @@ class Notice(models.Model):
 
     def __str__(self) -> str:
         return self.title+ f"({self.date})"
+
+    def is_new(self):
+        date =datetime.date.fromisoformat(str(self.date))
+        return "new" if (datetime.date.today().day - date.day) < 6 else "공지"
+        
