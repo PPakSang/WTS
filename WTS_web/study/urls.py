@@ -72,6 +72,5 @@ urlpatterns = [
     path('category/notice/enroll', notice_enroll, name='notice_enroll'),
     path('category/notice/<num>', notice_view, name='notice_view'),
     #path('category/notice/delete/<pk>', notice_delete, name='notice_delete')
-]
-# +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 # urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
