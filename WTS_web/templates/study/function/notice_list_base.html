@@ -1,5 +1,3 @@
-{% load static %}
-<link rel="stylesheet" href="{% static 'index.css' %}">
 {% for notice,num in notices %}
     <a href="detail/{{notice.pk}}">
         <ul class="py-3 px-2">
