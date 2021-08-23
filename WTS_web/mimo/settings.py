@@ -146,7 +146,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-# STATIC_URL = '/static/'
+if DEBUG == True:
+    STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
@@ -207,16 +208,17 @@ MESSAGE_TAGS = {
 # AWS_xxx 의 변수들은 aws-S3, boto3 모듈을 위한 변수들이다.
 
 # 엑세스 키와 시크릿 키는 다른 파일로 작성, 임포트하여 사용
-AWS_ACCESS_KEY_ID = secret["AWS_ID"]
-AWS_SECRET_ACCESS_KEY = secret["AWS_SECRET_KEY"]
+if DEBUG == False:
+    AWS_ACCESS_KEY_ID = secret["AWS_ID"]
+    AWS_SECRET_ACCESS_KEY = secret["AWS_SECRET_KEY"]
 
-AWS_REGION = 'ap-northeast-2'
-AWS_STORAGE_BUCKET_NAME = 'elasticbeanstalk-ap-northeast-2-293437042513'
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (
-    AWS_STORAGE_BUCKET_NAME, AWS_REGION)
-AWS_DEFAULT_ACL = 'public-read'
-AWS_LOCATION = 'static'
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, 'media')
-DEFAULT_FILE_STORAGE = 'mimo.storage.S3DefaultStorage'
-STATICFILES_STORAGE = 'mimo.storage.S3StaticStorage'
+    AWS_REGION = 'ap-northeast-2'
+    AWS_STORAGE_BUCKET_NAME = 'elasticbeanstalk-ap-northeast-2-293437042513'
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (
+        AWS_STORAGE_BUCKET_NAME, AWS_REGION)
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_LOCATION = 'static'
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+    MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, 'media')
+    DEFAULT_FILE_STORAGE = 'mimo.storage.S3DefaultStorage'
+    STATICFILES_STORAGE = 'mimo.storage.S3StaticStorage'

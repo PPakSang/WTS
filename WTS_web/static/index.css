@@ -55,7 +55,7 @@
 }
 
 .qna_index ul,
-.qna_list ul {
+.notice_list ul {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -74,19 +74,19 @@
   text-align: center;
 }
 
-#qna_list_title {
+#notice_list_title {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   overflow: hidden;
 }
 
-.qna_list a {
+.notice_list a {
   text-decoration: none;
   color: black;
 }
 
-.qna_list a :hover {
+.notice_list a :hover {
   font-weight: bold;
 }
 

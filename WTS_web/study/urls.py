@@ -36,6 +36,11 @@ urlpatterns = [
     path('kakao/callback',kakao_callback),
     path('kakao/logout',kakao_logout),
 
+    #naver
+    path('naver/login',naver_login,name='naver_login'),
+    path('naver/callback',naver_callback),
+    # path('naver/logout',naver_logout),
+
     path('user/isduplicated/',is_duplicated,name='is_duplicated'),
     path('user/resend/<email>',re_send,name='re_send'),
 
