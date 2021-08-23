@@ -14,14 +14,6 @@
   max-width: 60rem;
 }
 
-/* 배경색 */
-.bg-light-yellow {
-  background-color: #fffde0 !important;
-}
-/* 상단 배너 */
-.banner {
-  color: #ffffff;
-}
 /*커뮤니티 글목록*/
 .divline,
 .divline2,
