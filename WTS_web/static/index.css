@@ -13,7 +13,6 @@
 .container {
   max-width: 60rem;
 }
-
 /*커뮤니티 글목록*/
 .divline,
 .divline2,
@@ -71,6 +70,10 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   overflow: hidden;
+}
+
+#notice_list_new {
+  color: #e74c3c;
 }
 
 .notice_list a {
@@ -360,22 +363,6 @@
   font-size: 0.95rem;
 }
 
-.detail_comment_btn {
-  display: flex;
-  flex-direction: row-reverse;
-}
-
-.detail_comment_btn .comment_btn {
-  max-width: 90px;
-  background-color: white;
-  border: 2px solid var(--sub-basic-color);
-  border-radius: 3px;
-}
-
-.detail_comment_btn .comment_btn:hover {
-  background-color: var(--border-color-lightgray);
-}
-
 .detail_list_btn {
   display: flex;
   border: none;
@@ -400,41 +387,4 @@
 .list_btn:hover {
   color: aliceblue;
   background-color: var(--sub-basic-color);
-}
-
-.comment_box {
-  width: 85%;
-}
-
-.comment_title {
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-.comment_notice {
-  color: var(--sub-basic-color);
-  text-align: center;
-}
-
-.detail_comment_table {
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
-  text-align: center;
-}
-
-.detail_comment_table td {
-  width: 100%;
-}
-.detail_comment_table .comment_input {
-  border: 1px solid var(--border-color-lightgray);
-  padding: 10px;
-  width: 100%;
-  height: 100px;
-  resize: none;
-}
-
-.detail_comment_table .comment_input:focus {
-  outline: none;
-  box-shadow: 0 0 1px 1px #0086db;
 }
