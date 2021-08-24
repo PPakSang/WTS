@@ -952,8 +952,7 @@ def signup_sns(request):  # sns회원가입
 
         if form.is_valid():
             username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            password2 = form.cleaned_data['password2']
+            password = 'Wtsprivate7931'
             email = email
             name = form.cleaned_data['name']
 
@@ -967,19 +966,11 @@ def signup_sns(request):  # sns회원가입
                     'name': name,
                     're': True}
                 )
-            if password == password2:
-                user = User(first_name=name, email=email, username=username)
-                user.set_password(password)
-                user.save()
-                return redirect('index')
-            else:
-                return render(request, 'study/sign/signup_sns.html', {
-                    'password_error': '비밀번호를 다시 확인해주세요 ',
-                    'username': username,
-                    'email': email,
-                    'name': name,
-                    're': True}
-                )
+
+            user = User(first_name=name, email=email, username=username)
+            user.set_password(password)
+            user.save()
+            return redirect('index')
         else:
             return render(request, 'study/sign/signup_sns.html', 
             {'form_error': '양식을 정확히 다시 작성해주세요',

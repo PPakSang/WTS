@@ -61,6 +61,22 @@ class Student(models.Model):
     def get_absolute_url(self):
         return redirect('detail',pk = self.id)
 
+    def now_time(self):
+        i = 1
+        for day in [self.day1,self.day2,self.day3,self.day4] :
+            if datetime.date.today() <= datetime.date.fromisoformat(str(day))  :
+                date = day
+                break
+            else : i += 1
+        
+        time = getattr(self,f"time{i}")
+        select = ['평일','주말1시','주말4시']
+        day = ['월','화','수','목','금','토','일']
+        return day[date.weekday()]+'요일 ' + select[int(time)]
+
+
+        
+
 
 
 class Faq(models.Model):

@@ -22,8 +22,6 @@ class Signup_form(forms.Form):
 class Signup_sns_form(forms.Form):
     name = forms.CharField(max_length=10)
     username = forms.CharField(max_length=10 ,min_length=4)
-    password = forms.CharField(max_length=20)
-    password2 = forms.CharField(max_length=20)
     
 class Login_form(forms.Form):
     username = forms.CharField(max_length=10)
